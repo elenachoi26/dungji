@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/action_calendar"
+        android:icon="@drawable/ic_calendar"
+        android:enabled="true"
+        android:title="CALENDAR"/>
+
+    <item
+        android:id="@+id/action_album"
+        android:icon="@drawable/ic_album"
+        android:enabled="true"
+        android:title="ALBUM"/>
+
+    <item
+        android:id="@+id/action_home"
+        android:icon="@drawable/ic_home"
+        android:enabled="true"
+        android:title="HOME"/>
+
+    <item
+        android:id="@+id/action_chat"
+        android:icon="@drawable/ic_chat"
+        android:enabled="true"
+        android:title="CHAT"/>
+
+    <item
+        android:id="@+id/action_profile"
+        android:icon="@drawable/ic_profile"
+        android:enabled="true"
+        android:title="PROFILE"/>
+</menu>

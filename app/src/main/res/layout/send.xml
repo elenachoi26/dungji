@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:gravity="right">
+
+    <TextView
+        android:id="@+id/send_message_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@drawable/send_background"
+        android:padding="10dp"
+        android:text="보내는 메세지"
+        android:textColor="@color/black"
+        android:textSize="18sp" />
+    <TextView
+        android:id="@+id/send_message_time"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="보낸 시각"
+        android:gravity="right"/>
+
+</LinearLayout>
