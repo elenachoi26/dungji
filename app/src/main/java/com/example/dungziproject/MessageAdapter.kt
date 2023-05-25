@@ -32,7 +32,7 @@ class MessageAdapter (val messageList: ArrayList<Message>, val currentUserId: St
         }
         else{ //상대방 채팅
             holder.binding.receiveMessageText.setBackgroundResource(R.drawable.receive_background)
-            holder.binding.receiveMessageSender.text = messageList[position].sendId
+            holder.binding.receiveMessageSender.text = messageList[position].senderNickname
             holder.binding.receiveMessageText.text = messageList[position].message
             holder.binding.receiveMessageTime.text = messageList[position].sendTime
             holder.binding.root.gravity = Gravity.START

@@ -6,13 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.dungziproject.Message
 import com.example.dungziproject.MessageAdapter
 
 import com.example.dungziproject.databinding.FragmentChatBinding
+import com.google.android.play.integrity.internal.c
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import kotlinx.coroutines.*
+import kotlinx.coroutines.tasks.await
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -24,6 +28,7 @@ class ChatFragment :Fragment() {
 
     private lateinit var chatRoomId: String
     private lateinit var currentUserId: String
+    private lateinit var currentUserNickname: String
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDbRef: DatabaseReference
@@ -45,22 +50,30 @@ class ChatFragment :Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         init()
-        initlayout()
+//        initlayout()
+        //getUserNickname()
         loadMessage()
-        sending()
+        //sending()
     }
 
     private fun sending() {
         binding.sendBtn.setOnClickListener {
-            Toast.makeText(getActivity(), "send message", Toast.LENGTH_SHORT).show()
             val messageText = binding.messageEdit.text.toString()
             val currentTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
-            val message = Message(messageText, currentUserId, currentTime)
+
+            // currentUserNickname 값이 null인 경우 메시지 전송하지 않음
+            if (currentUserNickname.isNullOrEmpty()) {
+                Toast.makeText(requireContext(), "닉네임을 가져오는 중입니다. 잠시 후에 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
+                return@setOnClickListener
+            }
+
+            val message = Message(messageText,currentUserId, currentTime,currentUserNickname)
             sendMessage(message)
         }
     }
 
     private fun loadMessage() {
+
         mDbRef.child("chats").child(chatRoomId).child("messages")
             .addChildEventListener(object : ChildEventListener{
                 override fun onChildAdded(snapshot: DataSnapshot, previousChildName: String?) {
@@ -87,17 +100,35 @@ class ChatFragment :Fragment() {
                     TODO("Not yet implemented")
                 }
             })
+
+        GlobalScope.launch(Dispatchers.Main) {
+            currentUserNickname = getUserNickname()
+            sending()
+        }
+//        getUserNickname()
+//        //sending()
     }
+
+    private suspend fun getUserNickname(): String {
+        val usersRef = FirebaseDatabase.getInstance().getReference("user")
+        val dataSnapshot = usersRef.child(currentUserId).get().await()
+        return dataSnapshot.child("nickname").getValue(String::class.java).toString()
+    }
+
 
     private fun init() {
         mAuth = FirebaseAuth.getInstance()
         mDbRef = FirebaseDatabase.getInstance().reference
 
         currentUserId = mAuth.currentUser?.uid ?: ""
+//        currentUserNickname = mAuth.
+
         chatRoomId= "YOUR_GROUP_ID"
 
         messageList = ArrayList()
         messageAdapter = MessageAdapter(messageList, currentUserId)
+
+        initlayout()
 
     }
 
