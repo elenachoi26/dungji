@@ -41,19 +41,13 @@ class ChatFragment :Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding = FragmentChatBinding.inflate(inflater, container, false)
-//        val intent = Intent(activity, ChatActivity::class.java) // Intent 객체를 생성하고 ChatActivity를 대상으로 지정합니다.
-//        startActivity(intent) // 생성한 Intent를 사용하여 ChatActivity를 시작합니다.
-
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         init()
-//        initlayout()
-        //getUserNickname()
         loadMessage()
-        //sending()
     }
 
     private fun sending() {
@@ -105,8 +99,6 @@ class ChatFragment :Fragment() {
             currentUserNickname = getUserNickname()
             sending()
         }
-//        getUserNickname()
-//        //sending()
     }
 
     private suspend fun getUserNickname(): String {
@@ -121,8 +113,6 @@ class ChatFragment :Fragment() {
         mDbRef = FirebaseDatabase.getInstance().reference
 
         currentUserId = mAuth.currentUser?.uid ?: ""
-//        currentUserNickname = mAuth.
-
         chatRoomId= "YOUR_GROUP_ID"
 
         messageList = ArrayList()
@@ -142,7 +132,6 @@ class ChatFragment :Fragment() {
 
         mDbRef.child("chats").child(chatRoomId).child("messages").push().
         setValue(messageObject)
-
         binding.messageEdit.setText("")
 
     }
