@@ -1,59 +1,45 @@
 package com.example.dungziproject
 
-import android.content.Context
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.google.firebase.auth.FirebaseAuth
+import com.example.dungziproject.databinding.MessageBinding
 
-class MessageAdapter (private val context: Context, private val messageList: ArrayList<Message>):
-    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class MessageAdapter (val messageList: ArrayList<Message>, val currentUserId: String):
+    RecyclerView.Adapter<MessageAdapter.ViewHolder>() {
 
-    private val receive = 1
-    private val send = 2
+    inner class ViewHolder(val binding: MessageBinding): RecyclerView.ViewHolder(binding.root){
+        init{
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return if (viewType == 1){
-            val view: View = LayoutInflater.from(context).inflate(R.layout.receive, parent,false)
-            ReceiveViewHolder(view)
-        }else{
-            val view: View = LayoutInflater.from(context).inflate(R.layout.send, parent,false)
-            SendViewHolder(view)
+        }
+    }
+    //아 헷갈려 참고하자: https://velog.io/@24hyunji/AndroidKotlin-RecyclerView-사용해보기
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+        val binding = MessageBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return ViewHolder(binding)
+    }
+
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+        if(messageList[position].sendId == currentUserId){
+            holder.binding.receiveMessageText.setBackgroundResource(R.drawable.send_background)
+            holder.binding.receiveMessageSender.visibility = View.INVISIBLE
+            holder.binding.receiveMessageText.text = messageList[position].message
+            holder.binding.receiveMessageTime.text = messageList[position].sendTime
+            holder.binding.root.gravity = Gravity.END
+            holder.binding.receiveMessageTime.gravity = Gravity.END
+        }
+        else{ //상대방 채팅
+            holder.binding.receiveMessageText.setBackgroundResource(R.drawable.receive_background)
+            holder.binding.receiveMessageSender.text = messageList[position].sendId
+            holder.binding.receiveMessageText.text = messageList[position].message
+            holder.binding.receiveMessageTime.text = messageList[position].sendTime
+            holder.binding.root.gravity = Gravity.START
         }
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        val currentMessage= messageList[position]
-
-        if(holder.javaClass == SendViewHolder::class.java){
-            val viewHolder = holder as SendViewHolder
-            viewHolder.sendMessage.text = currentMessage.message
-            viewHolder.sendTime.text = currentMessage.sendTime.toString()
-        }else{
-            val viewHolder = holder as ReceiveViewHolder
-            viewHolder.receiveMessage.text = currentMessage.message
-        }
-    }
     override fun getItemCount(): Int {
         return messageList.size
-    }
-
-    override fun getItemViewType(position: Int): Int {
-        val currentMessage = messageList[position]
-        return if(FirebaseAuth.getInstance().currentUser?.uid.equals(currentMessage.sendId)){
-            send
-        }else{
-            receive
-        }
-    }
-
-    class ReceiveViewHolder(itemView: View): RecyclerView.ViewHolder(itemView) {
-        val receiveMessage: TextView = itemView.findViewById(R.id.receive_message_text)
-    }
-    class SendViewHolder (itemView: View): RecyclerView.ViewHolder(itemView){
-        val sendMessage: TextView = itemView.findViewById(R.id.send_message_text)
-        val sendTime: TextView = itemView.findViewById(R.id.send_message_time)
     }
 }

@@ -15,7 +15,7 @@
             android:layout_weight="1"
             android:textAlignment="center"
             android:layout_gravity="center"
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:textStyle="bold"
@@ -28,7 +28,7 @@
         android:orientation="vertical">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/chat_recyclerView"
+            android:id="@+id/chatRecyclerView"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="0.9"/>
@@ -41,7 +41,7 @@
             android:orientation="horizontal"
             android:weightSum="100">
             <EditText
-                android:id="@+id/message_edit"
+                android:id="@+id/messageEdit"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
                 android:layout_marginStart="10dp"
@@ -50,7 +50,7 @@
                 android:background="@drawable/edit_backgroud"
                 android:paddingStart="10dp"/>
             <androidx.appcompat.widget.AppCompatButton
-                android:id="@+id/send_btn"
+                android:id="@+id/sendBtn"
                 android:layout_width="30dp"
                 android:layout_height="48dp"
                 android:layout_marginStart="10dp"

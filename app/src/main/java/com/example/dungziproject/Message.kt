@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 data class Message(
     var message: String?,
     var sendId: String?,
-    var sendTime: LocalDateTime?
+    var sendTime: String?
 ){
-    constructor(): this("","", LocalDateTime.now())
+    constructor(): this("","", "")
 }

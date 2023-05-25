@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".ChatActivity">
+    <!--
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/chat_recyclerView"
         android:layout_width="match_parent"
@@ -41,5 +42,6 @@
             android:text="전송"
             android:textColor="@color/white"/>
     </LinearLayout>
+    -->
 
 </LinearLayout>
