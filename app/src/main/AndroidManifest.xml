@@ -14,19 +14,18 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DungziProject"
         tools:targetApi="31">
-
+        <activity
+            android:name=".ResetPasswordActivity"
+            android:exported="false" />
         <activity
             android:name=".navigation.PostingActivity"
             android:exported="false" />
-
         <activity
             android:name=".SignUpActivity"
             android:exported="false" />
-
         <activity
             android:name=".ImageActivity"
             android:exported="false" />
-
         <activity
             android:name=".LoginActivity"
             android:exported="true">
@@ -36,24 +35,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".MainActivity"
-            android:exported="true">
-        </activity>
-
+            android:exported="true"></activity>
         <activity
             android:name=".navigation.CommentActivity"
-            android:exported="false">
-        </activity>
-
-        <activity
-            android:name=".OtherTimeTableActivity"
-            android:exported="false" />
+            android:exported="false"></activity>
         <activity
             android:name=".TimeTableActivity"
             android:exported="false" />
-
     </application>
 
 </manifest>

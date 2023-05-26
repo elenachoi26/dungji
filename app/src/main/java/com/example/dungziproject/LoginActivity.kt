@@ -6,7 +6,6 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.dungziproject.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -31,8 +30,10 @@ class LoginActivity : AppCompatActivity() {
             login(email, password)
         }
 
-        binding.findPassword.setOnClickListener{
-
+        binding.resetPassword.setOnClickListener{
+            val intent = Intent(this, ResetPasswordActivity::class.java)
+            startActivity(intent)
+            clearInput()
         }
 
         binding.signup.setOnClickListener{
