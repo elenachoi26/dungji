@@ -1,10 +1,12 @@
 package com.example.dungziproject.navigation
 
+import android.content.Context
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -12,6 +14,7 @@ import com.example.dungziproject.Message
 import com.example.dungziproject.MessageAdapter
 
 import com.example.dungziproject.databinding.FragmentChatBinding
+import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.google.android.play.integrity.internal.c
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -53,7 +56,7 @@ class ChatFragment :Fragment() {
     private fun sending() {
         binding.sendBtn.setOnClickListener {
             val messageText = binding.messageEdit.text.toString()
-            val currentTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+            val currentTime = SimpleDateFormat("MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
 
             // currentUserNickname 값이 null인 경우 메시지 전송하지 않음
             if (currentUserNickname.isNullOrEmpty()) {
@@ -75,6 +78,8 @@ class ChatFragment :Fragment() {
                     message?.let{
                         messageList.add(it)
                         messageAdapter.notifyItemInserted(messageList.size -1)
+                        scrollToBottom()
+                        hideKeyboard()
                     }
                 }
 
@@ -99,6 +104,11 @@ class ChatFragment :Fragment() {
             currentUserNickname = getUserNickname()
             sending()
         }
+    }
+
+    private fun hideKeyboard() {
+        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromWindow(binding.messageEdit.windowToken, 0)
     }
 
     private suspend fun getUserNickname(): String {
@@ -134,5 +144,9 @@ class ChatFragment :Fragment() {
         setValue(messageObject)
         binding.messageEdit.setText("")
 
+    }
+
+    private fun scrollToBottom() {
+        binding.chatRecyclerView.scrollToPosition(messageAdapter.itemCount - 1)
     }
 }
