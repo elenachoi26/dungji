@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "430703842384",
+    "project_id": "dungziproject",
+    "storage_bucket": "dungziproject.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:430703842384:android:5bfec95da616aaa4c6ad55",
+        "android_client_info": {
+          "package_name": "com.example.dungziproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "430703842384-4fqjnposihjlbr6hq26cns7u0n87j7ep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_CcwdGkzyZGGX7HSCtEzlnqvYK5n8N6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "430703842384-4fqjnposihjlbr6hq26cns7u0n87j7ep.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:430703842384:android:001f1496b53277cac6ad55",
+        "android_client_info": {
+          "package_name": "com.example.gallery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "430703842384-4fqjnposihjlbr6hq26cns7u0n87j7ep.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB_CcwdGkzyZGGX7HSCtEzlnqvYK5n8N6Y"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "430703842384-4fqjnposihjlbr6hq26cns7u0n87j7ep.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
