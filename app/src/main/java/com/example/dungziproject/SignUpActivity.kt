@@ -48,27 +48,30 @@ class SignUpActivity : AppCompatActivity() {
             var day = binding.daySpinner.selectedItem.toString()
             var birth = year + month + day
             var nickname = binding.nicknameEdit.text.toString()
-            var role = binding.roleSpinner.selectedItem.toString()
+
             var image = setImage!!
 
-            signUp(email, password, name, birth, nickname, role, image)
+            signUp(email, password, name, birth, nickname, image)
         }
     }
 
-    private fun signUp(email: String, password: String, name: String, birth: String, nickname: String, role: String, image: String) {
+    // 회원가입 기능
+    private fun signUp(email: String, password: String, name: String, birth: String, nickname: String, image: String) {
         auth.createUserWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success
-                    Toast.makeText(this, "회원가입 성공", Toast.LENGTH_SHORT).show()
-                    addUserToDatabase(auth.currentUser?.uid!!, email, name, birth, nickname, role, image, feeling)
+
+                if (task.isSuccessful) {    // 회원가입 성공
+                    Toast.makeText(this, "회원가입 완료. 로그인 해주세요!", Toast.LENGTH_SHORT).show()
+                    addUserToDatabase(auth.currentUser?.uid!!, email, name, birth, nickname, image, feeling)
                     finish()
-                } else {
-                    // Sign in fails
+                } else {                    // 회원가입 실패
                     Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
                 }
+
             }
     }
+    // DB user 테이블에 회원가입 정보 저장
+
 
     private fun addUserToDatabase(
         userId: String,
@@ -76,12 +79,13 @@ class SignUpActivity : AppCompatActivity() {
         name: String,
         birth: String,
         nickname: String,
-        role: String,
         image: String,
         feeling: String
     ) {
-        database.child("user").child(userId).setValue(User(userId, email, name, birth, nickname, role, image, feeling))
+        database.child("user").child(userId).setValue(User(userId, email, name, birth, nickname, image, feeling))
     }
+
+    // ImageActivity에서 이미지 String 받아오기
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)

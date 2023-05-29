@@ -11,6 +11,9 @@ import androidx.core.content.ContextCompat
 import com.example.dungziproject.databinding.ActivityMainBinding
 import com.example.dungziproject.navigation.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     lateinit var binding: ActivityMainBinding

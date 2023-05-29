@@ -32,15 +32,26 @@ class LoginActivity : AppCompatActivity() {
             val email = binding.emailEdit.text.toString()
             val password = binding.passwordEdit.text.toString()
 
-            login(email, password)
+            if(!email.contains('@')) {
+                Toast.makeText(this, "이메일 형식이 맞지 않습니다.", Toast.LENGTH_SHORT).show()
+            }else if(password.length < 6){
+                Toast.makeText(this, "비밀번호는 6자 이상입니다.", Toast.LENGTH_SHORT).show()
+            }else {
+                login(email, password)
+            }
         }
 
-        binding.findPassword.setOnClickListener{
-
+        // 비밀번호 재설정 선택시
+        binding.resetPassword.setOnClickListener{
+            val intent = Intent(this, ResetPasswordActivity::class.java)
+            startActivity(intent)
+            clearInput()
         }
 
+        // 회원가입 선택시
         binding.signup.setOnClickListener{
             val intent = Intent(this, SignUpActivity::class.java)
+
             startActivity(intent)
             clearInput()
         }
@@ -49,18 +60,18 @@ class LoginActivity : AppCompatActivity() {
     private fun login(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
-                if (task.isSuccessful) {
-                    // Sign in success
-                    Toast.makeText(this, "로그인 성공", Toast.LENGTH_SHORT).show()
+
+                if (task.isSuccessful) {    // 로그인 성공
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
                     finish()
-                } else {
-                    // Sign in fails
+                } else {                    // 로그인 실패
                     Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
                 }
+
             }
     }
+    // 로그인 editText 비우기
 
     fun clearInput(){
         binding.apply{
