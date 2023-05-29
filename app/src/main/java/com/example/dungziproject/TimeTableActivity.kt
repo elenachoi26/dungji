@@ -30,7 +30,8 @@ class TimeTableActivity : AppCompatActivity() {
         Color.parseColor("#B296FF"), Color.parseColor("#FFD196"), Color.parseColor("#FFE996"),
         Color.parseColor("#F6FF96"), Color.parseColor("#96FFCC"), Color.parseColor("#96FFE6"),
         Color.parseColor("#96FFFF"), Color.parseColor("#96DEFF"), Color.parseColor("#F096FF"),
-        Color.parseColor("#FF96BA"))    // 시간표 스케줄 backgroudColor
+        Color.parseColor("#FF96BA"))    // 시간표 스케줄 backgroundColor
+
     private var scheduleCount = 0   // 시간표 스케줄 시간표의 backgroudColor를 변경해주기 위한 변수
     private lateinit var schedule: Array<IntArray>  // 스케줄 시간 중복을 막기 위한 2차원 배열
     override fun onCreate(savedInstanceState: Bundle?) {

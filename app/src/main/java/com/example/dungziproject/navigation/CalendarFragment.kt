@@ -29,10 +29,9 @@ class CalendarFragment :Fragment() {
         val intent = Intent(activity, CalendarMainActivity::class.java)
         binding!!.monthButton.setOnClickListener {
             startActivity(intent)
+       
         }
 
         return binding!!.root
     }
-
-
 }

@@ -23,11 +23,16 @@ class LoginActivity : AppCompatActivity() {
 
     private fun initLayout() {
         auth = Firebase.auth
+
+        // 이전에 로그인 한적이 있다면 자동 로그인
         if(auth.currentUser?.uid != null){
             val intent = Intent(this, MainActivity::class.java)
+
             startActivity(intent)
             finish()
         }
+
+        // 로그인 버튼 클릭시
         binding.loginBtn.setOnClickListener {
             val email = binding.emailEdit.text.toString()
             val password = binding.passwordEdit.text.toString()
@@ -57,6 +62,8 @@ class LoginActivity : AppCompatActivity() {
         }
     }
 
+    // 로그인 기능
+
     private fun login(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
@@ -71,8 +78,9 @@ class LoginActivity : AppCompatActivity() {
 
             }
     }
-    // 로그인 editText 비우기
 
+
+    // 로그인 editText 비우기
     fun clearInput(){
         binding.apply{
             emailEdit.text.clear()
