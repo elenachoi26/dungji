@@ -81,7 +81,7 @@ class CalendarMainActivity : AppCompatActivity() {
 
         inner class ViewHolder(val binding: CalendarEventsBinding) : RecyclerView.ViewHolder(binding.root){ //viewholder 설정
             init { //초기설정
-                Log.d("짜증나", "짜증나")
+//                Log.d("짜증나", "짜증나")
                 firestore?.collection("calendars")
                     ?.orderBy("start_time",Query.Direction.ASCENDING)
                     ?.addSnapshotListener { querySnapshot, firebaseFireStroreException ->
@@ -96,11 +96,11 @@ class CalendarMainActivity : AppCompatActivity() {
                         }
                         notifyDataSetChanged()
                     }
-        }}
+            }}
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             var view = CalendarEventsBinding.inflate(LayoutInflater.from(parent.context), parent,false)
-            Log.d("짜증나", "짜증나")
+//            Log.d("짜증나", "짜증나")
             firestore?.collection("calendars")
                 ?.orderBy("start_time",Query.Direction.ASCENDING)
                 ?.addSnapshotListener { querySnapshot, firebaseFireStroreException ->
@@ -124,7 +124,7 @@ class CalendarMainActivity : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            Log.d("dfdfdf","nowat")
+//            Log.d("dfdfdf","nowat")
             val data = data[position]
             holder.binding.startTime.text = data.start_time
             holder.binding.endTime.text = data.end_time
@@ -146,7 +146,3 @@ data class eventData(
     var start_time : String? = null,
     var year : Int = 0
 )
-
-
-
-

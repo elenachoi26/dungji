@@ -23,6 +23,12 @@ class CalendarFragment :Fragment() {
         binding = FragmentCalendarBinding.inflate(inflater, container, false)
 
         //일주일 시간표
+        binding!!.weekButton.setOnClickListener {
+            activity?.let{
+                val intent = Intent(context, TimeTableActivity::class.java)
+                startActivity(intent)
+            }
+        }
 
 
         //월 캘린더
