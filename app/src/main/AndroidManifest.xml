@@ -20,6 +20,10 @@
             android:exported="false" />
 
         <activity
+            android:name=".navigation.EditContentActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".SignUpActivity"
             android:exported="false" />
 

@@ -24,6 +24,12 @@ class LoginActivity : AppCompatActivity() {
     private fun initLayout() {
         auth = Firebase.auth
 
+        if(auth.currentUser?.uid != null){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
+
         binding.loginBtn.setOnClickListener {
             val email = binding.emailEdit.text.toString()
             val password = binding.passwordEdit.text.toString()

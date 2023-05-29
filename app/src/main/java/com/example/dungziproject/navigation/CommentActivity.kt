@@ -63,6 +63,9 @@ class CommentActivity : AppCompatActivity() {
                         Glide.with(this).load(contentDTO!!.imgUrl)
                             .apply(RequestOptions().centerCrop())
                             .into(binding.contentImg)
+                        binding.contentText.text = contentDTO!!.explain
+                        binding.likeTextview.text = contentDTO!!.favoriteCount.toString()
+                        binding.commentCountTextview.text = contentDTO!!.commentCount.toString()
                     }
                 }
                 if(contentDTO == null){
@@ -79,7 +82,7 @@ class CommentActivity : AppCompatActivity() {
                         userRef.addListenerForSingleValueEvent(object : ValueEventListener {
                             override fun onDataChange(dataSnapshot: DataSnapshot) {
                                 val user = dataSnapshot.getValue(User::class.java)
-                                var resId = resources.getIdentifier("@drawable/" + user?.image, "drawable", packageName)
+                                var resId = resources.getIdentifier("@raw/" + user?.image, "raw", packageName)
                                 binding.profileImageview.setImageResource(resId)
                             }
                             override fun onCancelled(error: DatabaseError) {
@@ -94,14 +97,13 @@ class CommentActivity : AppCompatActivity() {
 
                         if (auth.currentUser?.uid == contentDTO?.userId) {
                             // 현재 사용자와 게시물 업로드 사용자가 같은 경우에만 팝업 메뉴 보여주기
-                            binding.contentPopup.visibility = View.VISIBLE
-                            binding.contentPopup.setImageResource(R.drawable.ic_popupmenu)
-                            binding.contentPopup.setOnClickListener {
+                            binding.editPopup.visibility = View.VISIBLE
+                            binding.editPopup.setOnClickListener {
                                 showPopup(it)
                             }
                         } else {
                             // 다른 경우 팝업 메뉴 비활성화
-                            binding.contentPopup.visibility = View.GONE
+                            binding.editPopup.visibility = View.GONE
                         }
                     }
             }
@@ -128,7 +130,7 @@ class CommentActivity : AppCompatActivity() {
         popupMenu.setOnMenuItemClickListener { menuItem ->
             when (menuItem.itemId) {
                 R.id.action_edit -> {
-
+                    editContent()
                 }
                 R.id.action_delete -> {
                     deleteContent()
@@ -137,6 +139,13 @@ class CommentActivity : AppCompatActivity() {
             false
         }
         popupMenu.show()
+    }
+
+    fun editContent(){
+        val intent = Intent(this@CommentActivity, EditContentActivity::class.java)
+        intent.putExtra("contentUid", contentUid)
+        startActivity(intent)
+        finish()
     }
 
     fun deleteContent(){
@@ -205,13 +214,15 @@ class CommentActivity : AppCompatActivity() {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val user = dataSnapshot.getValue(User::class.java)
                     customViewHolder.itemBinding.profileTextview.text = user?.nickname // 수정된 부분
-                    var resId = resources.getIdentifier("@drawable/" + user?.image, "drawable", packageName)
+                    var resId = resources.getIdentifier("@raw/" + user?.image, "raw", packageName)
                     customViewHolder.itemBinding.profileImageview.setImageResource(resId)
                 }
                 override fun onCancelled(error: DatabaseError) {
                     // 처리할 작업을 추가하세요
                 }
             })
+            holder.itemBinding.commentTimeTextview.text = SimpleDateFormat("MM월 dd일 HH:mm",
+                Locale.getDefault()).format(Date(comment.timestamp!!))
         }
     }
 }

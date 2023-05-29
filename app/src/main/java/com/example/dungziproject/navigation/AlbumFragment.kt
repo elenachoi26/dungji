@@ -138,7 +138,7 @@ class AlbumFragment :Fragment() {
             //좋아요 개수
             customViewHolder.itemBinding.likeTextview.text =  contentDTO.favoriteCount.toString()
             //댓글 개수
-            customViewHolder.itemBinding.commentCountTextview.text = contentDTO.commentCount.toString()
+//            customViewHolder.itemBinding.commentCountTextview.text = contentDTO.commentCount.toString()
 
             val dateFormat = SimpleDateFormat("MM월 dd일", Locale.getDefault())
             customViewHolder.itemBinding.dateTextview.text = dateFormat.format(contentDTO?.timestamp?.let { Date(it) })
@@ -151,7 +151,7 @@ class AlbumFragment :Fragment() {
             userRef.addListenerForSingleValueEvent(object : ValueEventListener {
                 override fun onDataChange(dataSnapshot: DataSnapshot) {
                     val user = dataSnapshot.getValue(User::class.java)
-                    var resId = resources.getIdentifier("@drawable/" + user?.image, "drawable", requireContext().packageName)
+                    var resId = resources.getIdentifier("@raw/" + user?.image, "raw", requireContext().packageName)
                     customViewHolder.itemBinding.profileImageview.setImageResource(resId)
                 }
 
@@ -159,6 +159,8 @@ class AlbumFragment :Fragment() {
                     // 처리할 작업을 추가하세요
                 }
             })
+
+
 
 
             //좋아요 클릭 이벤트
@@ -171,7 +173,7 @@ class AlbumFragment :Fragment() {
                 customViewHolder.itemBinding.favoriteImageview.setImageResource(R.drawable.ic_favorite_border)
             }
 
-            customViewHolder.itemBinding.commentImageview.setOnClickListener{ v ->
+            customViewHolder.itemBinding.contentImageview.setOnClickListener{ v ->
                 val intent = Intent(v.context, CommentActivity::class.java)
                 intent.putExtra("contentUid",contentUidList[position])
                 startActivity(intent)
