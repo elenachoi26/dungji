@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.widget.Toast
 import com.example.dungziproject.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
 
@@ -62,6 +63,7 @@ class LoginActivity : AppCompatActivity() {
     }
 
     // 로그인 기능
+
     private fun login(email: String, password: String) {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(this) { task ->
@@ -76,6 +78,7 @@ class LoginActivity : AppCompatActivity() {
 
             }
     }
+
 
     // 로그인 editText 비우기
     fun clearInput(){

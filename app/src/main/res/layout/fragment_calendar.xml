@@ -1,28 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/calendarLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_200"
-    tools:context=".navigation.CalendarFragment"
-    android:orientation="vertical">
+    android:background="@color/white"
+    tools:context=".navigation.CalendarFragment">
 
     <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_blank_fragment" />
 
-    <Button
-        android:id="@+id/timeTableBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="일주일 시간표" />
+    <ImageButton
+        android:id="@+id/weekButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="51dp"
+        android:layout_marginBottom="32dp"
+        android:src="@android:drawable/ic_menu_recent_history"
+        app:layout_constraintBottom_toTopOf="@+id/monthButton"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-    <Button
-        android:id="@+id/calendarBtn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="월 캘린더" />
+    <ImageButton
+        android:id="@+id/monthButton"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginBottom="100dp"
+        android:src="@android:drawable/ic_menu_month"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weekButton"
+        tools:ignore="SpeakableTextPresentCheck" />
 
-</LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

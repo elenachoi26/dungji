@@ -86,13 +86,13 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     // ImageActivity에서 이미지 String 받아오기
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
         if(requestCode == 0) {
             if(resultCode == Activity.RESULT_OK) {
                 setImage = data?.getStringExtra("image")
-
                 var resId = resources.getIdentifier("@drawable/" + setImage, "drawable", packageName)
                 binding.imageView.setImageResource(resId)
             }

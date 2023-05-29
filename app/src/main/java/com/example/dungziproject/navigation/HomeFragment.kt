@@ -6,10 +6,12 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.dungziproject.R
+import com.example.dungziproject.databinding.FragmentHomeBinding
 import android.widget.Toast
 import com.example.dungziproject.LoginActivity
 import com.example.dungziproject.TimeTableActivity
-import com.example.dungziproject.databinding.FragmentHomeBinding
+
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -17,7 +19,6 @@ import com.google.firebase.ktx.Firebase
 class HomeFragment :Fragment() {
     var binding: FragmentHomeBinding?=null
     private lateinit var auth: FirebaseAuth
-
 
     override fun onCreateView(
         inflater: LayoutInflater,
