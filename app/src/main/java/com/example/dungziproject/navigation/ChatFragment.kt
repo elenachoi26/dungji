@@ -14,7 +14,6 @@ import com.example.dungziproject.Message
 import com.example.dungziproject.MessageAdapter
 
 import com.example.dungziproject.databinding.FragmentChatBinding
-import com.google.android.material.internal.ViewUtils.hideKeyboard
 import com.google.android.play.integrity.internal.c
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
@@ -79,7 +78,7 @@ class ChatFragment :Fragment() {
                         messageList.add(it)
                         messageAdapter.notifyItemInserted(messageList.size -1)
                         scrollToBottom()
-                        hideKeyboard()
+                        //Keyboard()
                     }
                 }
 
@@ -107,7 +106,7 @@ class ChatFragment :Fragment() {
     }
 
     private fun hideKeyboard() {
-        val imm = requireContext().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        val imm = requireActivity().getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(binding.messageEdit.windowToken, 0)
     }
 
