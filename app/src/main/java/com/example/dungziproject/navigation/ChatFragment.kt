@@ -56,7 +56,7 @@ class ChatFragment :Fragment() {
     private fun sending() {
         binding.sendBtn.setOnClickListener {
             val messageText = binding.messageEdit.text.toString()
-            val currentTime = SimpleDateFormat("MM-dd HH:mm:ss", Locale.getDefault()).format(Date())
+            val currentTime = SimpleDateFormat("MM-dd HH:mm", Locale.getDefault()).format(Date())
 
             // currentUserNickname 값이 null인 경우 메시지 전송하지 않음
             if (currentUserNickname.isNullOrEmpty()) {
