@@ -103,5 +103,4 @@ class PostingActivity : AppCompatActivity() {
         }
     }
 
-
 }

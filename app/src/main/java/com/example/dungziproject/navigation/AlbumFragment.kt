@@ -38,6 +38,7 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
+
 class AlbumFragment :Fragment() {
     var binding: FragmentAlbumBinding?=null
     var firestore : FirebaseFirestore?=null
@@ -58,8 +59,8 @@ class AlbumFragment :Fragment() {
         binding!!.albumRecyclerview.adapter = AlbumRecyclerViewAdapter()
         binding!!.albumRecyclerview.layoutManager = LinearLayoutManager(activity)
 
-
         //popup menu
+
         binding!!.albumPopup.setOnClickListener {
             val popupMenu = PopupMenu(context, it)
             popupMenu.inflate(R.menu.album_popup)
@@ -173,7 +174,8 @@ class AlbumFragment :Fragment() {
                 customViewHolder.itemBinding.favoriteImageview.setImageResource(R.drawable.ic_favorite_border)
             }
 
-            customViewHolder.itemBinding.contentImageview.setOnClickListener{ v ->
+            customViewHolder.itemBinding.commentImageview.setOnClickListener{ v ->
+
                 val intent = Intent(v.context, CommentActivity::class.java)
                 intent.putExtra("contentUid",contentUidList[position])
                 startActivity(intent)
@@ -241,7 +243,5 @@ class AlbumFragment :Fragment() {
                 startActivity(intent)
             }
         }
-
     }
-
 }

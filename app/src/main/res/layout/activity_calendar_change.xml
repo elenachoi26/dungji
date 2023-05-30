@@ -1,0 +1,196 @@
+<!-- activity_main.xml -->
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <EditText
+        android:id="@+id/eventName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginBottom="33dp"
+        android:ems="10"
+        android:inputType="textPersonName"
+        android:text="Name"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerDateYear"
+        app:layout_constraintStart_toEndOf="@+id/textView10"
+        tools:ignore="TouchTargetSizeCheck" />
+
+    <Spinner
+        android:id="@+id/spinnerDateMonth"
+        android:layout_width="81dp"
+        android:layout_height="61dp"
+        android:layout_marginStart="95dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="89dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerStartTimeMinute"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerDateDay"
+        app:layout_constraintStart_toStartOf="@+id/eventName"
+        app:layout_constraintTop_toBottomOf="@+id/eventName"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Spinner
+        android:id="@+id/spinnerDateYear"
+        android:layout_width="107dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="89dp"
+        android:layout_marginEnd="90dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView11"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerDateMonth"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/textView11"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Spinner
+        android:id="@+id/spinnerDateDay"
+        android:layout_width="88dp"
+        android:layout_height="55dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="33dp"
+        android:layout_marginEnd="36dp"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintBottom_toTopOf="@+id/spinnerStartTimeHour"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/spinnerStartTimeMinute"
+        app:layout_constraintTop_toBottomOf="@+id/eventName"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:text="이름"
+        android:textSize="20sp"
+        app:layout_constraintBaseline_toBaselineOf="@+id/eventName"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="198dp"
+        android:layout_marginEnd="17dp"
+        android:text="날짜"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerDateYear"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="47dp"
+        android:layout_marginEnd="18dp"
+        android:text="시작 시간"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerStartTimeHour"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerDateYear" />
+
+    <Spinner
+        android:id="@+id/spinnerStartTimeHour"
+        android:layout_width="0dp"
+        android:layout_height="62dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView12"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerEndTimeHour"
+        app:layout_constraintStart_toStartOf="@+id/spinnerEndTimeHour"
+        app:layout_constraintTop_toBottomOf="@+id/textView12"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Spinner
+        android:id="@+id/spinnerStartTimeMinute"
+        android:layout_width="86dp"
+        android:layout_height="66dp"
+        android:layout_marginTop="168dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="168dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView15"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/eventName"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="39dp"
+        android:layout_marginEnd="18dp"
+        android:text="종료 시간"
+        android:textSize="20sp"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerEndTimeHour"
+        app:layout_constraintTop_toBottomOf="@+id/spinnerStartTimeHour" />
+
+    <Spinner
+        android:id="@+id/spinnerEndTimeHour"
+        android:layout_width="95dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="43dp"
+        app:layout_constraintBottom_toBottomOf="@+id/spinnerEndTimeMinute"
+        app:layout_constraintEnd_toStartOf="@+id/spinnerStartTimeMinute"
+        app:layout_constraintStart_toStartOf="@+id/spinnerDateYear"
+        app:layout_constraintTop_toTopOf="@+id/textView13"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <Spinner
+        android:id="@+id/spinnerEndTimeMinute"
+        android:layout_width="94dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="88dp"
+        android:layout_marginEnd="56dp"
+        android:layout_marginBottom="88dp"
+        app:layout_constraintBottom_toBottomOf="@+id/placeName"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/spinnerDateMonth"
+        app:layout_constraintTop_toTopOf="@+id/textView12"
+        tools:ignore="SpeakableTextPresentCheck" />
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="35dp"
+        android:layout_marginTop="5dp"
+        android:text="장소"
+        android:textSize="20sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/placeName" />
+
+    <EditText
+        android:id="@+id/placeName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="19dp"
+        android:layout_marginBottom="72dp"
+        android:ems="10"
+        android:text="Place"
+        app:layout_constraintBottom_toTopOf="@+id/button3"
+        app:layout_constraintEnd_toEndOf="@+id/spinnerEndTimeMinute"
+        tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="26dp"
+        android:layout_marginBottom="97dp"
+        android:text="저장"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/placeName"
+        tools:ignore="TextContrastCheck" />
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="38dp"
+        android:layout_marginTop="36dp"
+        android:text="이벤트 수정"
+        android:textSize="24sp"
+        app:layout_constraintStart_toStartOf="@+id/eventName"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

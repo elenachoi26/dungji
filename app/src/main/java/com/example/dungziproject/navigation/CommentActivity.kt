@@ -110,12 +110,12 @@ class CommentActivity : AppCompatActivity() {
 
 
         //Comment
+
         binding.commentRecyclerview.adapter = CommentRecyclerViewAdapter()
         binding.commentRecyclerview.layoutManager = LinearLayoutManager(this)
         binding.sendBtn.setOnClickListener {
             var comment = ContentDTO.Comment()
             comment.userId = FirebaseAuth.getInstance().currentUser?.uid
-
             comment.comment = binding.commentEdittext.text.toString()
             comment.timestamp = System.currentTimeMillis()
 
@@ -208,6 +208,7 @@ class CommentActivity : AppCompatActivity() {
             val comment = comments[position]
 
             customViewHolder.itemBinding.messageTextview.text = comment.comment
+            
             val userRef =
                 FirebaseDatabase.getInstance().getReference("user").child(comment.userId ?: "")
             userRef.addListenerForSingleValueEvent(object : ValueEventListener {
@@ -225,4 +226,18 @@ class CommentActivity : AppCompatActivity() {
                 Locale.getDefault()).format(Date(comment.timestamp!!))
         }
     }
+//            customViewHolder.itemBinding.profileTextview.text = comment.userId
+
+//            FirebaseFirestore.getInstance()
+//                .collection("profileImages")
+//                .document(comment.uid!!)
+//               .get()
+//                .addOnCompleteListener { task ->
+//                    if(task.isSuccessful){
+//                        var url = task.result!!["image"]
+//                        Glide.with(holder.itemView.context).load(url).apply(RequestOptions().circleCrop()).into(customViewHolder.itemBinding.profileImageview)
+//                    }
+//               }
+//        }
+//   }
 }

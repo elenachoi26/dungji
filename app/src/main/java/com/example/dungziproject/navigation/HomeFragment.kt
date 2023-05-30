@@ -20,6 +20,7 @@ class HomeFragment : Fragment(), EmoticonDialogInterface {
     private lateinit var auth: FirebaseAuth
     private lateinit var userRef: DatabaseReference
     var currentUid :String? = null
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -122,3 +123,4 @@ class HomeFragment : Fragment(), EmoticonDialogInterface {
         }
     }
 }
+

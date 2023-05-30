@@ -4,6 +4,7 @@ data class ContentDTO (var explain: String? = null,
                        var imgUrl : String? = null,
                        var userId : String? = null,
                        var nickname : String? = null,
+
                        var timestamp : Long? = null,
                        var favoriteCount : Int = 0,
                        var commentCount : Int = 0,
