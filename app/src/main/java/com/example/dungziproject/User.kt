@@ -6,9 +6,8 @@ data class User(
     var name:String,
     var birth:String,
     var nickname:String,
-    var role:String,
     var image:String,
     var feeling:String
 ){
-    constructor():this("","","","","","","","")
+    constructor():this("","","","","","","")
 }

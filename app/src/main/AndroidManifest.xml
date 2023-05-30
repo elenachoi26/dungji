@@ -18,6 +18,27 @@
             android:name=".ChatActivity"
             android:exported="false" />
         <activity
+            android:name=".TimeTableActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ResetPasswordActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CalendarChange"
+            android:exported="false" />
+        <activity
+            android:name=".CalendarInsert"
+            android:exported="false" />
+        <activity
+            android:name=".CalendarActivity2"
+            android:exported="false" />
+        <activity
+            android:name=".CalendarActivity1"
+            android:exported="false" />
+        <activity
+            android:name=".CalendarMainActivity"
+            android:exported="false" />
+        <activity
             android:name=".navigation.PostingActivity"
             android:exported="false" />
         <activity
@@ -37,10 +58,11 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:exported="true"></activity>
+            android:exported="true" />
         <activity
             android:name=".navigation.CommentActivity"
-            android:exported="false"></activity>
+            android:exported="true"/>
+
     </application>
 
 </manifest>
