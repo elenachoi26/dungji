@@ -1,9 +1,11 @@
 package com.example.dungziproject.navigation
 
 import android.Manifest
+import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -22,14 +24,26 @@ import com.example.dungziproject.databinding.AlbumItemDetailBinding
 import com.example.dungziproject.databinding.FragmentAlbumBinding
 import com.example.dungziproject.databinding.FragmentHomeBinding
 import com.example.dungziproject.navigation.model.ContentDTO
+import com.example.dungziproject.navigation.model.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
+import com.google.firebase.ktx.Firebase
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
+
 
 class AlbumFragment :Fragment() {
     var binding: FragmentAlbumBinding?=null
     var firestore : FirebaseFirestore?=null
     var uid :String? = null
+    private lateinit var auth: FirebaseAuth
     var contentDTOs : ArrayList<ContentDTO> = arrayListOf()
     var contentUidList : ArrayList<String> = arrayListOf()
 
@@ -38,12 +52,14 @@ class AlbumFragment :Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        auth = Firebase.auth
         binding = FragmentAlbumBinding.inflate(inflater, container, false)
         firestore = FirebaseFirestore.getInstance()
         uid = FirebaseAuth.getInstance().currentUser?.uid
         binding!!.albumRecyclerview.adapter = AlbumRecyclerViewAdapter()
         binding!!.albumRecyclerview.layoutManager = LinearLayoutManager(activity)
 
+        //popup menu
 
         binding!!.albumPopup.setOnClickListener {
             val popupMenu = PopupMenu(context, it)
@@ -100,17 +116,55 @@ class AlbumFragment :Fragment() {
             return contentDTOs.size
         }
 
+        fun convertEmailToValidPath(email: String): String {
+            // 특수 문자를 제거하고 적절한 형식으로 변환
+            val path = email.replace(".", "_dot_")
+                .replace("#", "_hash_")
+                .replace("$", "_dollar_")
+                .replace("[", "_leftBracket_")
+                .replace("]", "_rightBracket_")
+            return path
+        }
+
+
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             val contentDTO = contentDTOs[position]
             val customViewHolder = holder as CustomViewHolder
-
-            customViewHolder.itemBinding.profileTextview.text = contentDTO.userId
-            customViewHolder.itemBinding.idTextview.text = contentDTO.userId
+            //닉네임
+            customViewHolder.itemBinding.profileTextview.text = contentDTO.nickname
+            //게시물 사진
             Glide.with(holder.itemView.context).load(contentDTO.imgUrl).into(holder.itemBinding.contentImageview)
+            //설명
             customViewHolder.itemBinding.explainTextview.text = contentDTO.explain
+            //좋아요 개수
             customViewHolder.itemBinding.likeTextview.text =  contentDTO.favoriteCount.toString()
-            customViewHolder.itemBinding.commentCountTextview.text = contentDTO.commentCount.toString()
-            Glide.with(holder.itemView.context).load(contentDTO.imgUrl).into(holder.itemBinding.profileImageview)
+            //댓글 개수
+//            customViewHolder.itemBinding.commentCountTextview.text = contentDTO.commentCount.toString()
+
+            val dateFormat = SimpleDateFormat("MM월 dd일", Locale.getDefault())
+            customViewHolder.itemBinding.dateTextview.text = dateFormat.format(contentDTO?.timestamp?.let { Date(it) })
+
+            //프로필 사진
+            //val userRef = FirebaseDatabase.getInstance().getReference("user").child(contentDTO?.userId?:"")
+            val convertedEmail = convertEmailToValidPath(contentDTO?.userId ?: "")
+            val userRef = FirebaseDatabase.getInstance().getReference("user").child(convertedEmail)
+
+            userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val user = dataSnapshot.getValue(User::class.java)
+                    var resId = resources.getIdentifier("@raw/" + user?.image, "raw", requireContext().packageName)
+                    customViewHolder.itemBinding.profileImageview.setImageResource(resId)
+                }
+
+                override fun onCancelled(error: DatabaseError) {
+                    // 처리할 작업을 추가하세요
+                }
+            })
+
+
+
+
+            //좋아요 클릭 이벤트
             customViewHolder.itemBinding.favoriteImageview.setOnClickListener{
                 favoriteEvent(position)
             }
@@ -121,6 +175,7 @@ class AlbumFragment :Fragment() {
             }
 
             customViewHolder.itemBinding.commentImageview.setOnClickListener{ v ->
+
                 val intent = Intent(v.context, CommentActivity::class.java)
                 intent.putExtra("contentUid",contentUidList[position])
                 startActivity(intent)
@@ -188,7 +243,5 @@ class AlbumFragment :Fragment() {
                 startActivity(intent)
             }
         }
-
     }
-
 }

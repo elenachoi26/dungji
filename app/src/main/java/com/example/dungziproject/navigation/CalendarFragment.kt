@@ -1,5 +1,6 @@
 package com.example.dungziproject.navigation
 
+
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,7 +10,6 @@ import android.view.ViewGroup
 import com.example.dungziproject.CalendarMainActivity
 import com.example.dungziproject.R
 import com.example.dungziproject.TimeTableActivity
-
 import com.example.dungziproject.databinding.FragmentCalendarBinding
 import com.example.dungziproject.databinding.FragmentHomeBinding
 
@@ -37,7 +37,6 @@ class CalendarFragment :Fragment() {
             startActivity(intent)
        
         }
-
         return binding!!.root
     }
 }
