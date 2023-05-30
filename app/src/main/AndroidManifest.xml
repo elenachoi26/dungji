@@ -15,6 +15,10 @@
         android:theme="@style/Theme.DungziProject"
         tools:targetApi="31">
         <activity
+            android:name=".navigation.EditContentActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".TimeTableActivity"
             android:exported="false" />
         <activity
@@ -53,13 +57,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".MainActivity"
             android:exported="true" />
         <activity
             android:name=".navigation.CommentActivity"
             android:exported="true"/>
-
     </application>
 
 </manifest>

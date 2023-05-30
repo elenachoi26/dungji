@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_margin="5dp"
+    android:layout_width="70dp"
+    android:layout_height="70dp">
+
+
+
+    <LinearLayout
+        android:layout_centerInParent="true"
+        android:orientation="vertical"
+        android:layout_gravity="center"
+        android:background="@drawable/circle"
+        android:layout_width="60dp"
+        android:layout_height="60dp">
+
+        <ImageView
+            android:layout_weight="1"
+            android:layout_margin="5dp"
+            android:layout_gravity="center"
+            android:id="@+id/profileImg"
+            android:src="@drawable/sample"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+
+        <TextView
+            android:textAlignment="center"
+            android:ellipsize="end"
+            android:singleLine="true"
+            android:layout_weight="1"
+            android:layout_gravity="center"
+            android:text="userwqdqdqdqw"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/userId"
+            android:textSize="10sp"
+            android:fontFamily="@font/sunflower_light"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"/>
+
+    </LinearLayout>
+
+    <ImageView
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:padding="4dp"
+        android:id="@+id/emotionImg"
+        android:src="@raw/emoticon"
+        android:background="@drawable/circle"
+        android:layout_alignParentRight="true" />
+
+
+</RelativeLayout>

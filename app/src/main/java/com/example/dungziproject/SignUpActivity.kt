@@ -2,6 +2,7 @@ package com.example.dungziproject
 
 import android.app.Activity
 import android.content.Intent
+
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -34,11 +35,13 @@ class SignUpActivity : AppCompatActivity() {
         auth = Firebase.auth
         database = Firebase.database.reference
 
+
         // 이미지 선택 선택시
         binding.imageView.setOnClickListener{
             val intent = Intent(this, ImageActivity::class.java)
             startActivityForResult(intent, 0)
         }
+
 
         // 회원가입 버튼 클릭시
         binding.signupBtn.setOnClickListener {
@@ -50,6 +53,7 @@ class SignUpActivity : AppCompatActivity() {
             var day = binding.daySpinner.selectedItem.toString()
             var birth = year + month + day
             var nickname = binding.nicknameEdit.text.toString()
+
             var image = setImage!!
 
             signUp(email, password, name, birth, nickname, image)
