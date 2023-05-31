@@ -3,28 +3,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/gray"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
-        android:background="@color/orange"
+        android:layout_margin="15dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="35dp">
-
-        <TextView
-            android:layout_weight="1"
-            android:textAlignment="center"
-            android:layout_gravity="center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:textStyle="bold"
-            android:text="둥지 앨범"/>
+        android:layout_height="wrap_content">
 
         <ImageView
-            android:id="@+id/album_popup"
-            android:src="@drawable/ic_popupmenu"
-            android:layout_marginRight="20dp"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/layoutBtn"
+            android:src="@drawable/ic_grid"
+            android:layout_gravity="center"
+            android:layout_width="15dp"
+            android:layout_height="15dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textAlignment="center"
+            android:layout_weight="1"
+            android:text="둥지 앨범"
+            android:textColor="@color/orange"
+            android:fontFamily="@font/sunflower_medium"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_marginRight="15dp"
+            android:id="@+id/uploadBtn"
+            android:src="@drawable/ic_plus"
             android:layout_gravity="center"
             android:layout_width="15dp"
             android:layout_height="15dp"/>
@@ -33,10 +44,11 @@
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_margin="10dp"
-        android:layout_weight="1"
         android:id="@+id/album_recyclerview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
+        android:layout_weight="1"/>
 
 </LinearLayout>
