@@ -1,11 +1,13 @@
 package com.example.dungziproject.navigation
 
+
 import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import com.example.dungziproject.CalendarMainActivity
 import com.example.dungziproject.R
 import com.example.dungziproject.TimeTableActivity
 import com.example.dungziproject.databinding.FragmentCalendarBinding
@@ -20,16 +22,21 @@ class CalendarFragment :Fragment() {
     ): View? {
         binding = FragmentCalendarBinding.inflate(inflater, container, false)
 
-        binding!!.timeTableBtn.setOnClickListener {
+        //일주일 시간표
+        binding!!.weekButton.setOnClickListener {
             activity?.let{
                 val intent = Intent(context, TimeTableActivity::class.java)
                 startActivity(intent)
             }
         }
 
-        binding!!.calendarBtn.setOnClickListener {
-        }
 
+        //월 캘린더
+        val intent = Intent(activity, CalendarMainActivity::class.java)
+        binding!!.monthButton.setOnClickListener {
+            startActivity(intent)
+       
+        }
         return binding!!.root
     }
 }

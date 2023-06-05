@@ -23,6 +23,26 @@
         tools:layout_editor_absoluteX="66dp"
         tools:layout_editor_absoluteY="15dp" />
 
+    <TextView
+        android:id="@+id/nullEmailText"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:text="이메일을 입력해주세요."
+        android:textColor="#FF4040"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/wrongEmailText"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:text="이메일 형식이 맞지 않습니다."
+        android:textColor="#FF4040"
+        android:visibility="gone" />
+
     <EditText
         android:id="@+id/passwordEdit"
         android:layout_width="280dp"
@@ -39,6 +59,26 @@
         tools:layout_editor_absoluteX="66dp"
         tools:layout_editor_absoluteY="75dp" />
 
+    <TextView
+        android:id="@+id/nullPasswordText"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:text="비밀번호를 입력해주세요."
+        android:textColor="#FF4040"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/wrongPasswordText"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:text="비밀번호는 6자 이상입니다."
+        android:textColor="#FF4040"
+        android:visibility="gone" />
+
     <EditText
         android:id="@+id/nameEdit"
         android:layout_width="280dp"
@@ -54,6 +94,16 @@
         tools:ignore="TouchTargetSizeCheck"
         tools:layout_editor_absoluteX="66dp"
         tools:layout_editor_absoluteY="134dp" />
+
+    <TextView
+        android:id="@+id/nullNameText"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:text="이름을 입력해주세요."
+        android:textColor="#FF4040"
+        android:visibility="gone" />
 
     <LinearLayout
         android:layout_width="wrap_content"
@@ -114,13 +164,33 @@
         tools:layout_editor_absoluteX="66dp"
         tools:layout_editor_absoluteY="254dp" />
 
+    <TextView
+        android:id="@+id/nullNicknameText"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:text="닉네임을 입력해주세요."
+        android:textColor="#FF4040"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/duplicateNicknameText"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="2dp"
+        android:text="이미 사용중인 닉네임입니다."
+        android:textColor="#FF4040"
+        android:visibility="gone" />
+
     <ImageView
         android:id="@+id/imageView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_gravity="center"
         android:layout_marginTop="10dp"
-        app:srcCompat="@drawable/grandmother"
+        app:srcCompat="@raw/grandmother"
         tools:layout_editor_absoluteX="156dp"
         tools:layout_editor_absoluteY="319dp" />
 

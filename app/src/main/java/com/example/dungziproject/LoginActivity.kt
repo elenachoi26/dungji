@@ -4,10 +4,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
-import androidx.core.content.ContextCompat.startActivity
 import com.example.dungziproject.databinding.ActivityLoginBinding
+import com.example.dungziproject.navigation.HomeFragment
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
+import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
@@ -24,18 +30,17 @@ class LoginActivity : AppCompatActivity() {
     private fun initLayout() {
         auth = Firebase.auth
 
-        // 이전에 로그인 한적이 있다면 자동 로그인
-        if(auth.currentUser?.uid != null){
-            val intent = Intent(this, MainActivity::class.java)
-
-            startActivity(intent)
-            finish()
-        }
+//        if(auth.currentUser?.uid != null){
+//            val intent = Intent(this, MainActivity::class.java)
+//            startActivity(intent)
+//            finish()
+//        }
 
         // 로그인 버튼 클릭시
         binding.loginBtn.setOnClickListener {
             val email = binding.emailEdit.text.toString()
             val password = binding.passwordEdit.text.toString()
+
 
             if(!email.contains('@')) {
                 Toast.makeText(this, "이메일 형식이 맞지 않습니다.", Toast.LENGTH_SHORT).show()
@@ -56,7 +61,6 @@ class LoginActivity : AppCompatActivity() {
         // 회원가입 선택시
         binding.signup.setOnClickListener{
             val intent = Intent(this, SignUpActivity::class.java)
-
             startActivity(intent)
             clearInput()
         }
@@ -70,7 +74,7 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {    // 로그인 성공
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
-                    finish()
+//                    finish()
                 } else {                    // 로그인 실패
                     Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
                 }

@@ -8,7 +8,6 @@ import com.example.dungziproject.databinding.ActivityImageBinding
 
 class ImageActivity : AppCompatActivity() {
     lateinit var binding:ActivityImageBinding
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityImageBinding.inflate(layoutInflater)
@@ -49,6 +48,7 @@ class ImageActivity : AppCompatActivity() {
             }
 
             // 소년 이미지 선택시
+
             boy.setOnClickListener{
                 intent.putExtra("image", "boy")
                 setResult(Activity.RESULT_OK, intent)

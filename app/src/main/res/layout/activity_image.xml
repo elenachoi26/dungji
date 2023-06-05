@@ -18,7 +18,7 @@
         android:layout_rowWeight="1"
         android:layout_column="0"
         android:layout_columnWeight="1"
-        app:srcCompat="@drawable/grandmother" />
+        app:srcCompat="@raw/grandmother" />
 
     <ImageView
         android:id="@+id/grandfather"
@@ -28,7 +28,7 @@
         android:layout_rowWeight="1"
         android:layout_column="1"
         android:layout_columnWeight="1"
-        app:srcCompat="@drawable/grandfather" />
+        app:srcCompat="@raw/grandfather" />
 
     <ImageView
         android:id="@+id/woman"
@@ -38,7 +38,7 @@
         android:layout_rowWeight="1"
         android:layout_column="0"
         android:layout_columnWeight="1"
-        app:srcCompat="@drawable/woman" />
+        app:srcCompat="@raw/woman" />
 
     <ImageView
         android:id="@+id/man"
@@ -48,7 +48,7 @@
         android:layout_rowWeight="1"
         android:layout_column="1"
         android:layout_columnWeight="1"
-        app:srcCompat="@drawable/man" />
+        app:srcCompat="@raw/man" />
 
     <ImageView
         android:id="@+id/boy"
@@ -58,7 +58,7 @@
         android:layout_rowWeight="1"
         android:layout_column="0"
         android:layout_columnWeight="1"
-        app:srcCompat="@drawable/boy" />
+        app:srcCompat="@raw/boy" />
 
     <ImageView
         android:id="@+id/girl"
@@ -68,6 +68,6 @@
         android:layout_rowWeight="1"
         android:layout_column="1"
         android:layout_columnWeight="1"
-        app:srcCompat="@drawable/girl" />
+        app:srcCompat="@raw/girl" />
 
 </GridLayout>

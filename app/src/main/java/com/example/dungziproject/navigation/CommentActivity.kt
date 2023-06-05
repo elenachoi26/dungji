@@ -1,18 +1,35 @@
 package com.example.dungziproject.navigation
 
+import android.Manifest
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.PopupMenu
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
+import androidx.core.content.ContextCompat
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.example.dungziproject.R
 import com.example.dungziproject.databinding.ActivityCommentBinding
 import com.example.dungziproject.databinding.AlbumCommentItemBinding
 import com.example.dungziproject.navigation.model.ContentDTO
+import com.example.dungziproject.navigation.model.User
 import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.firestore.FirebaseFirestore
+import com.google.firebase.ktx.Firebase
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -21,6 +38,7 @@ class CommentActivity : AppCompatActivity() {
     lateinit var binding: ActivityCommentBinding
     var contentUid : String?= null
     var contentDTO: ContentDTO? = null
+    private lateinit var auth: FirebaseAuth
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,8 +48,10 @@ class CommentActivity : AppCompatActivity() {
     }
 
     private fun initLayout(){
+        auth = Firebase.auth
         contentUid = intent.getStringExtra("contentUid")
 
+        // Load content
         FirebaseFirestore.getInstance()
             .collection("images")
             .document(contentUid!!)
@@ -41,36 +61,75 @@ class CommentActivity : AppCompatActivity() {
                     contentDTO = task.result?.toObject(ContentDTO::class.java)
                     if (contentDTO != null) {
                         Glide.with(this).load(contentDTO!!.imgUrl)
-                            .apply(RequestOptions().centerCrop())
+                            .apply(RequestOptions().fitCenter())
                             .into(binding.contentImg)
+                        binding.contentText.text = contentDTO!!.explain
+                        binding.likeTextview.text = contentDTO!!.favoriteCount.toString()
+                        binding.commentCountTextview.text = contentDTO!!.commentCount.toString()
                     }
                 }
                 if(contentDTO == null){
                     contentDTO = ContentDTO()
                 }
+
                 FirebaseFirestore.getInstance()
                     .collection("users")
                     .document(contentUid!!)
                     .get()
                     .addOnSuccessListener { userSnapshot ->
-                        val writerId = contentDTO!!.userId
-                        binding.writerIdTV.text = writerId
+                        binding.writerIdTV.text = contentDTO!!.nickname
+                        val userRef =
+                            FirebaseDatabase.getInstance().getReference("user").child(contentDTO?.userId ?: "")
+                        userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                            override fun onDataChange(dataSnapshot: DataSnapshot) {
+                                val user = dataSnapshot.getValue(User::class.java)
+                                var resId = resources.getIdentifier("@raw/" + user?.image, "raw", packageName)
+                                binding.profileImageview.setImageResource(resId)
+                            }
+                            override fun onCancelled(error: DatabaseError) {
+                                // 처리할 작업을 추가하세요
+                            }
 
+                        })
                         val timestamp = contentDTO?.timestamp
-                        val uploadTime = SimpleDateFormat("yyyy-MM-dd HH:mm:ss", Locale.getDefault()).format(
+                        val uploadTime = SimpleDateFormat("yy.MM.dd HH:mm", Locale.getDefault()).format(
                             timestamp?.let { Date(it) })
                         binding.ImgUploadTimeTV.text = uploadTime
+
+                        if (auth.currentUser?.uid == contentDTO?.userId) {
+                            // 현재 사용자와 게시물 업로드 사용자가 같은 경우에만 팝업 메뉴 보여주기
+                            binding.editPopup.visibility = View.VISIBLE
+                            binding.editPopup.setOnClickListener {
+                                showPopup(it)
+                            }
+                        } else {
+                            // 다른 경우 팝업 메뉴 비활성화
+                            binding.editPopup.visibility = View.GONE
+                        }
                     }
+
+                FirebaseFirestore.getInstance()
+                    .collection("images")
+                    .document(contentUid!!)
+                    .collection("comments")
+                    .addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                        if (querySnapshot != null) {
+                            val count = querySnapshot.size() // Get the count of comments
+                            binding.commentCountTextview.text = count.toString() // Update the comment count TextView
+                        }
+                    }
+
             }
 
 
-        //comment
+
+        //Comment
+
         binding.commentRecyclerview.adapter = CommentRecyclerViewAdapter()
         binding.commentRecyclerview.layoutManager = LinearLayoutManager(this)
         binding.sendBtn.setOnClickListener {
             var comment = ContentDTO.Comment()
-            comment.userId = FirebaseAuth.getInstance().currentUser?.email
-            comment.uid = FirebaseAuth.getInstance().currentUser?.uid
+            comment.userId = FirebaseAuth.getInstance().currentUser?.uid
             comment.comment = binding.commentEdittext.text.toString()
             comment.timestamp = System.currentTimeMillis()
 
@@ -79,6 +138,43 @@ class CommentActivity : AppCompatActivity() {
         }
     }
 
+    private fun showPopup(view : View) {
+        val popupMenu = PopupMenu(this@CommentActivity, view)
+        popupMenu.inflate(R.menu.content_popup)
+        popupMenu.setOnMenuItemClickListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.action_edit -> {
+                    editContent()
+                }
+                R.id.action_delete -> {
+                    deleteContent()
+                }
+            }
+            false
+        }
+        popupMenu.show()
+    }
+
+    fun editContent(){
+        val intent = Intent(this@CommentActivity, EditContentActivity::class.java)
+        intent.putExtra("contentUid", contentUid)
+        startActivity(intent)
+        finish()
+    }
+
+    fun deleteContent(){
+        FirebaseFirestore.getInstance()
+            .collection("images")
+            .document(contentUid!!)
+            .delete()
+            .addOnSuccessListener {
+                // 삭제 성공
+                finish() // 액티비티 종료 또는 필요한 작업 수행
+            }
+    }
+
+
+    //Comment RecyclerView
     inner class CommentRecyclerViewAdapter : RecyclerView.Adapter<RecyclerView.ViewHolder>(){
         var comments : ArrayList<ContentDTO.Comment> = arrayListOf()
         init {
@@ -126,23 +222,36 @@ class CommentActivity : AppCompatActivity() {
             val comment = comments[position]
 
             customViewHolder.itemBinding.messageTextview.text = comment.comment
-            customViewHolder.itemBinding.profileTextview.text = comment.userId
-
-            FirebaseFirestore.getInstance()
-                .collection("profileImages")
-                .document(comment.uid!!)
-                .get()
-                .addOnCompleteListener { task ->
-                    if(task.isSuccessful){
-                        var url = task.result!!["image"]
-                        Glide.with(holder.itemView.context).load(url).apply(RequestOptions().circleCrop()).into(customViewHolder.itemBinding.profileImageview)
-                    }
+            
+            val userRef =
+                FirebaseDatabase.getInstance().getReference("user").child(comment.userId ?: "")
+            userRef.addListenerForSingleValueEvent(object : ValueEventListener {
+                override fun onDataChange(dataSnapshot: DataSnapshot) {
+                    val user = dataSnapshot.getValue(User::class.java)
+                    customViewHolder.itemBinding.profileTextview.text = user?.nickname // 수정된 부분
+                    var resId = resources.getIdentifier("@raw/" + user?.image, "raw", packageName)
+                    customViewHolder.itemBinding.profileImageview.setImageResource(resId)
                 }
-
+                override fun onCancelled(error: DatabaseError) {
+                    // 처리할 작업을 추가하세요
+                }
+            })
+            holder.itemBinding.commentTimeTextview.text = SimpleDateFormat("MM월 dd일 HH:mm",
+                Locale.getDefault()).format(Date(comment.timestamp!!))
         }
-
-
-
     }
+//            customViewHolder.itemBinding.profileTextview.text = comment.userId
 
+//            FirebaseFirestore.getInstance()
+//                .collection("profileImages")
+//                .document(comment.uid!!)
+//               .get()
+//                .addOnCompleteListener { task ->
+//                    if(task.isSuccessful){
+//                        var url = task.result!!["image"]
+//                        Glide.with(holder.itemView.context).load(url).apply(RequestOptions().circleCrop()).into(customViewHolder.itemBinding.profileImageview)
+//                    }
+//               }
+//        }
+//   }
 }

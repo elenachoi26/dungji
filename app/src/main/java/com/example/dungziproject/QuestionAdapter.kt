@@ -31,7 +31,10 @@ class QuestionAdapter(var items:ArrayList<Question>):RecyclerView.Adapter<Questi
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.binding.number.text = "#" + items[position].questionId
+        if(items[position].questionId.toInt() < 10)
+            holder.binding.number.text = "#0" + items[position].questionId
+        else
+            holder.binding.number.text = "#" + items[position].questionId
         holder.binding.question.text = items[position].question
     }
 }

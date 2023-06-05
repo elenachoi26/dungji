@@ -2,9 +2,21 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/ContraintLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity">
+
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+    </FrameLayout>
 
     <EditText
         android:id="@+id/emailEdit"
@@ -28,7 +40,7 @@
         android:layout_marginTop="15dp"
         android:background="@drawable/box_style"
         android:ems="10"
-        android:hint="비밀번호 (6자 이상)"
+        android:hint="비밀번호"
         android:inputType="textPersonName|textPassword"
         android:paddingStart="10dp"
         android:textSize="20sp"

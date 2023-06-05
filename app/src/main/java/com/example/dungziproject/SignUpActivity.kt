@@ -2,17 +2,18 @@ package com.example.dungziproject
 
 import android.app.Activity
 import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
+import android.view.View
 import android.widget.Toast
 import com.example.dungziproject.databinding.ActivitySignupBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.database.DataSnapshot
+import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
-import com.google.firebase.firestore.auth.User
 import com.google.firebase.ktx.Firebase
 
 @Suppress("DEPRECATION")
@@ -22,6 +23,7 @@ class SignUpActivity : AppCompatActivity() {
     private lateinit var database: DatabaseReference
     private var setImage:String? = "grandmother"
     private var feeling = ""
+    private var dupNick:ArrayList<String> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -40,6 +42,8 @@ class SignUpActivity : AppCompatActivity() {
             startActivityForResult(intent, 0)
         }
 
+        getNickname()
+
         // 회원가입 버튼 클릭시
         binding.signupBtn.setOnClickListener {
             var email = binding.emailEdit.text.toString()
@@ -53,21 +57,86 @@ class SignUpActivity : AppCompatActivity() {
             var image = setImage!!
 
             if (email == "") {
-                Toast.makeText(this, "이메일을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                binding.nullEmailText.visibility = View.VISIBLE
+                binding.wrongEmailText.visibility = View.GONE
+                binding.nullPasswordText.visibility = View.GONE
+                binding.wrongPasswordText.visibility = View.GONE
+                binding.nullNameText.visibility = View.GONE
+                binding.nullNicknameText.visibility = View.GONE
+                binding.duplicateNicknameText.visibility = View.GONE
             } else if (!email.contains('@')) {
-                Toast.makeText(this, "이메일 형식이 맞지 않습니다.", Toast.LENGTH_SHORT).show()
+                binding.nullEmailText.visibility = View.GONE
+                binding.wrongEmailText.visibility = View.VISIBLE
+                binding.nullPasswordText.visibility = View.GONE
+                binding.wrongPasswordText.visibility = View.GONE
+                binding.nullNameText.visibility = View.GONE
+                binding.nullNicknameText.visibility = View.GONE
+                binding.duplicateNicknameText.visibility = View.GONE
             } else if (password == "") {
-                Toast.makeText(this, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
+                binding.nullEmailText.visibility = View.GONE
+                binding.wrongEmailText.visibility = View.GONE
+                binding.nullPasswordText.visibility = View.VISIBLE
+                binding.wrongPasswordText.visibility = View.GONE
+                binding.nullNameText.visibility = View.GONE
+                binding.nullNicknameText.visibility = View.GONE
+                binding.duplicateNicknameText.visibility = View.GONE
             } else if (password.length < 6) {
-                Toast.makeText(this, "비밀번호는 6자 이상입니다.", Toast.LENGTH_SHORT).show()
+                binding.nullEmailText.visibility = View.GONE
+                binding.wrongEmailText.visibility = View.GONE
+                binding.nullPasswordText.visibility = View.GONE
+                binding.wrongPasswordText.visibility = View.VISIBLE
+                binding.nullNameText.visibility = View.GONE
+                binding.nullNicknameText.visibility = View.GONE
+                binding.duplicateNicknameText.visibility = View.GONE
             } else if (name == "") {
-                Toast.makeText(this, "이름을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                binding.nullEmailText.visibility = View.GONE
+                binding.wrongEmailText.visibility = View.GONE
+                binding.nullPasswordText.visibility = View.GONE
+                binding.wrongPasswordText.visibility = View.GONE
+                binding.nullNameText.visibility = View.VISIBLE
+                binding.nullNicknameText.visibility = View.GONE
+                binding.duplicateNicknameText.visibility = View.GONE
             } else if (nickname == "") {
-                Toast.makeText(this, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                binding.nullEmailText.visibility = View.GONE
+                binding.wrongEmailText.visibility = View.GONE
+                binding.nullPasswordText.visibility = View.GONE
+                binding.wrongPasswordText.visibility = View.GONE
+                binding.nullNameText.visibility = View.GONE
+                binding.nullNicknameText.visibility = View.VISIBLE
+                binding.duplicateNicknameText.visibility = View.GONE
+            } else if(dupNick.contains(binding.nicknameEdit.text.toString())) {
+                binding.nullEmailText.visibility = View.GONE
+                binding.wrongEmailText.visibility = View.GONE
+                binding.nullPasswordText.visibility = View.GONE
+                binding.wrongPasswordText.visibility = View.GONE
+                binding.nullNameText.visibility = View.GONE
+                binding.nullNicknameText.visibility = View.GONE
+                binding.duplicateNicknameText.visibility = View.VISIBLE
             } else {
+                binding.nullEmailText.visibility = View.GONE
+                binding.wrongEmailText.visibility = View.GONE
+                binding.nullPasswordText.visibility = View.GONE
+                binding.wrongPasswordText.visibility = View.GONE
+                binding.nullNameText.visibility = View.GONE
+                binding.nullNicknameText.visibility = View.GONE
+                binding.duplicateNicknameText.visibility = View.GONE
                 signUp(email, password, name, birth, nickname, image)
             }
         }
+    }
+
+    private fun getNickname() {
+        database.child("user")
+            .addValueEventListener(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for(postSnapshat in snapshot.children){
+                        val user = postSnapshat.getValue(User::class.java)
+                        dupNick.add(user?.nickname!!)
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
     }
 
     // 회원가입 기능
@@ -114,7 +183,7 @@ class SignUpActivity : AppCompatActivity() {
             if(resultCode == Activity.RESULT_OK) {
                 setImage = data?.getStringExtra("image")
 
-                var resId = resources.getIdentifier("@drawable/" + setImage, "drawable", packageName)
+                var resId = resources.getIdentifier("@raw/" + setImage, "raw", packageName)
                 binding.imageView.setImageResource(resId)
             }
         }

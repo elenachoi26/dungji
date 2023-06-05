@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="emotion">감정</string>
+    <string-array name="emotion_arrays">
+        <item>emoticon</item>
+        <item>happy</item>
+        <item>angry</item>
+        <item>depressed</item>
+        <item>lovely</item>
+        <item>sad</item>
+        <item>surprised</item>
+        <item>tired</item>
+    </string-array>
+</resources>
