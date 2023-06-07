@@ -37,7 +37,6 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
     }
 
     override fun onNavigationItemSelected(item: MenuItem): Boolean {
-
         when(item.itemId){
             R.id.action_home ->{
                 var homeFragment = HomeFragment()

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide.init
 import com.example.dungziproject.*
+import com.example.dungziproject.EmoticonDialog
 import com.example.dungziproject.databinding.FragmentHomeBinding
 import com.example.dungziproject.databinding.HomeEmotionItemBinding
 import com.example.dungziproject.navigation.model.EmoticonDialogInterface
@@ -33,6 +34,7 @@ class HomeFragment : Fragment(), EmoticonDialogInterface {
     var ans:ArrayList<Answer> = ArrayList()
     var questionCount = 28
     lateinit var adapter: HomeAnswerAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater,

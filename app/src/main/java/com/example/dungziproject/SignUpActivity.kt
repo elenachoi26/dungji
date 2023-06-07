@@ -2,9 +2,11 @@ package com.example.dungziproject
 
 import android.app.Activity
 import android.content.Intent
+import android.view.View
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.View
+import android.util.Log
 import android.widget.Toast
 import com.example.dungziproject.databinding.ActivitySignupBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -14,6 +16,7 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.auth.User
 import com.google.firebase.ktx.Firebase
 
 @Suppress("DEPRECATION")
@@ -24,7 +27,7 @@ class SignUpActivity : AppCompatActivity() {
     private var setImage:String? = "grandmother"
     private var feeling = ""
     private var dupNick:ArrayList<String> = ArrayList()
-
+    
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivitySignupBinding.inflate(layoutInflater)
@@ -155,6 +158,7 @@ class SignUpActivity : AppCompatActivity() {
                         image,
                         feeling
                     )
+
                     finish()
                 } else {                    // 회원가입 실패
                     Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
@@ -176,6 +180,7 @@ class SignUpActivity : AppCompatActivity() {
     }
 
     // ImageActivity에서 이미지 String 받아오기
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 

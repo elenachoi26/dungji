@@ -19,6 +19,7 @@
         android:inputType="textPersonName"
         android:paddingStart="10dp"
         android:textSize="20sp"
+
         tools:ignore="TouchTargetSizeCheck"
         tools:layout_editor_absoluteX="66dp"
         tools:layout_editor_absoluteY="15dp" />
@@ -148,6 +149,7 @@
             tools:layout_editor_absoluteY="194dp" />
     </LinearLayout>
 
+
     <EditText
         android:id="@+id/nicknameEdit"
         android:layout_width="280dp"
@@ -193,6 +195,7 @@
         app:srcCompat="@raw/grandmother"
         tools:layout_editor_absoluteX="156dp"
         tools:layout_editor_absoluteY="319dp" />
+
 
     <Button
         android:id="@+id/signupBtn"
