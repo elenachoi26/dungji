@@ -30,11 +30,11 @@ class LoginActivity : AppCompatActivity() {
     private fun initLayout() {
         auth = Firebase.auth
 
-//        if(auth.currentUser?.uid != null){
-//            val intent = Intent(this, MainActivity::class.java)
-//            startActivity(intent)
-//            finish()
-//        }
+        if(auth.currentUser?.uid != null){
+            val intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            finish()
+        }
 
         // 로그인 버튼 클릭시
         binding.loginBtn.setOnClickListener {

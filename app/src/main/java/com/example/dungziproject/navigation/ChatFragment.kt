@@ -2,6 +2,7 @@ package com.example.dungziproject.navigation
 
 import android.content.Context
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +32,8 @@ class ChatFragment :Fragment() {
     private lateinit var chatRoomId: String
     private lateinit var currentUserId: String
     private lateinit var currentUserNickname: String
+    private lateinit var currentUserImg: String
+
 
     private lateinit var mAuth: FirebaseAuth
     private lateinit var mDbRef: DatabaseReference
@@ -62,9 +65,10 @@ class ChatFragment :Fragment() {
                 Toast.makeText(requireContext(), "닉네임을 가져오는 중입니다. 잠시 후에 다시 시도해주세요.", Toast.LENGTH_SHORT).show()
                 return@setOnClickListener
             }
-
-            val message = Message(messageText,currentUserId, currentTime,currentUserNickname)
+            val message = Message(messageText,currentUserId, currentTime,currentUserNickname, currentUserImg)
             sendMessage(message)
+
+            hideKeyboard()
         }
     }
 
@@ -100,7 +104,10 @@ class ChatFragment :Fragment() {
             })
 
         GlobalScope.launch(Dispatchers.Main) {
-            currentUserNickname = getUserNickname()
+            var userInfo = getUserInfo()
+            currentUserNickname = userInfo[0]
+            currentUserImg = userInfo[1]
+
             sending()
         }
     }
@@ -110,10 +117,14 @@ class ChatFragment :Fragment() {
         imm.hideSoftInputFromWindow(binding.messageEdit.windowToken, 0)
     }
 
-    private suspend fun getUserNickname(): String {
+    private suspend fun getUserInfo(): ArrayList<String> {
         val usersRef = FirebaseDatabase.getInstance().getReference("user")
         val dataSnapshot = usersRef.child(currentUserId).get().await()
-        return dataSnapshot.child("nickname").getValue(String::class.java).toString()
+        val userInfo = ArrayList<String>()
+        userInfo.add(dataSnapshot.child("nickname").getValue(String::class.java).toString())
+        userInfo.add(dataSnapshot.child("image").getValue(String::class.java).toString())
+
+        return userInfo
     }
 
 

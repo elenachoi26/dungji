@@ -133,7 +133,8 @@ class SignUpActivity : AppCompatActivity() {
             .addValueEventListener(object: ValueEventListener {
                 override fun onDataChange(snapshot: DataSnapshot) {
                     for(postSnapshat in snapshot.children){
-                        val user = postSnapshat.getValue(User::class.java)
+//                        val user = postSnapshat.getValue(User::class.java)
+                        val user = postSnapshat.getValue(com.example.dungziproject.User::class.java)
                         dupNick.add(user?.nickname!!)
                     }
                 }
