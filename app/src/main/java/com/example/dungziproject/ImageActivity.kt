@@ -56,7 +56,6 @@ class ImageActivity : AppCompatActivity() {
             }
 
             // 소녀 이미지 선택시
-
             girl.setOnClickListener{
                 intent.putExtra("image", "girl")
                 setResult(Activity.RESULT_OK, intent)

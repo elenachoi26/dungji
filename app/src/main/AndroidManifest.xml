@@ -24,6 +24,12 @@
             android:name=".ResetPasswordActivity"
             android:exported="false" />
         <activity
+            android:name=".AnswerActivity"
+            android:exported="false" />
+        <activity
+            android:name=".QuestionActivity"
+            android:exported="false" />
+        <activity
             android:name=".CalendarChange"
             android:exported="false" />
         <activity

@@ -7,18 +7,10 @@
     android:orientation="vertical"
     tools:context=".TimeTableActivity">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="둥지"
-        android:textSize="20sp"
-        android:textStyle="bold" />
-
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
         android:orientation="horizontal">
 
         <ImageView
@@ -55,7 +47,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:padding="10dp"
+        android:padding="5dp"
         android:text="나의 스케줄"
         android:textSize="20sp"
         android:textStyle="bold" />
@@ -76,6 +68,7 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_gravity="fill"
+            android:paddingRight="3dp"
             android:text="9"
             android:textAlignment="textEnd" />
 
@@ -87,6 +80,7 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_gravity="fill"
+            android:paddingRight="3dp"
             android:text="10"
             android:textAlignment="textEnd" />
 
@@ -98,6 +92,7 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_gravity="fill"
+            android:paddingRight="3dp"
             android:text="11"
             android:textAlignment="textEnd" />
 
@@ -109,6 +104,7 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_gravity="fill"
+            android:paddingRight="3dp"
             android:text="12"
             android:textAlignment="textEnd" />
 
@@ -120,6 +116,7 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_gravity="fill"
+            android:paddingRight="3dp"
             android:text="1"
             android:textAlignment="textEnd" />
 
@@ -131,6 +128,7 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_gravity="fill"
+            android:paddingRight="3dp"
             android:text="2"
             android:textAlignment="textEnd" />
 
@@ -142,6 +140,7 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_gravity="fill"
+            android:paddingRight="3dp"
             android:text="3"
             android:textAlignment="textEnd" />
 
@@ -153,6 +152,7 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_gravity="fill"
+            android:paddingRight="3dp"
             android:text="4"
             android:textAlignment="textEnd" />
 
@@ -164,6 +164,7 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_gravity="fill"
+            android:paddingRight="3dp"
             android:text="5"
             android:textAlignment="textEnd" />
 
@@ -175,6 +176,7 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_gravity="fill"
+            android:paddingRight="3dp"
             android:text="6"
             android:textAlignment="textEnd" />
 
@@ -186,6 +188,7 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_gravity="fill"
+            android:paddingRight="3dp"
             android:text="7"
             android:textAlignment="textEnd" />
 
@@ -197,6 +200,7 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_gravity="fill"
+            android:paddingRight="3dp"
             android:text="8"
             android:textAlignment="textEnd" />
 
@@ -208,6 +212,7 @@
             android:layout_rowWeight="1"
             android:layout_column="0"
             android:layout_gravity="fill"
+            android:paddingRight="3dp"
             android:text="9"
             android:textAlignment="textEnd" />
 
@@ -219,6 +224,7 @@
             android:layout_column="1"
             android:layout_columnWeight="1"
             android:gravity="center"
+            android:paddingBottom="3dp"
             android:text="월" />
 
         <TextView
@@ -229,6 +235,7 @@
             android:layout_column="2"
             android:layout_columnWeight="1"
             android:gravity="center"
+            android:paddingBottom="3dp"
             android:text="화" />
 
         <TextView
@@ -239,6 +246,7 @@
             android:layout_column="3"
             android:layout_columnWeight="1"
             android:gravity="center"
+            android:paddingBottom="3dp"
             android:text="수" />
 
         <TextView
@@ -249,6 +257,7 @@
             android:layout_column="4"
             android:layout_columnWeight="1"
             android:gravity="center"
+            android:paddingBottom="3dp"
             android:text="목" />
 
         <TextView
@@ -259,6 +268,7 @@
             android:layout_column="5"
             android:layout_columnWeight="1"
             android:gravity="center"
+            android:paddingBottom="3dp"
             android:text="금" />
 
         <TextView
@@ -269,6 +279,7 @@
             android:layout_column="6"
             android:layout_columnWeight="1"
             android:gravity="center"
+            android:paddingBottom="3dp"
             android:text="토" />
 
         <TextView
@@ -279,6 +290,7 @@
             android:layout_column="7"
             android:layout_columnWeight="1"
             android:gravity="center"
+            android:paddingBottom="3dp"
             android:text="일" />
 
     </GridLayout>
