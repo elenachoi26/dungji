@@ -8,10 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.example.dungziproject.CalendarMainActivity
-import com.example.dungziproject.R
-import com.example.dungziproject.TimeTableActivity
 import com.example.dungziproject.databinding.FragmentCalendarBinding
-import com.example.dungziproject.databinding.FragmentHomeBinding
 
 class CalendarFragment :Fragment() {
     var binding: FragmentCalendarBinding?=null
@@ -23,7 +20,7 @@ class CalendarFragment :Fragment() {
         binding = FragmentCalendarBinding.inflate(inflater, container, false)
 
         //일주일 시간표
-        binding!!.weekButton.setOnClickListener {
+        binding!!.scheduleBtn.setOnClickListener {
             activity?.let{
                 val intent = Intent(context, TimeTableActivity::class.java)
                 startActivity(intent)
@@ -33,7 +30,7 @@ class CalendarFragment :Fragment() {
 
         //월 캘린더
         val intent = Intent(activity, CalendarMainActivity::class.java)
-        binding!!.monthButton.setOnClickListener {
+        binding!!.calendarBtn.setOnClickListener {
             startActivity(intent)
        
         }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="emotion">감정</string>
+    <string-array name="emotion_arrays">
+        <item>emoticon</item>
+        <item>happy</item>
+        <item>angry</item>
+        <item>depressed</item>
+        <item>chu</item>
+        <item>lovely1</item>
+        <item>lovely2</item>
+        <item>sad</item>
+        <item>surprised</item>
+        <item>panic</item>
+        <item>think</item>
+        <item>wink</item>
+    </string-array>
+
+    <string-array name="role_arrays">
+        <item>boy</item>
+        <item>girl</item>
+        <item>man</item>
+        <item>man2</item>
+        <item>man3</item>
+        <item>man4</item>
+        <item>woman</item>
+        <item>woman2</item>
+        <item>woman3</item>
+        <item>woman4</item>
+        <item>grandma</item>
+        <item>grandma2</item>
+        <item>grandpa</item>
+        <item>grandpa2</item>
+        <item>child</item>
+        <item>mom</item>
+        <item>mom2</item>
+        <item>dad</item>
+        <item>dad2</item>
+        <item>baby</item>
+        <item>baby2</item>
+    </string-array>
+</resources>

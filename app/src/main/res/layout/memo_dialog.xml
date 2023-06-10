@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:minWidth="300dp"
+    android:orientation="vertical"
+    android:background="@drawable/round_rec"
+    android:padding="20dp">
+
+    <ImageView
+        android:src="@drawable/bell"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"/>
+
+    <TextView
+        android:layout_margin="10dp"
+        android:textSize="20sp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="오늘의 한마디"
+        android:letterSpacing="0.1"
+        android:fontFamily="@font/apple_sdgothic_neo_h"
+        android:textColor="@color/orange" />
+
+    <EditText
+        android:layout_marginBottom="10dp"
+        android:textSize="15sp"
+        android:text="sample"
+        android:layout_marginTop="20dp"
+        android:id="@+id/memoEditText"
+        android:textAlignment="center"
+        android:fontFamily="@font/apple_sdgothic_neo_l"
+        android:background="@drawable/round_rec_stroke_yellow"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"/>
+
+</LinearLayout>

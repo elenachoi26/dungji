@@ -1,0 +1,196 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/gray"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".EditActivity">
+
+    <ImageView
+        android:id="@+id/backBtn"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/ic_back"
+        android:layout_width="25dp"
+        android:layout_height="25dp"/>
+
+
+    <ImageView
+        android:id="@+id/editProfileImg"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="30dp"
+        android:padding="5dp" />
+
+    <LinearLayout
+        android:background="@drawable/round_rec"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:src="@drawable/ic_email_orange"
+            android:layout_marginLeft="20dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
+
+        <EditText
+            android:id="@+id/emailEdit"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@null"
+            android:ems="10"
+            android:fontFamily="@font/apple_sdgothic_neo_l"
+            android:hint="이메일"
+            android:inputType="textPersonName"
+            android:paddingStart="20dp"
+            android:textSize="15sp"
+            tools:ignore="TouchTargetSizeCheck" />
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:background="@drawable/round_rec"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:gravity="center"
+            android:text="Aa"
+            android:layout_marginLeft="20dp"
+            android:textSize="15sp"
+            android:textColor="@color/orange"
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
+
+        <EditText
+            android:layout_marginLeft="15dp"
+            android:id="@+id/nameEdit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="@null"
+            android:ems="10"
+            android:hint="이름"
+            android:inputType="textPersonName"
+            android:paddingStart="20dp"
+            android:fontFamily="@font/apple_sdgothic_neo_l"
+            android:textSize="15sp"
+            tools:ignore="TouchTargetSizeCheck" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@drawable/round_rec"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="center"
+            android:src="@drawable/ic_user_orange"
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
+
+        <EditText
+            android:background="@null"
+            android:layout_marginLeft="15dp"
+            android:id="@+id/nicknameEdit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:ems="10"
+            android:hint="닉네임"
+            android:inputType="textPersonName"
+            android:paddingStart="20dp"
+            android:fontFamily="@font/apple_sdgothic_neo_l"
+            android:textSize="15sp"
+            tools:ignore="TouchTargetSizeCheck" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:background="@drawable/round_rec"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:src="@drawable/ic_birth_orange"
+            android:layout_marginLeft="20dp"
+            android:layout_width="20dp"
+            android:layout_height="20dp"/>
+
+        <Spinner
+            android:layout_marginLeft="40dp"
+            android:id="@+id/yearSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:layout_marginRight="15dp"
+            android:textAlignment="center"
+            android:background="@null"
+            android:entries="@array/year_arrays"
+            android:prompt="@string/year_prompt"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <Spinner
+            android:id="@+id/monthSpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@null"
+            android:entries="@array/month_arrays"
+            android:textAlignment="center"
+            android:layout_marginRight="15dp"
+            android:prompt="@string/month_prompt"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <Spinner
+            android:id="@+id/daySpinner"
+            android:layout_width="wrap_content"
+            android:layout_height="40dp"
+            android:background="@drawable/round_rec"
+            android:entries="@array/day_arrays"
+            android:textAlignment="center"
+            android:prompt="@string/day_prompt"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
+    </LinearLayout>
+
+
+
+    <TextView
+        android:layout_gravity="center"
+        android:id="@+id/saveBtn"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:text="저장"
+        android:textSize="15sp"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:background="@drawable/round_rec_background_yellow" />
+
+</LinearLayout>

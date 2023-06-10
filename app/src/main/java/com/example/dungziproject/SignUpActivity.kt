@@ -3,26 +3,27 @@ package com.example.dungziproject
 import android.app.Activity
 import android.content.Intent
 
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.widget.Toast
 import com.example.dungziproject.databinding.ActivitySignupBinding
+import com.example.dungziproject.navigation.model.ItemDialogInterface
+import com.example.dungziproject.ProfileImageDialog
+import com.example.dungziproject.navigation.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
-import com.google.firebase.firestore.auth.User
 import com.google.firebase.ktx.Firebase
 
 @Suppress("DEPRECATION")
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity() , ItemDialogInterface {
     lateinit var binding: ActivitySignupBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
     private var setImage:String? = "grandmother"
     private var feeling = ""
+    private var memo = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -37,9 +38,12 @@ class SignUpActivity : AppCompatActivity() {
 
 
         // 이미지 선택 선택시
-        binding.imageView.setOnClickListener{
-            val intent = Intent(this, ImageActivity::class.java)
-            startActivityForResult(intent, 0)
+        binding.profileImg.setOnClickListener{
+//            val intent = Intent(this, ImageActivity::class.java)
+//            startActivityForResult(intent, 0)
+            val dialog = ProfileImageDialog(this)
+            dialog.isCancelable = false
+            dialog.show(supportFragmentManager, "EmoticonDialog")
         }
 
 
@@ -67,7 +71,7 @@ class SignUpActivity : AppCompatActivity() {
 
                 if (task.isSuccessful) {    // 회원가입 성공
                     Toast.makeText(this, "회원가입 완료. 로그인 해주세요!", Toast.LENGTH_SHORT).show()
-                    addUserToDatabase(auth.currentUser?.uid!!, email, name, birth, nickname, image, feeling)
+                    addUserToDatabase(auth.currentUser?.uid!!, email, name, birth, nickname, image, feeling, memo)
                     finish()
                 } else {                    // 회원가입 실패
                     Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
@@ -84,22 +88,16 @@ class SignUpActivity : AppCompatActivity() {
         birth: String,
         nickname: String,
         image: String,
-        feeling: String
+        feeling: String,
+        memo: String
     ) {
-        database.child("user").child(userId).setValue(User(userId, email, name, birth, nickname, image, feeling))
+        database.child("user").child(userId).setValue(User(userId, email, name, birth, nickname, image, feeling, memo))
     }
 
     // ImageActivity에서 이미지 String 받아오기
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-
-        if(requestCode == 0) {
-            if(resultCode == Activity.RESULT_OK) {
-                setImage = data?.getStringExtra("image")
-                var resId = resources.getIdentifier("@drawable/" + setImage, "drawable", packageName)
-                binding.imageView.setImageResource(resId)
-            }
-        }
+    override fun onItemSelected(item: String) {
+        var resId = resources.getIdentifier("@raw/" + item, "raw", packageName)
+        binding.profileImg.setImageResource(resId)
     }
 }

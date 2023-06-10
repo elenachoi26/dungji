@@ -48,6 +48,10 @@ class PostingActivity : AppCompatActivity() {
         photoPickerIntent.type = "image/*"
         startActivityForResult(photoPickerIntent,PICK_IMAGE_FROM_ALBUM)
 
+        binding.uploadCancelBtn.setOnClickListener{
+            finish()
+        }
+
         binding.addphotoUploadBtn.setOnClickListener {
             contentUpload()
         }

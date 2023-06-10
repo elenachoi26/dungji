@@ -1,33 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/layout1"
-android:layout_width="match_parent"
-android:layout_height="wrap_content">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
 
-<LinearLayout
-    android:id="@+id/layout2"
-    android:layout_width="wrap_content"
-    android:layout_height="match_parent"
-    android:background="#00BCD4"
-    android:orientation="vertical">
+    <LinearLayout
+        android:id="@+id/layout2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:background="#00BCD4"
+        android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/startTime"
-        android:layout_width="89dp"
-        android:layout_height="wrap_content"
-        android:backgroundTint="#FFC107"
-        android:text="startTime"
-        android:textSize="20sp" />
+        <TextView
+            android:id="@+id/startTime"
+            android:layout_width="89dp"
+            android:layout_height="wrap_content"
+            android:backgroundTint="#FFC107"
+            android:text="startTime"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/endTime"
-        android:layout_width="93dp"
-        android:layout_height="wrap_content"
-        android:text="endTime" />
+        <TextView
+            android:id="@+id/endTime"
+            android:layout_width="93dp"
+            android:layout_height="wrap_content"
+            android:text="endTime" />
 
-</LinearLayout>
+    </LinearLayout>
 
     <LinearLayout
         android:id="@+id/layout3"
