@@ -7,14 +7,11 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".navigation.CommentActivity">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="40dp"
-        android:layout_marginTop="15dp"
-        android:src="@drawable/nest_logo" />
-
     <LinearLayout
-        android:layout_margin="20dp"
+        android:elevation="10dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="30dp"
         android:background="@drawable/round_rec"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -51,7 +48,7 @@
                     android:layout_marginTop="3dp"
                     android:textSize="10sp"
                     android:id="@+id/ImgUploadTimeTV"
-                    android:fontFamily="@font/sunflower_light"
+                    android:fontFamily="@font/apple_sdgothic_neo_l"
                     android:text="Upload Time"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
@@ -64,7 +61,7 @@
                 android:layout_marginRight="15dp"
                 android:layout_gravity="center"
                 android:textColor="@color/orange"
-                android:fontFamily="@font/sunflower_light"
+                android:fontFamily="@font/apple_sdgothic_neo_l"
                 android:text="편집"
                 android:layout_height="wrap_content"
                 android:layout_width="wrap_content"
@@ -95,7 +92,7 @@
 
             <TextView
                 android:layout_gravity="center"
-                android:fontFamily="@font/sunflower_medium"
+                android:fontFamily="@font/apple_sdgothic_neo_m"
                 android:text="0"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
@@ -116,7 +113,7 @@
             <TextView
                 android:layout_gravity="center"
                 android:textSize="10sp"
-                android:fontFamily="@font/sunflower_medium"
+                android:fontFamily="@font/apple_sdgothic_neo_m"
                 android:text="0"
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="10dp"
@@ -148,10 +145,11 @@
         android:layout_margin="5dp" />
 
     <LinearLayout
-        android:background="@drawable/round_rec_dark"
+        android:background="@drawable/round_rec"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="15dp"
+        android:elevation="5dp"
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">

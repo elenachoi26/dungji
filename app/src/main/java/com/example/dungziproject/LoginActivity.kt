@@ -5,15 +5,9 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
 import com.example.dungziproject.databinding.ActivityLoginBinding
-import com.example.dungziproject.navigation.HomeFragment
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
-import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
 class LoginActivity : AppCompatActivity() {
@@ -35,6 +29,7 @@ class LoginActivity : AppCompatActivity() {
             startActivity(intent)
             finish()
         }
+
 
         // 로그인 버튼 클릭시
         binding.loginBtn.setOnClickListener {
@@ -61,10 +56,12 @@ class LoginActivity : AppCompatActivity() {
         // 회원가입 선택시
         binding.signup.setOnClickListener{
             val intent = Intent(this, SignUpActivity::class.java)
+
             startActivity(intent)
             clearInput()
         }
     }
+
 
     // 로그인 기능
     private fun login(email: String, password: String) {
@@ -74,13 +71,14 @@ class LoginActivity : AppCompatActivity() {
                 if (task.isSuccessful) {    // 로그인 성공
                     val intent = Intent(this, MainActivity::class.java)
                     startActivity(intent)
-//                    finish()
+                    finish()
                 } else {                    // 로그인 실패
                     Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
                 }
 
             }
     }
+
 
     // 로그인 editText 비우기
     fun clearInput(){

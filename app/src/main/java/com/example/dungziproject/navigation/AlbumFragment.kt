@@ -61,20 +61,20 @@ class AlbumFragment :Fragment() {
         binding!!.albumRecyclerview.layoutManager = LinearLayoutManager(activity)
 
         //popup menu
-        binding!!.layoutBtn.setOnClickListener {
-            if(flag){
-                binding!!.layoutBtn.setImageResource(R.drawable.ic_list)
-                binding!!.albumRecyclerview.adapter = GridFragmentRecyclerViewAdapter()
-                binding!!.albumRecyclerview.layoutManager = GridLayoutManager(activity,3)
-                flag = false
-            }else{
-                binding!!.layoutBtn.setImageResource(R.drawable.ic_grid)
-                binding!!.albumRecyclerview.adapter = AlbumRecyclerViewAdapter()
-                binding!!.albumRecyclerview.layoutManager = LinearLayoutManager(activity)
-                flag = true
-            }
-
-        }
+//        binding!!.layoutBtn.setOnClickListener {
+//            if(flag){
+//                binding!!.layoutBtn.setImageResource(R.drawable.ic_list)
+//                binding!!.albumRecyclerview.adapter = GridFragmentRecyclerViewAdapter()
+//                binding!!.albumRecyclerview.layoutManager = GridLayoutManager(activity,3)
+//                flag = false
+//            }else{
+//                binding!!.layoutBtn.setImageResource(R.drawable.ic_grid)
+//                binding!!.albumRecyclerview.adapter = AlbumRecyclerViewAdapter()
+//                binding!!.albumRecyclerview.layoutManager = LinearLayoutManager(activity)
+//                flag = true
+//            }
+//
+//        }
 
         binding!!.uploadBtn.setOnClickListener {
             if(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){

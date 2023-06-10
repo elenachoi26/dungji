@@ -29,6 +29,8 @@ import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
 import org.checkerframework.checker.units.qual.A
+import java.text.SimpleDateFormat
+import java.util.*
 
 class ProfileFragment :Fragment() {
     var binding: FragmentProfileBinding?=null
@@ -68,12 +70,17 @@ class ProfileFragment :Fragment() {
 
         GlobalScope.launch(Dispatchers.Main) {
             var userInfo = getUserInfo()
-            binding!!.showName.text = userInfo[0]
-            binding!!.showNickname.text = userInfo[1]
-            binding!!.showEmail.text = userInfo[2]
-            val imagesrc = resources.getIdentifier(userInfo[3], "raw", requireContext().packageName)
+            binding!!.userName.text = userInfo[0]
+            binding!!.userNickname.text = userInfo[1]
+            binding!!.userEmail.text = userInfo[2]
+
+            val birthdate = userInfo[3]
+            val formattedBirthdate = formatBirthdate(birthdate)
+            binding!!.userBirthdate.text = formattedBirthdate
+
+            val imagesrc = resources.getIdentifier(userInfo[4], "raw", requireContext().packageName)
             if (imagesrc != 0) {
-                binding!!.imageView.setImageResource(imagesrc)
+                binding!!.userProfileImg.setImageResource(imagesrc)
             }
         }
     }
@@ -83,6 +90,14 @@ class ProfileFragment :Fragment() {
         startActivity(intent)
 
         requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+    }
+
+    private fun formatBirthdate(birthdate: String): String {
+        val inputFormat = SimpleDateFormat("yyyyMMdd", Locale.getDefault())
+        val outputFormat = SimpleDateFormat("yyyy년 MM월 dd일", Locale.getDefault())
+
+        val date = inputFormat.parse(birthdate)
+        return outputFormat.format(date)
     }
 
 
@@ -145,8 +160,9 @@ class ProfileFragment :Fragment() {
         var currentNickname = dataSnapshot.child("nickname").getValue(String::class.java).toString()
         var currentName = dataSnapshot.child("name").getValue(String::class.java).toString()
         var currentEmail = dataSnapshot.child("email").getValue(String::class.java).toString()
+        var currentBirth = dataSnapshot.child("birth").getValue(String::class.java).toString()
         var currentImg = dataSnapshot.child("image").getValue(String::class.java).toString()
-        var userInfo = listOf(currentName, currentNickname, currentEmail, currentImg)
+        var userInfo = listOf(currentName, currentNickname, currentEmail,currentBirth , currentImg)
 
         return userInfo
     }

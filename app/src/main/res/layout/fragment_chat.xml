@@ -5,6 +5,8 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     tools:context=".navigation.ChatFragment">
+
+
     <LinearLayout
         android:background="@color/orange"
         android:orientation="horizontal"

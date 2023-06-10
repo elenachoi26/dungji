@@ -11,10 +11,10 @@ import android.view.inputmethod.InputMethodManager
 import android.widget.Toast
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.example.dungziproject.Message
 import com.example.dungziproject.MessageAdapter
 
 import com.example.dungziproject.databinding.FragmentChatBinding
+import com.example.dungziproject.navigation.model.Message
 import com.google.android.play.integrity.internal.c
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*

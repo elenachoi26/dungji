@@ -2,210 +2,208 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:background="@color/orange"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    tools:context=".SignupActivity">
+    tools:context=".SignUpActivity">
 
-    <EditText
-        android:id="@+id/emailEdit"
-        android:layout_width="280dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="20dp"
-        android:background="@drawable/box_style"
-        android:ems="10"
-        android:hint="이메일"
-        android:inputType="textPersonName"
-        android:paddingStart="10dp"
-        android:textSize="20sp"
 
-        tools:ignore="TouchTargetSizeCheck"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="15dp" />
-
-    <TextView
-        android:id="@+id/nullEmailText"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="2dp"
-        android:text="이메일을 입력해주세요."
-        android:textColor="#FF4040"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/wrongEmailText"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="2dp"
-        android:text="이메일 형식이 맞지 않습니다."
-        android:textColor="#FF4040"
-        android:visibility="gone" />
-
-    <EditText
-        android:id="@+id/passwordEdit"
-        android:layout_width="280dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/box_style"
-        android:ems="10"
-        android:hint="비밀번호 (6자 이상)"
-        android:inputType="textPersonName|textPassword"
-        android:paddingStart="10dp"
-        android:textSize="20sp"
-        tools:ignore="TouchTargetSizeCheck"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="75dp" />
-
-    <TextView
-        android:id="@+id/nullPasswordText"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="2dp"
-        android:text="비밀번호를 입력해주세요."
-        android:textColor="#FF4040"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/wrongPasswordText"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="2dp"
-        android:text="비밀번호는 6자 이상입니다."
-        android:textColor="#FF4040"
-        android:visibility="gone" />
-
-    <EditText
-        android:id="@+id/nameEdit"
-        android:layout_width="280dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/box_style"
-        android:ems="10"
-        android:hint="이름"
-        android:inputType="textPersonName"
-        android:paddingStart="10dp"
-        android:textSize="20sp"
-        tools:ignore="TouchTargetSizeCheck"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="134dp" />
-
-    <TextView
-        android:id="@+id/nullNameText"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="2dp"
-        android:text="이름을 입력해주세요."
-        android:textColor="#FF4040"
-        android:visibility="gone" />
+    <ImageView
+        android:id="@+id/profileImg"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_marginBottom="30dp"
+        android:padding="5dp"
+        android:src="@drawable/ic_plus_white" />
 
     <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:orientation="horizontal">
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-        <Spinner
-            android:id="@+id/yearSpinner"
-            android:layout_width="125dp"
-            android:layout_height="45dp"
-            android:layout_marginRight="13dp"
-            android:background="@drawable/box_style"
-            android:entries="@array/year_arrays"
-            android:prompt="@string/year_prompt"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
-            tools:layout_editor_absoluteX="58dp"
-            tools:layout_editor_absoluteY="194dp" />
+        <ImageView
+            android:layout_gravity="center"
+            android:src="@drawable/ic_email"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
 
-        <Spinner
-            android:id="@+id/monthSpinner"
-            android:layout_width="65dp"
-            android:layout_height="45dp"
-            android:layout_marginRight="12dp"
-            android:background="@drawable/box_style"
-            android:entries="@array/month_arrays"
-            android:prompt="@string/month_prompt"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
-            tools:layout_editor_absoluteX="203dp"
-            tools:layout_editor_absoluteY="194dp" />
-
-        <Spinner
-            android:id="@+id/daySpinner"
-            android:layout_width="65dp"
-            android:layout_height="45dp"
-            android:background="@drawable/box_style"
-            android:entries="@array/day_arrays"
-            android:prompt="@string/day_prompt"
-            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck"
-            tools:layout_editor_absoluteX="289dp"
-            tools:layout_editor_absoluteY="194dp" />
+        <EditText
+            android:id="@+id/emailEdit"
+            android:layout_marginLeft="15dp"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center"
+            android:background="@drawable/round_rec"
+            android:ems="10"
+            android:fontFamily="@font/apple_sdgothic_neo_l"
+            android:hint="이메일"
+            android:inputType="textPersonName"
+            android:paddingStart="20dp"
+            android:textSize="15sp"
+            tools:ignore="TouchTargetSizeCheck" />
     </LinearLayout>
 
 
-    <EditText
-        android:id="@+id/nicknameEdit"
-        android:layout_width="280dp"
-        android:layout_height="45dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/box_style"
-        android:ems="10"
-        android:hint="닉네임"
-        android:inputType="textPersonName"
-        android:paddingStart="10dp"
-        android:textSize="20sp"
-        tools:ignore="TouchTargetSizeCheck"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="254dp" />
+    <LinearLayout
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:src="@drawable/ic_password"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+
+        <EditText
+            android:id="@+id/passwordEdit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="@drawable/round_rec"
+            android:fontFamily="@font/apple_sdgothic_neo_l"
+            android:layout_marginLeft="15dp"
+            android:ems="10"
+            android:hint="비밀번호"
+            android:inputType="textPersonName|textPassword"
+            android:paddingStart="20dp"
+            android:textSize="15sp"
+            tools:ignore="TouchTargetSizeCheck" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:src="@drawable/ic_user"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+
+        <EditText
+            android:layout_marginLeft="15dp"
+            android:id="@+id/nameEdit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="@drawable/round_rec"
+            android:ems="10"
+            android:hint="이름"
+            android:inputType="textPersonName"
+            android:paddingStart="20dp"
+            android:fontFamily="@font/apple_sdgothic_neo_l"
+            android:textSize="15sp"
+            tools:ignore="TouchTargetSizeCheck" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:src="@drawable/ic_birth"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+
+        <Spinner
+            android:layout_marginLeft="15dp"
+            android:id="@+id/yearSpinner"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:layout_marginRight="15dp"
+            android:textAlignment="center"
+            android:background="@drawable/round_rec"
+            android:entries="@array/year_arrays"
+            android:prompt="@string/year_prompt"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <Spinner
+            android:id="@+id/monthSpinner"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_rec"
+            android:entries="@array/month_arrays"
+            android:textAlignment="center"
+            android:layout_marginRight="15dp"
+            android:prompt="@string/month_prompt"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+        <Spinner
+            android:id="@+id/daySpinner"
+            android:layout_width="60dp"
+            android:layout_height="40dp"
+            android:background="@drawable/round_rec"
+            android:entries="@array/day_arrays"
+            android:textAlignment="center"
+            android:prompt="@string/day_prompt"
+            tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
+
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:layout_marginTop="15dp"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:layout_gravity="center"
+            android:src="@drawable/ic_name"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+
+        <EditText
+            android:layout_marginLeft="15dp"
+            android:id="@+id/nicknameEdit"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="40dp"
+            android:background="@drawable/round_rec"
+            android:ems="10"
+            android:hint="닉네임"
+            android:inputType="textPersonName"
+            android:paddingStart="20dp"
+            android:fontFamily="@font/apple_sdgothic_neo_l"
+            android:textSize="15sp"
+            tools:ignore="TouchTargetSizeCheck" />
+
+    </LinearLayout>
 
     <TextView
-        android:id="@+id/nullNicknameText"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="2dp"
-        android:text="닉네임을 입력해주세요."
-        android:textColor="#FF4040"
-        android:visibility="gone" />
-
-    <TextView
-        android:id="@+id/duplicateNicknameText"
-        android:layout_width="260dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:layout_marginTop="2dp"
-        android:text="이미 사용중인 닉네임입니다."
-        android:textColor="#FF4040"
-        android:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
-        app:srcCompat="@raw/grandmother"
-        tools:layout_editor_absoluteX="156dp"
-        tools:layout_editor_absoluteY="319dp" />
-
-
-    <Button
         android:id="@+id/signupBtn"
-        android:layout_width="280dp"
-        android:layout_height="50dp"
-        android:layout_gravity="center"
-        android:layout_marginTop="10dp"
+        android:layout_width="100dp"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
         android:text="회원가입"
-        android:textSize="20sp"
-        tools:layout_editor_absoluteX="66dp"
-        tools:layout_editor_absoluteY="440dp" />
+        android:textSize="15sp"
+        android:gravity="center"
+        android:textColor="@color/orange"
+        android:background="@drawable/round_rec" />
 
 </LinearLayout>
