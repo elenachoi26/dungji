@@ -3,15 +3,30 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_marginTop="10dp"
     android:layout_marginStart="10dp"
     android:id="@+id/linear">
+
+    <TextView
+        android:id="@+id/receive_message_sender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/apple_sdgothic_neo_sb"
+        android:text="보낸 사람"
+        android:layout_marginStart="45dp"
+        android:textSize="14sp"
+        android:textColor="@color/black" />
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
     <TextView
         android:id="@+id/send_message_time"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="받은 시각"
+        android:fontFamily="@font/apple_sdgothic_neo_sb"
         android:layout_gravity="bottom"
         android:layout_marginBottom="5dp"
         />
@@ -19,42 +34,31 @@
     <ImageView
         android:id="@+id/receive_message_img"
         android:paddingTop="5dp"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
         android:layout_gravity="center_vertical"
-        android:src="@raw/girl"
-        android:clipToOutline="true"
-        android:background="@drawable/chat_profile"/>
+        android:src="@raw/girl"/>
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-        <TextView
-            android:id="@+id/receive_message_sender"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="보낸 사람"
-            android:textSize="13sp"
-            android:textColor="@color/black" />
         <TextView
             android:id="@+id/receive_message_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
             android:background="@drawable/receive_background"
+            android:fontFamily="@font/apple_sdgothic_neo_eb"
             android:padding="10dp"
             android:text="받은 메세지"
             android:textColor="@color/black"
-            android:textSize="18sp" />
-    </LinearLayout>
-    <TextView
+            android:textSize="15sp"
+            android:elevation="6dp"/>
+        <TextView
         android:id="@+id/receive_message_time"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="받은 시각"
+        android:fontFamily="@font/apple_sdgothic_neo_sb"
         android:layout_gravity="bottom"
-        android:layout_marginBottom="5dp"
-        />
-
+        android:layout_marginBottom="5dp"/>
+    </LinearLayout>
 </LinearLayout>
+

@@ -15,7 +15,8 @@ import com.example.dungziproject.databinding.HomeEmoticonSelectBinding
 import com.example.dungziproject.navigation.model.ItemDialogInterface
 
 class ProfileImageDialog (
-    private val listener: ItemDialogInterface
+    private val listener: ItemDialogInterface,
+    private val type: Boolean
 ) : DialogFragment(), ItemDialogInterface {
     private var binding: FragmentProfileimgDialogBinding? = null
     private lateinit var roleList: List<String>
@@ -41,7 +42,10 @@ class ProfileImageDialog (
 
     inner class ProfileImgAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         init {
-            roleList = resources.getStringArray(R.array.role_arrays).toList()
+            if(type)
+                roleList = resources.getStringArray(R.array.role_arrays).toList()
+            else
+                roleList = resources.getStringArray(R.array.chat_emojis).toList()
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
