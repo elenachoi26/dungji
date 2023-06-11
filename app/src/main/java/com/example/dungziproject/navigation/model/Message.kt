@@ -5,7 +5,8 @@ data class Message(
     var sendId: String?,
     var sendTime: String?,
     var senderNickname: String?,
-    var senderImg: String?
+    var senderImg: String?,
+    var type: Boolean
 ){
-    constructor(): this("","", "","","")
+    constructor(): this("","", "","","", true)
 }

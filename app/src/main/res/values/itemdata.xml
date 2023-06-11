@@ -39,4 +39,24 @@
         <item>baby</item>
         <item>baby2</item>
     </string-array>
+
+
+    <string-array name="chat_emojis">
+        <item>teddy1</item>
+        <item>teddy2</item>
+        <item>teddy3</item>
+        <item>teddy4</item>
+        <item>teddy5</item>
+        <item>teddy6</item>
+        <item>teddy7</item>
+        <item>teddy8</item>
+        <item>teddy9</item>
+        <item>teddy10</item>
+        <item>teddy11</item>
+        <item>teddy12</item>
+        <item>teddy13</item>
+        <item>teddy14</item>
+        <item>teddy15</item>
+    </string-array>
+
 </resources>
