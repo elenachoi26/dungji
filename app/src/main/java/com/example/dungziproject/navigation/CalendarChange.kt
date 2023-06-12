@@ -278,56 +278,80 @@ class CalendarChange : AppCompatActivity() {
         //저장버튼을 누르면 현재 스피너 선택한 값, 이름과 장소에 수정한 텍스트를 토대로 바꿔서 파이어베이스 내용을 바꾸고 activity 전환
 
         binding.button3.setOnClickListener {
+
             // 스피너에서 선택한 값을 가져옴
             val updateyear = binding.spinnerDateYear.selectedItem.toString().toInt()
             val updatemonth = binding.spinnerDateMonth.selectedItem.toString().toInt()
             val updateday = binding.spinnerDateDay.selectedItem.toString().toInt()
-            val starthour = binding.spinnerStartTimeHour.selectedItem.toString()
-            val startmin = binding.spinnerStartTimeMinute.selectedItem.toString()
+            var starthour = binding.spinnerStartTimeHour.selectedItem.toString()
+            var startmin = binding.spinnerStartTimeMinute.selectedItem.toString()
+            if (starthour.toInt() < 10 ){
+                starthour = "0$starthour"
+            }
+            if (startmin.toInt() < 10 ){
+                startmin = "0$startmin"
+            }
             val update_start_time = "$starthour:$startmin"
-            val endhour = binding.spinnerEndTimeHour.selectedItem.toString()
-            val endmin = binding.spinnerEndTimeMinute.selectedItem.toString()
+            var endhour = binding.spinnerEndTimeHour.selectedItem.toString()
+            var endmin = binding.spinnerEndTimeMinute.selectedItem.toString()
+            if (endhour.toInt() < 10 ){
+                endhour = "0$endhour"
+            }
+            if (endmin.toInt() < 10 ){
+                endmin = "0$endmin"
+            }
             val update_end_time = "$endhour:$endmin"
             // 텍스트필드에서 선택한 값을 가져옴
             val updateevent = binding.eventName.text.toString()
             val updateplace = binding.placeName.text.toString()
 
+            if(endhour.toInt()*100+endmin.toInt() > starthour.toInt()*100+startmin.toInt()) {
 
-            // Firebase 데이터베이스 업데이트
-            val query = firestore?.collection("calendars")
-                ?.whereEqualTo("year", year)
-                ?.whereEqualTo("month",month)
-                ?.whereEqualTo("day", day)
-                ?.whereEqualTo("event", event)
+                // Firebase 데이터베이스 업데이트
+                val query = firestore?.collection("calendars")
+                    ?.whereEqualTo("year", year)
+                    ?.whereEqualTo("month", month)
+                    ?.whereEqualTo("day", day)
+                    ?.whereEqualTo("event", event)
+                    ?.whereEqualTo("start_time", start_time)
+                    ?.whereEqualTo("end_time", end_time)
+                    ?.whereEqualTo("place", place)
 
-            query?.get()
-                ?.addOnSuccessListener { querySnapshot ->
-                    for (documentSnapshot in querySnapshot.documents) {
-                        val documentId = documentSnapshot.id
+                query?.get()
+                    ?.addOnSuccessListener { querySnapshot ->
+                        for (documentSnapshot in querySnapshot.documents) {
+                            val documentId = documentSnapshot.id
 
-                        firestore?.collection("calendars")?.document(documentId)?.update("year",updateyear)
-                        firestore?.collection("calendars")?.document(documentId)?.update("month",updatemonth)
-                        firestore?.collection("calendars")?.document(documentId)?.update("day",updateday)
-                        firestore?.collection("calendars")?.document(documentId)?.update("start_time",update_start_time)
-                        firestore?.collection("calendars")?.document(documentId)?.update("end_time",update_end_time)
-                        firestore?.collection("calendars")?.document(documentId)?.update("event",updateevent)
-                        firestore?.collection("calendars")?.document(documentId)?.update("place",updateplace)
+                            firestore?.collection("calendars")?.document(documentId)
+                                ?.update("year", updateyear)
+                            firestore?.collection("calendars")?.document(documentId)
+                                ?.update("month", updatemonth)
+                            firestore?.collection("calendars")?.document(documentId)
+                                ?.update("day", updateday)
+                            firestore?.collection("calendars")?.document(documentId)
+                                ?.update("start_time", update_start_time)
+                            firestore?.collection("calendars")?.document(documentId)
+                                ?.update("end_time", update_end_time)
+                            firestore?.collection("calendars")?.document(documentId)
+                                ?.update("event", updateevent)
+                            firestore?.collection("calendars")?.document(documentId)
+                                ?.update("place", updateplace)
+                        }
+
+                    }
+                    ?.addOnFailureListener { exception ->
+                        // 삭제 작업 실패 시 에러 처리
                     }
 
-                }
-                ?.addOnFailureListener { exception ->
-                    // 삭제 작업 실패 시 에러 처리
-                }
-
-            val intent = Intent(this, CalendarMainActivity::class.java)
-            startActivity(intent)
+                val intent = Intent(this, CalendarMainActivity::class.java)
+                startActivity(intent)
+            }
+            else{
+                Toast.makeText(this,"시작시간과 종료시간이 올바르지 않습니다.",Toast.LENGTH_SHORT).show()
+            }
         }
 
 
     }
-
-
-
-
 
 }

@@ -3,13 +3,17 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/layout1"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:background="@drawable/receive_background">
 
     <LinearLayout
         android:id="@+id/layout2"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:background="#00BCD4"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:orientation="vertical">
 
         <TextView
@@ -18,20 +22,37 @@
             android:layout_height="wrap_content"
             android:backgroundTint="#FFC107"
             android:text="startTime"
+            android:textAlignment="center"
             android:textSize="20sp" />
 
         <TextView
             android:id="@+id/endTime"
             android:layout_width="93dp"
             android:layout_height="wrap_content"
-            android:text="endTime" />
+            android:elegantTextHeight="false"
+            android:text="endTime"
+            android:textAlignment="center" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:paddingTop="4dp"
+        android:text="|"
+        android:textAlignment="center"
+        android:textColor="@color/yellow"
+        android:textSize="34sp" />
 
     <LinearLayout
         android:id="@+id/layout3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginBottom="5dp"
         android:orientation="vertical">
 
         <TextView
