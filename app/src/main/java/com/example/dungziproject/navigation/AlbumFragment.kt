@@ -51,10 +51,9 @@ class AlbumFragment :Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-<<<<<<< Updated upstream
-=======
+
         var auth = Firebase.auth
->>>>>>> Stashed changes
+
         binding = FragmentAlbumBinding.inflate(inflater, container, false)
 
         val viewPager = binding?.viewPager

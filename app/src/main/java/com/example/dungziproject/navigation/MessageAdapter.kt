@@ -6,14 +6,6 @@ import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-<<<<<<< Updated upstream
-=======
-import android.widget.ImageView
-import android.widget.LinearLayout
-import android.widget.Toast
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.core.view.marginTop
->>>>>>> Stashed changes
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dungziproject.databinding.MessageBinding
 import com.example.dungziproject.navigation.model.Message
