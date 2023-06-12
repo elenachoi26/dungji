@@ -76,6 +76,7 @@
         android:id="@+id/explain_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:textColor="@color/black"
         android:layout_marginTop="10dp"
         android:fontFamily="@font/apple_sdgothic_neo_m"
         android:paddingLeft="20dp"

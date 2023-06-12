@@ -23,6 +23,7 @@ class SignUpActivity : AppCompatActivity() , ItemDialogInterface {
     private lateinit var database: DatabaseReference
     private var setImage:String? = "grandmother"
     private var feeling = ""
+    private var memo = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -70,7 +71,7 @@ class SignUpActivity : AppCompatActivity() , ItemDialogInterface {
 
                 if (task.isSuccessful) {    // 회원가입 성공
                     Toast.makeText(this, "회원가입 완료. 로그인 해주세요!", Toast.LENGTH_SHORT).show()
-                    addUserToDatabase(auth.currentUser?.uid!!, email, name, birth, nickname, image, feeling)
+                    addUserToDatabase(auth.currentUser?.uid!!, email, name, birth, nickname, image, feeling, memo)
                     finish()
                 } else {                    // 회원가입 실패
                     Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
@@ -87,9 +88,10 @@ class SignUpActivity : AppCompatActivity() , ItemDialogInterface {
         birth: String,
         nickname: String,
         image: String,
-        feeling: String
+        feeling: String,
+        memo: String
     ) {
-        database.child("user").child(userId).setValue(User(userId, email, name, birth, nickname, image, feeling))
+        database.child("user").child(userId).setValue(User(userId, email, name, birth, nickname, image, feeling, memo))
     }
 
     // ImageActivity에서 이미지 String 받아오기

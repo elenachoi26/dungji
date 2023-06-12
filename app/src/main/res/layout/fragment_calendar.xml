@@ -7,13 +7,22 @@
     android:orientation="vertical"
     tools:context=".navigation.CalendarFragment">
 
+    <ImageView
+        android:elevation="10dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_gravity="left"
+        android:src="@drawable/calendar"
+        android:layout_width="60dp"
+        android:layout_height="60dp"/>
+
     <TextView
         android:fontFamily="@font/apple_sdgothic_neo_eb"
         android:text="가족 일정 공유"
         android:textColor="@color/black"
         android:layout_marginLeft="30dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:textSize="20sp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>
@@ -28,15 +37,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <TextView
-                android:fontFamily="@font/apple_sdgothic_neo_eb"
-                android:text="둥지 캘린더"
-                android:textColor="@color/black"
-                android:layout_marginLeft="30dp"
-                android:textSize="15sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
-
             <FrameLayout
                 android:id="@+id/calendarBtn"
                 android:background="@drawable/round_rec"
@@ -45,7 +45,7 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_width="wrap_content"
-                android:layout_height="200dp">
+                android:layout_height="230dp">
 
                 <ImageView
                     android:backgroundTint="#C4BCF2"
@@ -57,39 +57,40 @@
                     android:src="@drawable/calendar_btn" />
 
                 <TextView
+                    android:fontFamily="@font/apple_sdgothic_neo_eb"
+                    android:text="둥지 캘린더"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="150dp"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="15sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
                     android:textColor="@color/black"
                     android:text="가족 구성원들의 일주일 시간표를 바탕으로 모두 가능한 시간에 가족 일정을 만들고 캘린더에 등록해보세요 !"
-                    android:layout_marginTop="150dp"
+                    android:layout_marginTop="180dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:lineSpacingMultiplier="1.5"
-                    android:textSize="12sp"
+                    android:textSize="10sp"
                     android:fontFamily="@font/apple_sdgothic_neo_l"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
 
             </FrameLayout>
 
-            <TextView
-                android:fontFamily="@font/apple_sdgothic_neo_eb"
-                android:text="둥지 시간표"
-                android:textColor="@color/black"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="20dp"
-                android:textSize="15sp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
 
             <FrameLayout
                 android:id="@+id/scheduleBtn"
                 android:background="@drawable/round_rec"
                 android:elevation="10dp"
-                android:layout_marginTop="10dp"
+                android:layout_marginTop="30dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
                 android:layout_marginBottom="20dp"
                 android:layout_width="match_parent"
-                android:layout_height="200dp">
+                android:layout_height="230dp">
 
                 <ImageView
                     android:backgroundTint="#A1AAE5"
@@ -101,14 +102,24 @@
                     android:layout_height="140dp"/>
 
                 <TextView
+                    android:fontFamily="@font/apple_sdgothic_neo_eb"
+                    android:text="둥지 시간표"
+                    android:textColor="@color/black"
+                    android:layout_marginTop="150dp"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="15sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+
+                <TextView
                     android:fontFamily="@font/apple_sdgothic_neo_l"
                     android:textColor="@color/black"
                     android:text="나의 일주일 시간표를 등록하고 다른 가족 구성원들의 시간표도 함께 조회해보세요 !"
-                    android:layout_marginTop="150dp"
+                    android:layout_marginTop="180dp"
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"
                     android:lineSpacingMultiplier="1.5"
-                    android:textSize="12sp"
+                    android:textSize="10sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
             </FrameLayout>

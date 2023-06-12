@@ -15,6 +15,7 @@ import com.example.dungziproject.databinding.CalendarEventsBinding
 import com.example.dungziproject.navigation.CalendarActivity1
 import com.example.dungziproject.navigation.CalendarActivity2
 import com.example.dungziproject.navigation.CommentActivity
+import com.example.dungziproject.navigation.model.eventData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -139,12 +140,3 @@ class CalendarMainActivity : AppCompatActivity() {
 
 
 }
-data class eventData(
-    var day : Int = 0,
-    var end_time: String? = null,
-    var event: String? = null,
-    var month : Int = 0,
-    var place: String? = null,
-    var start_time : String? = null,
-    var year : Int = 0
-)

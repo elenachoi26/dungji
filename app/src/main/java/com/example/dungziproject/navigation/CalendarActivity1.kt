@@ -15,7 +15,7 @@ import com.example.dungziproject.CalendarInsert
 import com.example.dungziproject.R
 import com.example.dungziproject.databinding.ActivityCalendar1Binding
 import com.example.dungziproject.databinding.CalendarEvents2Binding
-import com.example.dungziproject.eventData
+import com.example.dungziproject.navigation.model.eventData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -246,12 +246,7 @@ class CalendarActivity1 : AppCompatActivity() {
             Collections.swap(data, fromPos, toPos)
             notifyItemMoved(fromPos, toPos)
         }
-
-
     }
-
-
-
 }
 
 

@@ -5,23 +5,15 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/orange"
+    android:background="#FFDC81"
     android:gravity="center"
     tools:context=".LoginActivity">
 
     <ImageView
-        android:src="@drawable/nest_logo_white"
-        android:layout_width="100dp"
-        android:layout_height="100dp"/>
+        android:src="@drawable/logo_bird"
+        android:layout_width="150dp"
+        android:layout_height="150dp"/>
 
-    <TextView
-        android:layout_margin="20dp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="30sp"
-        android:textAlignment="center"
-        android:text="둥지"
-        android:textColor="@color/white"/>
 
     <EditText
         android:layout_marginTop="20dp"

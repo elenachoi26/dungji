@@ -6,7 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#FFDC81"
     android:orientation="vertical"
-    tools:context=".navigation.ProfileFragment">
+    tools:context=".navigation.FamilyProfileActivity">
 
     <ScrollView
         android:elevation="10dp"
@@ -22,15 +22,6 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
-            <TextView
-                android:layout_marginTop="10dp"
-                android:id="@+id/editBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:text="프로필 편집"
-                android:textColor="@color/orange"
-                android:textSize="12sp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -51,7 +42,6 @@
                     android:textColor="@color/orange" />
 
                 <TextView
-                    android:textColor="@color/black"
                     android:id="@+id/userEmail"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -83,7 +73,6 @@
                     android:textColor="@color/orange" />
 
                 <TextView
-                    android:textColor="@color/black"
                     android:id="@+id/userName"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -114,7 +103,6 @@
                     android:textColor="@color/orange" />
 
                 <TextView
-                    android:textColor="@color/black"
                     android:id="@+id/userNickname"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -145,7 +133,6 @@
                     android:textColor="@color/orange" />
 
                 <TextView
-                    android:textColor="@color/black"
                     android:id="@+id/userBirthdate"
                     android:layout_width="match_parent"
                     android:layout_height="40dp"
@@ -157,15 +144,14 @@
                     android:textSize="13sp" />
             </LinearLayout>
 
-
-
             <LinearLayout
                 android:elevation="10dp"
-                android:id="@+id/logoutBtn"
+                android:id="@+id/closeBtn"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginTop="40dp"
+                android:layout_marginBottom="20dp"
                 android:background="@drawable/round_rec_background_yellow"
                 android:orientation="horizontal"
                 android:paddingLeft="20dp"
@@ -180,7 +166,7 @@
                     android:layout_margin="10dp"
                     android:gravity="center"
                     android:textSize="10sp"
-                    android:text="로그아웃"
+                    android:text="창닫기"
                     android:fontFamily="@font/apple_sdgothic_neo_b"
                     android:textColor="@color/white" />
 
@@ -188,24 +174,13 @@
                     android:layout_width="15dp"
                     android:layout_height="15dp"
                     android:layout_gravity="center"
-                    android:src="@drawable/ic_logout_white" />
+                    android:src="@drawable/baseline_close_24" />
 
             </LinearLayout>
 
-            <TextView
-                android:id="@+id/deleteBtn"
-                android:layout_width="100dp"
-                android:layout_height="40dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="70dp"
-                android:fontFamily="@font/apple_sdgothic_neo_l"
-                android:gravity="center"
-                android:textSize="12sp"
-                android:text="회원 탈퇴"
-                android:textColor="@color/orange" />
-
         </LinearLayout>
+
+
 
 
     </ScrollView>
@@ -219,7 +194,5 @@
         android:layout_marginTop="100dp"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"/>
-
-
 
 </androidx.constraintlayout.widget.ConstraintLayout>

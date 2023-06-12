@@ -7,11 +7,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".navigation.CommentActivity">
 
+    <ImageView
+        android:id="@+id/backBtn"
+        android:layout_marginLeft="30dp"
+        android:layout_marginTop="30dp"
+        android:src="@drawable/ic_back"
+        android:layout_width="25dp"
+        android:layout_height="25dp"/>
+
     <LinearLayout
         android:elevation="10dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_marginTop="15dp"
         android:background="@drawable/round_rec"
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -42,6 +50,7 @@
                     android:textSize="12sp"
                     android:id="@+id/writerIdTV"
                     android:text="Writer ID"
+                    android:fontFamily="@font/apple_sdgothic_neo_eb"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>
                 <TextView
@@ -142,7 +151,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:layout_margin="5dp" />
+        android:layout_marginRight="30dp"
+        android:layout_marginLeft="30dp" />
 
     <LinearLayout
         android:background="@drawable/round_rec"

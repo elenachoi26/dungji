@@ -125,9 +125,9 @@ class CommentActivity : AppCompatActivity() {
 
             }
 
-//        binding.backBtn.setOnClickListener {
-//            finish()
-//        }
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
 
         //Comment
         binding.commentRecyclerview.adapter = CommentRecyclerViewAdapter()
