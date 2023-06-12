@@ -51,27 +51,11 @@ class AlbumFragment :Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        auth = Firebase.auth
         binding = FragmentAlbumBinding.inflate(inflater, container, false)
 
         val viewPager = binding?.viewPager
         viewPager?.adapter = AlbumPagerAdapter(requireActivity())
 
-        //popup menu
-//        binding!!.layoutBtn.setOnClickListener {
-//            if(flag){
-//                binding!!.layoutBtn.setImageResource(R.drawable.ic_list)
-//                binding!!.albumRecyclerview.adapter = GridFragmentRecyclerViewAdapter()
-//                binding!!.albumRecyclerview.layoutManager = GridLayoutManager(activity,3)
-//                flag = false
-//            }else{
-//                binding!!.layoutBtn.setImageResource(R.drawable.ic_grid)
-//                binding!!.albumRecyclerview.adapter = AlbumRecyclerViewAdapter()
-//                binding!!.albumRecyclerview.layoutManager = LinearLayoutManager(activity)
-//                flag = true
-//            }
-//
-//        }
 
         val tabTitles = listOf<String>("Linear", "Grid")
         val tabIcons = listOf<Int>(R.drawable.baseline_list_24, R.drawable.baseline_grid_view_24)
@@ -95,5 +79,6 @@ class AlbumFragment :Fragment() {
 
         return binding!!.root
     }
+
 
 }
