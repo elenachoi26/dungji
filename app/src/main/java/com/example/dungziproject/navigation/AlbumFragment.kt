@@ -4,7 +4,7 @@ import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
-import android.os.Bundle
+import android.os.Bundl
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -51,9 +51,6 @@ class AlbumFragment :Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-
-        var auth = Firebase.auth
-
         binding = FragmentAlbumBinding.inflate(inflater, container, false)
 
         val viewPager = binding?.viewPager
@@ -72,16 +69,11 @@ class AlbumFragment :Fragment() {
                 }).attach()
         }
 
-
-
         binding!!.uploadBtn.setOnClickListener {
             if(ContextCompat.checkSelfPermission(requireContext(), Manifest.permission.READ_EXTERNAL_STORAGE)== PackageManager.PERMISSION_GRANTED){
                 startActivity(Intent(requireContext(), PostingActivity::class.java))
             }
         }
-
         return binding!!.root
     }
-
-
 }

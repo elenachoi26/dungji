@@ -1,6 +1,5 @@
 package com.example.dungziproject
 
-
 import android.graphics.drawable.Drawable
 import android.view.Gravity
 import android.view.LayoutInflater
