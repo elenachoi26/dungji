@@ -1,19 +1,13 @@
 package com.example.dungziproject
 
 import android.Manifest
-import android.content.Intent
-import android.content.pm.PackageManager
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
-import androidx.core.content.ContextCompat
 import com.example.dungziproject.databinding.ActivityMainBinding
 import com.example.dungziproject.navigation.*
 import com.google.android.material.bottomnavigation.BottomNavigationView
-import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.ktx.auth
-import com.google.firebase.ktx.Firebase
 
 class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemSelectedListener {
     lateinit var binding: ActivityMainBinding
@@ -23,6 +17,12 @@ class MainActivity : AppCompatActivity(), BottomNavigationView.OnNavigationItemS
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         initLayout()
+
+
+        val fragmentId = intent.getIntExtra("fragmentId",-1)
+        if(fragmentId != -1){
+            binding.bottomNavigation.selectedItemId = fragmentId
+        }
     }
 
     private fun initLayout(){

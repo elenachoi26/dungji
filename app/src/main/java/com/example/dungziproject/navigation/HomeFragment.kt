@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dungziproject.CommercialActivity
 import com.example.dungziproject.databinding.FragmentHomeBinding
 import com.example.dungziproject.databinding.HomeEmotionItemBinding
 import com.example.dungziproject.navigation.model.ItemDialogInterface
@@ -36,7 +37,11 @@ class HomeFragment : Fragment(), ItemDialogInterface, MemoDialog.MemoDialogListe
         binding!!.emotionRecyclerView.adapter = EmotionRecyclerViewAdapter() // 변경: 어댑터 설정
         binding!!.emotionRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-
+        //지역축제
+        binding!!.imageView2.setOnClickListener{
+            val intent = Intent(context, CommercialActivity::class.java)
+            startActivity(intent)
+        }
         return binding!!.root
     }
 

@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.dungziproject.databinding.MessageBinding
 import com.example.dungziproject.navigation.model.Message
+
 import java.io.InputStream
 
 class MessageAdapter (val messageList: ArrayList<Message>, val currentUserId: String):

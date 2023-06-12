@@ -28,15 +28,16 @@
                 android:layout_height="300dp"
                 android:layout_margin="15dp"
                 android:background="@drawable/round_rec"
+                android:elevation="10dp"
                 android:orientation="vertical">
 
 
                 <ImageView
-                    android:layout_marginTop="10dp"
                     android:layout_width="60dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
                     android:src="@drawable/memo"
                     android:textColor="@color/orange" />
 
@@ -52,11 +53,25 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="500dp"
+                android:layout_height="200dp"
                 android:layout_margin="15dp"
-                android:layout_weight="1"
                 android:background="@drawable/round_rec"
                 android:elevation="10dp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="10dp"
+                android:background="@drawable/round_rec"
+                android:elevation="10dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="match_parent"
+                    android:layout_height="192dp"
+                    android:src="@drawable/commercial" />
+            </LinearLayout>
 
         </LinearLayout>
 

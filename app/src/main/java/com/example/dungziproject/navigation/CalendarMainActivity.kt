@@ -1,21 +1,16 @@
 package com.example.dungziproject
 
+import android.annotation.SuppressLint
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat.startActivity
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import com.example.dungziproject.databinding.ActivityCalendarMainBinding
 import com.example.dungziproject.databinding.CalendarEventsBinding
-import com.example.dungziproject.navigation.CalendarActivity1
-import com.example.dungziproject.navigation.CalendarActivity2
-import com.example.dungziproject.navigation.CommentActivity
-import com.example.dungziproject.navigation.model.eventData
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -27,6 +22,7 @@ class CalendarMainActivity : AppCompatActivity() {
     var uid :String? = null
 
 
+    @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCalendarMainBinding.inflate(layoutInflater)
@@ -34,10 +30,16 @@ class CalendarMainActivity : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
         uid = FirebaseAuth.getInstance().currentUser?.uid
         data.add(eventData(1, "a", "b", 2, "c", "d", 3))
+        binding.imageView.setOnClickListener {
 
+            val intent = Intent(this, MainActivity::class.java)
+            intent.putExtra("fragmentId",R.id.action_calendar)
+            startActivity(intent)
+        }
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val strDate = "${year}년 ${(month+1)}월 ${dayOfMonth}일"
             binding.textView.text = strDate
+
             //runOnUiThread {
             //    Toast.makeText(this,msg, Toast.LENGTH_SHORT).show()
             //}
@@ -140,3 +142,12 @@ class CalendarMainActivity : AppCompatActivity() {
 
 
 }
+data class eventData(
+    var day : Int = 0,
+    var end_time: String? = null,
+    var event: String? = null,
+    var month : Int = 0,
+    var place: String? = null,
+    var start_time : String? = null,
+    var year : Int = 0
+)
