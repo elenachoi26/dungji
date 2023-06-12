@@ -1,4 +1,4 @@
-package com.example.dungziproject.navigation
+package com.example.dungziproject
 
 import android.content.Intent
 import android.graphics.*
@@ -7,15 +7,17 @@ import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.dungziproject.CalendarChange
-import com.example.dungziproject.CalendarInsert
-import com.example.dungziproject.R
+import com.bumptech.glide.Glide
 import com.example.dungziproject.databinding.ActivityCalendar1Binding
+import com.example.dungziproject.databinding.ActivityCalendarMainBinding
 import com.example.dungziproject.databinding.CalendarEvents2Binding
-import com.example.dungziproject.eventData
+import com.example.dungziproject.databinding.CalendarEventsBinding
+import com.example.dungziproject.navigation.CommentActivity
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.Query
@@ -36,6 +38,10 @@ class CalendarActivity1 : AppCompatActivity() {
         uid = FirebaseAuth.getInstance().currentUser?.uid
         data.add(eventData(1, "a", "b", 2, "c", "d", 3))
 
+        binding.imageView.setOnClickListener{
+            val intent = Intent(this, CalendarMainActivity::class.java)
+            startActivity(intent)
+        }
         binding.calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             val strDate = "${year}년 ${(month+1)}월 ${dayOfMonth}일"
             binding.textView.text = strDate
@@ -100,10 +106,8 @@ class CalendarActivity1 : AppCompatActivity() {
                             // 휴지통 아이콘과 표시될 위치를 지정하고 비트맵을 그려줌
                             // 비트맵 이미지는 Image Asset 기능으로 추가하고 drawable 폴더에 위치하도록 함
 
-                            icon = BitmapFactory.decodeResource(resources,
-                                R.drawable.ic_menu_delete
-                            )
-                            val iconDst = RectF(itemView.right.toFloat() - 3  - width, itemView.top.toFloat() + width, itemView.right.toFloat() - width, itemView.bottom.toFloat() - width)
+                            icon = BitmapFactory.decodeResource(resources, R.drawable.ic_menu_delete)
+                            val iconDst = RectF(itemView.right.toFloat() - 50  - width, itemView.top.toFloat() + width, itemView.right.toFloat() - width, itemView.bottom.toFloat() - width)
                             c.drawBitmap(icon, null, iconDst, null)
                         }
                     }
@@ -151,7 +155,7 @@ class CalendarActivity1 : AppCompatActivity() {
                     ?.orderBy("start_time",Query.Direction.ASCENDING)
                     ?.addSnapshotListener { querySnapshot, firebaseFireStroreException ->
                         data.clear()
-                        Log.d("DFdfdf", "DFDF")
+
                         for(snapshot in querySnapshot!!.documents){
                             val item = snapshot.toObject(eventData::class.java)
 
@@ -182,12 +186,12 @@ class CalendarActivity1 : AppCompatActivity() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             var view = CalendarEvents2Binding.inflate(LayoutInflater.from(parent.context), parent,false)
-            Log.d("짜증나", "짜증나")
+
             firestore?.collection("calendars")
                 ?.orderBy("start_time",Query.Direction.ASCENDING)
                 ?.addSnapshotListener { querySnapshot, firebaseFireStroreException ->
                     data.clear()
-                    Log.d("DFdfdf", "DFDF")
+
                     for(snapshot in querySnapshot!!.documents){
                         val item = snapshot.toObject(eventData::class.java)
 
@@ -206,7 +210,6 @@ class CalendarActivity1 : AppCompatActivity() {
         }
 
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-            Log.d("dfdfdf","nowat")
             val data = data[position]
             holder.binding.startTime.text = data.start_time
             holder.binding.endTime.text = data.end_time
@@ -223,6 +226,9 @@ class CalendarActivity1 : AppCompatActivity() {
                 ?.whereEqualTo("month", data[position].month)
                 ?.whereEqualTo("day", data[position].day)
                 ?.whereEqualTo("event", data[position].event)
+                ?.whereEqualTo("start_time",data[position].start_time)
+                ?.whereEqualTo("end_time",data[position].end_time)
+                ?.whereEqualTo("place",data[position].place)
 
             query?.get()
                 ?.addOnSuccessListener { querySnapshot ->

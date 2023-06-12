@@ -6,6 +6,7 @@
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
+        android:usesCleartextTraffic="true"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -27,13 +28,22 @@
             android:name=".EditActivity"
             android:exported="false"/>
         <activity
-            android:name=".navigation.CalendarActivity2"
+            android:name=".CalendarActivity2"
             android:exported="false" />
         <activity
-            android:name=".navigation.CalendarActivity1"
+            android:name=".CalendarActivity1"
             android:exported="false" />
         <activity
-            android:name=".navigation.CalendarMainActivity"
+            android:name=".CalendarMainActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CalendarInsert"
+            android:exported="false" />
+        <activity
+            android:name=".CalendarChange"
+            android:exported="false" />
+        <activity
+            android:name=".CommercialActivity"
             android:exported="false" />
         <activity
             android:name=".navigation.PostingActivity"

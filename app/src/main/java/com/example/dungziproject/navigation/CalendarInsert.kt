@@ -28,6 +28,12 @@ class CalendarInsert : AppCompatActivity() {
         val year = intent.extras?.getInt("year")
         val month = intent.extras?.getInt("month")
         val day = intent.extras?.getInt("day")
+        val start_time = intent.extras?.getString("start_time",null)
+        val end_time = intent.extras?.getString("end_time",null)
+        val event = intent.extras?.getString("event",null)
+        if(event != null) {
+            binding.eventName.setText(event)
+        }
         //*********년도***********//
 
         // 스피너 초기화
@@ -143,6 +149,11 @@ class CalendarInsert : AppCompatActivity() {
 
         // 어댑터를 스피너에 설정
         StartHourspinner.adapter = startHourAdapter
+        if(start_time != null){
+            val desiredItem4 =  start_time?.substring(0,2)?.toInt().toString()// 내가 정하고자 하는 항목
+            val desiredIndex4 = startHourList.indexOf(desiredItem4)
+            StartHourspinner.setSelection(desiredIndex4)
+        }
 
         // 스피너 아이템 선택 이벤트 리스너 설정 (선택된 항목 변경 시 호출)
         StartHourspinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -175,7 +186,11 @@ class CalendarInsert : AppCompatActivity() {
         // 어댑터를 스피너에 설정
         StartMinspinner.adapter = startMinAdapter
 
-
+        if(start_time != null) {
+            val desiredItem5 = start_time?.substring(3, 5)?.toInt().toString()// 내가 정하고자 하는 항목
+            val desiredIndex5 = startMinList.indexOf(desiredItem5)
+            StartMinspinner.setSelection(desiredIndex5)
+        }
         // 스피너 아이템 선택 이벤트 리스너 설정 (선택된 항목 변경 시 호출)
         StartMinspinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(parent: AdapterView<*>, view: View?, position: Int, id: Long) {
@@ -206,6 +221,11 @@ class CalendarInsert : AppCompatActivity() {
         // 어댑터를 스피너에 설정
         EndHourspinner.adapter = endHourAdapter
 
+        if(end_time != null) {
+            val desiredItem6 = end_time?.substring(0, 2)?.toInt().toString()// 내가 정하고자 하는 항목
+            val desiredIndex6 = endHourList.indexOf(desiredItem6)
+            EndHourspinner.setSelection(desiredIndex6)
+        }
 
 
         // 스피너 아이템 선택 이벤트 리스너 설정 (선택된 항목 변경 시 호출)
@@ -237,7 +257,11 @@ class CalendarInsert : AppCompatActivity() {
 
         // 어댑터를 스피너에 설정
         EndMinspinner.adapter = endMinAdapter
-
+        if(end_time!=null) {
+            val desiredItem7 = end_time?.substring(3, 5)?.toInt().toString()// 내가 정하고자 하는 항목
+            val desiredIndex7 = endMinList.indexOf(desiredItem7)
+            EndMinspinner.setSelection(desiredIndex7)
+        }
 
         // 스피너 아이템 선택 이벤트 리스너 설정 (선택된 항목 변경 시 호출)
         EndMinspinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
@@ -282,39 +306,41 @@ class CalendarInsert : AppCompatActivity() {
             val event = binding.eventName.text.toString()
             val place = binding.placeName.text.toString()
 
+            if(endhour.toInt()*100+endmin.toInt() > starthour.toInt()*100+startmin.toInt()) {
+                // Firebase 데이터베이스 추가
+                // 문서 추가
+                val db = FirebaseFirestore.getInstance()
+                val collectionRef = db.collection("calendars")
 
-            // Firebase 데이터베이스 추가
-            // 문서 추가
-            val db = FirebaseFirestore.getInstance()
-            val collectionRef = db.collection("calendars")
+                val data = hashMapOf(
+                    "year" to updateyear,
+                    "month" to updatemonth,
+                    "day" to updateday,
+                    "start_time" to start_time,
+                    "end_time" to end_time,
+                    "event" to event,
+                    "place" to place
+                    // 필요한 만큼 필드와 값 추가
+                )
 
-            val data = hashMapOf(
-                "year" to updateyear,
-                "month" to updatemonth,
-                "day" to updateday,
-                "start_time" to start_time,
-                "end_time" to end_time,
-                "event" to event,
-                "place" to place
-                // 필요한 만큼 필드와 값 추가
-            )
+                collectionRef.add(data)
+                    .addOnSuccessListener { documentReference ->
+                        // 추가 성공
+                        val documentId = documentReference.id
+                    }
+                    .addOnFailureListener { e ->
+                        // 추가 실패
+                    }
 
-            collectionRef.add(data)
-                .addOnSuccessListener { documentReference ->
-                    // 추가 성공
-                    val documentId = documentReference.id
-                }
-                .addOnFailureListener { e ->
-                    // 추가 실패
-                }
-
-            val intent = Intent(this, CalendarMainActivity::class.java)
-            startActivity(intent)
+                val intent = Intent(this, CalendarMainActivity::class.java)
+                startActivity(intent)
+            }else{
+                Toast.makeText(this,"시작시간과 종료시간이 올바르지 않습니다.",Toast.LENGTH_SHORT).show()
+            }
         }
 
 
     }
-
 
 
 
