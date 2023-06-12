@@ -30,7 +30,7 @@ class EmoticonDialog(
         binding = FragmentEmotionDialogBinding.inflate(inflater, container, false)
         dialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
 
-        binding?.emoticonRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 3, LinearLayoutManager.HORIZONTAL, false)
+        binding?.emoticonRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 2, LinearLayoutManager.HORIZONTAL, false)
         binding?.emoticonRecyclerView?.adapter = EmoticonAdapter()
 
         return binding?.root

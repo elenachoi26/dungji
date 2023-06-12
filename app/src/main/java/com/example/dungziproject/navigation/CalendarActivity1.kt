@@ -246,12 +246,7 @@ class CalendarActivity1 : AppCompatActivity() {
             Collections.swap(data, fromPos, toPos)
             notifyItemMoved(fromPos, toPos)
         }
-
-
     }
-
-
-
 }
 
 

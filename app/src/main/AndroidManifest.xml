@@ -25,11 +25,20 @@
             android:name=".navigation.TimeTableActivity"
             android:exported="false" />
         <activity
+            android:name=".ChatEmojiActivity"
+            android:exported="false" />
+        <activity
+            android:name=".navigation.EditContentActivity"
+            android:exported="false" />
+        <activity
+            android:name=".navigation.TimeTableActivity"
+            android:exported="false" />
+        <activity
             android:name=".ResetPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".EditActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".navigation.CalendarActivity2"
             android:exported="false" />
@@ -46,7 +55,7 @@
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".navigation.TutorialActivity"
             android:exported="true">
 
             <intent-filter>
@@ -57,11 +66,14 @@
         </activity>
 
         <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true" />
         <activity
             android:name=".navigation.CommentActivity"
-            android:exported="true"/>
+            android:exported="true" />
     </application>
 
 </manifest>

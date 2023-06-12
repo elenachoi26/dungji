@@ -35,6 +35,7 @@ class EditActivity : AppCompatActivity(), ItemDialogInterface {
     private lateinit var database: DatabaseReference
     lateinit var binding: ActivityEditBinding
     private var setImage:String? = "grandmother"
+    private var feeling = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -55,7 +56,7 @@ class EditActivity : AppCompatActivity(), ItemDialogInterface {
 
         // 이미지 선택 선택시
         binding.editProfileImg.setOnClickListener{
-            val dialog = ProfileImageDialog(this)
+            val dialog = ProfileImageDialog(this, true)
             dialog.isCancelable = false
             dialog.show(supportFragmentManager, "EmoticonDialog")
         }
@@ -77,20 +78,9 @@ class EditActivity : AppCompatActivity(), ItemDialogInterface {
             var nickname = binding.nicknameEdit.text.toString()
             var image = setImage!!
 
-            val usersRef = FirebaseDatabase.getInstance().getReference("user")
-            if (currentUserId != null) {
-                usersRef.child(currentUserId).get().addOnSuccessListener { dataSnapshot ->
-                    val previousFeeling = dataSnapshot.child("feeling").getValue(String::class.java)
-                    val previousMemo = dataSnapshot.child("memo").getValue(String::class.java)
+            var updateUser = User(currentUserId!!,email,name, birth, nickname, image, feeling)
 
-                    val updateUser = User(currentUserId, email, name, birth, nickname, image, previousFeeling!!, previousMemo!!)
-
-                    reAuthentication(updateUser)
-                }.addOnFailureListener { exception ->
-                    // 사용자 정보 가져오기 실패
-                    Toast.makeText(this, "Failed to get user information: ${exception.message}", Toast.LENGTH_SHORT).show()
-                }
-            }
+            reAuthentication(updateUser)
         }
 
     }

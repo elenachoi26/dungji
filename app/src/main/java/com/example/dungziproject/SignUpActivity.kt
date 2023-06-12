@@ -41,7 +41,7 @@ class SignUpActivity : AppCompatActivity() , ItemDialogInterface {
         binding.profileImg.setOnClickListener{
 //            val intent = Intent(this, ImageActivity::class.java)
 //            startActivityForResult(intent, 0)
-            val dialog = ProfileImageDialog(this)
+            val dialog = ProfileImageDialog(this, true)
             dialog.isCancelable = false
             dialog.show(supportFragmentManager, "EmoticonDialog")
         }

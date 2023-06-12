@@ -8,7 +8,6 @@ import com.example.dungziproject.databinding.TutorialimgBinding
 
 class TutorialAdapter: RecyclerView.Adapter<TutorialAdapter.ViewHolder>()  {
     private val itemList = listOf(R.drawable.screen1, R.drawable.screen2, R.drawable.screen3) // 항목의 이미지 리스트
-
     inner class ViewHolder(val binding: TutorialimgBinding): RecyclerView.ViewHolder(binding.root){
         init{
 
