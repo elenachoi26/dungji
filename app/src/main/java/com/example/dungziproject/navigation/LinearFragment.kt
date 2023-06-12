@@ -66,17 +66,24 @@ class LinearFragment : Fragment() {
         init {
             firestore?.collection("images")
                 ?.orderBy("timestamp", Query.Direction.DESCENDING)
-                ?.addSnapshotListener { querySnapshot, firebaseFireStroreException ->
-                    contentDTOs.clear()
-                    contentUidList.clear()
-                    for (snapshot in querySnapshot!!.documents) {
-                        var item = snapshot.toObject(ContentDTO::class.java)
-                        contentDTOs.add(item!!)
-                        contentUidList.add(snapshot.id)
+                ?.addSnapshotListener { querySnapshot, firebaseFirestoreException ->
+                    if (querySnapshot != null) {
+                        contentDTOs.clear()
+                        contentUidList.clear()
+                        for (snapshot in querySnapshot.documents) {
+                            val item = snapshot.toObject(ContentDTO::class.java)
+                            item?.let {
+                                contentDTOs.add(it)
+                                contentUidList.add(snapshot.id)
+                            }
+                        }
+                        notifyDataSetChanged()
+                    } else {
+                        // querySnapshot이 null인 경우의 처리 (예외 상황 처리)
                     }
-                    notifyDataSetChanged()
                 }
         }
+
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
             val itemBinding =
