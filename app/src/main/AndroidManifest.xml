@@ -15,18 +15,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.DungziProject"
         tools:targetApi="31">
+
+        <activity
+            android:name=".navigation.FamilyProfileActivity"
+            android:exported="false"/>
         <activity
             android:name=".navigation.EditContentActivity"
             android:exported="false" />
         <activity
             android:name=".navigation.TimeTableActivity"
             android:exported="false" />
+
         <activity
             android:name=".ResetPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".EditActivity"
-            android:exported="false"/>
+            android:exported="false" />
         <activity
             android:name=".CalendarActivity2"
             android:exported="false" />
@@ -37,10 +42,10 @@
             android:name=".CalendarMainActivity"
             android:exported="false" />
         <activity
-            android:name=".CalendarInsert"
+            android:name=".CalendarChange"
             android:exported="false" />
         <activity
-            android:name=".CalendarChange"
+            android:name=".CalendarInsert"
             android:exported="false" />
         <activity
             android:name=".CommercialActivity"
@@ -52,8 +57,9 @@
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".LoginActivity"
+            android:name=".navigation.TutorialActivity"
             android:exported="true">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -62,11 +68,14 @@
         </activity>
 
         <activity
+            android:name=".LoginActivity"
+            android:exported="true" />
+        <activity
             android:name=".MainActivity"
             android:exported="true" />
         <activity
             android:name=".navigation.CommentActivity"
-            android:exported="true"/>
+            android:exported="true" />
     </application>
 
 </manifest>

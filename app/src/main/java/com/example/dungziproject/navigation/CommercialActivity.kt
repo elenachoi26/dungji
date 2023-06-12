@@ -21,6 +21,6 @@ class CommercialActivity : AppCompatActivity() {
         webView = binding.webView
         val webSettings = webView.settings
         webSettings.javaScriptEnabled = true // 자바스크립트 사용을 허용
-        webView.loadUrl("http://www.mdfestival.com/default/") // 로드할 웹 페이지의 URL을 설정
+        webView.loadUrl("https://korean.visitkorea.or.kr/kfes/detail/fstvlDetail.do;jsessionid=7A544E70B8F7298A7F6F793210E14530.instance1?cmsCntntsId=1230074") // 로드할 웹 페이지의 URL을 설정
     }
 }
