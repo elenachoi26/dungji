@@ -24,6 +24,7 @@ class QuestionAdapter(var items:ArrayList<Question>):RecyclerView.Adapter<Questi
         }
     }
 
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = QuestionRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(view)
@@ -38,6 +39,7 @@ class QuestionAdapter(var items:ArrayList<Question>):RecyclerView.Adapter<Questi
             holder.binding.number.text = "0" + items[position].questionId
         else
             holder.binding.number.text = items[position].questionId
+
         holder.binding.question.text = items[position].question
     }
 }

@@ -12,13 +12,12 @@ import com.example.dungziproject.ProfileImageDialog
 import com.example.dungziproject.navigation.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
-import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
+
+@Suppress("DEPRECATION")
 class SignUpActivity : AppCompatActivity() , ItemDialogInterface {
     lateinit var binding: ActivitySignupBinding
     private lateinit var auth: FirebaseAuth
@@ -50,7 +49,6 @@ class SignUpActivity : AppCompatActivity() , ItemDialogInterface {
             dialog.show(supportFragmentManager, "EmoticonDialog")
         }
 
-        getNickname()
 
         // 회원가입 버튼 클릭시
         binding.signupBtn.setOnClickListener {

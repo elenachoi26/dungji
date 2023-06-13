@@ -79,6 +79,7 @@ class AnswerActivity : AppCompatActivity() {
                 override fun onCancelled(error: DatabaseError) {
                 }
             })
+
     }
 
     private fun initRecyclerView() {

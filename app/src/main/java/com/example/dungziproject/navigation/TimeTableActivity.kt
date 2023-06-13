@@ -110,6 +110,7 @@ class TimeTableActivity : AppCompatActivity() {
                     intent.putExtra("nickname", nick)
                     startActivity(intent)
                     overridePendingTransition(0, 0)
+
                     finish()
                 }
                 spinnerKey = 1
@@ -225,6 +226,7 @@ class TimeTableActivity : AppCompatActivity() {
 
         alertDialog.show()
         alertDialog.window?.setBackgroundDrawableResource(R.drawable.round_rec)
+
     }
 
     // 스케줄 삭제
@@ -335,6 +337,7 @@ class TimeTableActivity : AppCompatActivity() {
 
             alertDialog.show()
             alertDialog.window?.setBackgroundDrawableResource(R.drawable.round_rec)
+
         }
         gridLayout.addView(textView, layoutParams)
 

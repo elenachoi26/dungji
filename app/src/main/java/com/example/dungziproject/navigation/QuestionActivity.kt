@@ -43,6 +43,7 @@ class QuestionActivity : AppCompatActivity() {
         binding.back.setOnClickListener {
             finish()
         }
+
     }
 
     private fun initData() {
@@ -72,6 +73,7 @@ class QuestionActivity : AppCompatActivity() {
                 override fun onCancelled(error: DatabaseError) {
                 }
             })
+
     }
 
     private fun initRecyclerView() {
