@@ -1,15 +1,225 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/purple_200"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#FFDC81"
+    android:orientation="vertical"
     tools:context=".navigation.ProfileFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <ScrollView
+        android:elevation="10dp"
+        android:layout_marginTop="150dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:background="@drawable/top_round"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <LinearLayout
+            android:layout_marginTop="60dp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_marginTop="10dp"
+                android:id="@+id/editBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="프로필 편집"
+                android:textColor="@color/orange"
+                android:textSize="12sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="40dp"
+                android:layout_marginRight="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="이메일"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/apple_sdgothic_neo_eb"
+                    android:textColor="@color/orange" />
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/userEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/round_rec_stroke_yellow"
+                    android:fontFamily="@font/apple_sdgothic_neo_l"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="이름"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/apple_sdgothic_neo_eb"
+                    android:textColor="@color/orange" />
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/userName"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/round_rec_stroke_yellow"
+                    android:fontFamily="@font/apple_sdgothic_neo_l"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="닉네임"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/apple_sdgothic_neo_eb"
+                    android:textColor="@color/orange" />
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/userNickname"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/round_rec_stroke_yellow"
+                    android:fontFamily="@font/apple_sdgothic_neo_l"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginRight="50dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="60dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="생년월일"
+                    android:textAlignment="center"
+                    android:fontFamily="@font/apple_sdgothic_neo_eb"
+                    android:textColor="@color/orange" />
+
+                <TextView
+                    android:textColor="@color/black"
+                    android:id="@+id/userBirthdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginLeft="15dp"
+                    android:background="@drawable/round_rec_stroke_yellow"
+                    android:fontFamily="@font/apple_sdgothic_neo_l"
+                    android:gravity="center"
+                    android:textAlignment="center"
+                    android:textSize="13sp" />
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:elevation="10dp"
+                android:id="@+id/logoutBtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/round_rec_background_yellow"
+                android:orientation="horizontal"
+                android:paddingLeft="20dp"
+                android:paddingTop="5dp"
+                android:paddingRight="20dp"
+                android:paddingBottom="5dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:gravity="center"
+                    android:textSize="10sp"
+                    android:text="로그아웃"
+                    android:fontFamily="@font/apple_sdgothic_neo_b"
+                    android:textColor="@color/white" />
+
+                <ImageView
+                    android:layout_width="15dp"
+                    android:layout_height="15dp"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_logout_white" />
+
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/deleteBtn"
+                android:layout_width="100dp"
+                android:layout_height="40dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="70dp"
+                android:fontFamily="@font/apple_sdgothic_neo_l"
+                android:gravity="center"
+                android:textSize="12sp"
+                android:text="회원 탈퇴"
+                android:textColor="@color/orange" />
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <ImageView
+        android:elevation="10dp"
+        android:id="@+id/userProfileImg"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_marginTop="100dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"/>
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

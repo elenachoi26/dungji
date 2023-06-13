@@ -9,6 +9,7 @@
     tools:context=".navigation.PostingActivity">
 
     <LinearLayout
+        android:elevation="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
@@ -32,7 +33,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="둥지앨범"
+                android:text="게시물 작성"
                 android:textAlignment="center"
                 android:textStyle="bold" />
 
@@ -61,6 +62,7 @@
                 android:gravity="top" />
 
             <ImageView
+                android:elevation="5dp"
                 android:id="@+id/upload_imageview"
                 android:layout_width="100dp"
                 android:layout_height="100dp"

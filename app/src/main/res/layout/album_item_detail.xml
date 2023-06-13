@@ -3,11 +3,14 @@
     android:orientation="vertical"
     android:layout_margin="5dp"
     android:background="@drawable/round_rec"
+    android:elevation="5dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_margin="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -38,22 +41,34 @@
 
         <TextView
             android:layout_gravity="center"
-            android:fontFamily="@font/sunflower_medium"
+            android:fontFamily="@font/apple_sdgothic_neo_m"
             android:text="0"
             android:textSize="10sp"
             android:layout_marginLeft="5dp"
-            android:layout_marginRight="15dp"
+            android:layout_marginRight="25dp"
             android:textColor="@color/orange"
             android:id="@+id/like_textview"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
     </LinearLayout>
 
+    <View
+        android:elevation="1dp"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"/>
+
     <ImageView
+        android:background="@color/white"
         android:scaleType="fitCenter"
         android:id="@+id/content_imageview"
         android:layout_width="match_parent"
         android:layout_height="150dp"/>
+    <View
+        android:elevation="1dp"
+        android:background="@color/gray"
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"/>
 
 
 
@@ -61,19 +76,20 @@
         android:id="@+id/explain_textview"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:fontFamily="@font/sunflower_medium"
-        android:paddingLeft="15dp"
+        android:textColor="@color/black"
+        android:layout_marginTop="10dp"
+        android:fontFamily="@font/apple_sdgothic_neo_m"
+        android:paddingLeft="20dp"
         android:text="Explain Content"
         android:textSize="12sp" />
 
     <TextView
         android:textSize="8sp"
         android:paddingLeft="20dp"
-        android:fontFamily="@font/sunflower_light"
+        android:fontFamily="@font/apple_sdgothic_neo_l"
         android:id="@+id/date_textview"
         android:text="date"
-        android:layout_marginTop="3dp"
+        android:layout_marginTop="5dp"
         android:layout_marginBottom="10dp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

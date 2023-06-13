@@ -1,11 +1,13 @@
 package com.example.dungziproject.navigation
 
 import android.Manifest
+import android.content.ContentValues.TAG
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
 import android.widget.PopupMenu
@@ -13,6 +15,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -102,6 +105,7 @@ class CommentActivity : AppCompatActivity() {
                             binding.editPopup.setOnClickListener {
                                 showPopup(it)
                             }
+
                         } else {
                             // 다른 경우 팝업 메뉴 비활성화
                             binding.editPopup.visibility = View.GONE
@@ -121,10 +125,11 @@ class CommentActivity : AppCompatActivity() {
 
             }
 
-
+        binding.backBtn.setOnClickListener {
+            finish()
+        }
 
         //Comment
-
         binding.commentRecyclerview.adapter = CommentRecyclerViewAdapter()
         binding.commentRecyclerview.layoutManager = LinearLayoutManager(this)
         binding.sendBtn.setOnClickListener {
@@ -188,7 +193,9 @@ class CommentActivity : AppCompatActivity() {
                     if(querySnapshot == null) return@addSnapshotListener
 
                     for(snapshot in querySnapshot.documents!!){
-                        comments.add(snapshot.toObject(ContentDTO.Comment::class.java)!!)
+                        val comment = snapshot.toObject(ContentDTO.Comment::class.java)
+                        comment?.commentId = snapshot.id // Assign commentId
+                        comment?.let { comments.add(it) }
                     }
                     updateCommentCount(comments.size)
                     notifyDataSetChanged()
@@ -222,6 +229,8 @@ class CommentActivity : AppCompatActivity() {
             val comment = comments[position]
 
             customViewHolder.itemBinding.messageTextview.text = comment.comment
+            holder.itemBinding.commentTimeTextview.text = SimpleDateFormat("MM월 dd일 HH:mm",
+                Locale.getDefault()).format(Date(comment.timestamp!!))
             
             val userRef =
                 FirebaseDatabase.getInstance().getReference("user").child(comment.userId ?: "")
@@ -236,22 +245,64 @@ class CommentActivity : AppCompatActivity() {
                     // 처리할 작업을 추가하세요
                 }
             })
-            holder.itemBinding.commentTimeTextview.text = SimpleDateFormat("MM월 dd일 HH:mm",
-                Locale.getDefault()).format(Date(comment.timestamp!!))
+
+            if(comment.userId == FirebaseAuth.getInstance().currentUser?.uid){
+                holder.itemBinding.root.setOnTouchListener { _, event ->
+                    if (event.action == MotionEvent.ACTION_DOWN) {
+                        // Get the position of the comment item in the RecyclerView
+                        val itemPosition = holder.adapterPosition
+                        // Start the swipe-to-delete action
+                        startSwipeToDelete(itemPosition)
+                    }
+                    false
+                }
+
+            }
+        }
+
+        private fun startSwipeToDelete(position: Int){
+            // Create a callback for swipe-to-delete action
+            val itemTouchHelperCallback = object : ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.LEFT) {
+                override fun onMove(
+                    recyclerView: RecyclerView,
+                    viewHolder: RecyclerView.ViewHolder,
+                    target: RecyclerView.ViewHolder
+                ): Boolean {
+                    // Not needed for swipe-to-delete
+                    return false
+                }
+
+                override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {
+                    if (direction == ItemTouchHelper.LEFT) {
+                        // Swipe-to-delete action is performed
+                        val commentToDelete = comments[viewHolder.adapterPosition]
+                                deleteComment(commentToDelete)
+                    }
+                }
+            }
+
+            // Create an ItemTouchHelper with the swipe-to-delete callback
+            val itemTouchHelper = ItemTouchHelper(itemTouchHelperCallback)
+            // Attach the ItemTouchHelper to the RecyclerView
+            itemTouchHelper.attachToRecyclerView(binding.commentRecyclerview)
+        }
+
+        private fun deleteComment(comment: ContentDTO.Comment) {
+            FirebaseFirestore.getInstance()
+                .collection("images")
+                .document(contentUid!!)
+                .collection("comments")
+                .document(comment.commentId!!)
+                .delete()
+                .addOnSuccessListener {
+                    // Comment deletion is successful
+                    // You can show a toast message or perform any necessary action
+                }
+                .addOnFailureListener { e ->
+                    // Handle comment deletion failure
+                    Log.e(TAG, "Failed to delete comment: ${e.message}")
+                }
         }
     }
-//            customViewHolder.itemBinding.profileTextview.text = comment.userId
 
-//            FirebaseFirestore.getInstance()
-//                .collection("profileImages")
-//                .document(comment.uid!!)
-//               .get()
-//                .addOnCompleteListener { task ->
-//                    if(task.isSuccessful){
-//                        var url = task.result!!["image"]
-//                        Glide.with(holder.itemView.context).load(url).apply(RequestOptions().circleCrop()).into(customViewHolder.itemBinding.profileImageview)
-//                    }
-//               }
-//        }
-//   }
 }
