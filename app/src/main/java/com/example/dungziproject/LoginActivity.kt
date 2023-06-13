@@ -30,15 +30,18 @@ class LoginActivity : AppCompatActivity() {
             finish()
         }
 
-
         // 로그인 버튼 클릭시
         binding.loginBtn.setOnClickListener {
             val email = binding.emailEdit.text.toString()
             val password = binding.passwordEdit.text.toString()
 
 
-            if(!email.contains('@')) {
+            if(email.isEmpty()) {
+                Toast.makeText(this, "이메일을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }else if(!email.contains('@') || !email.contains('.')) {
                 Toast.makeText(this, "이메일 형식이 맞지 않습니다.", Toast.LENGTH_SHORT).show()
+            }else if(password.isEmpty()) {
+                Toast.makeText(this, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
             }else if(password.length < 6){
                 Toast.makeText(this, "비밀번호는 6자 이상입니다.", Toast.LENGTH_SHORT).show()
             }else {
@@ -73,7 +76,7 @@ class LoginActivity : AppCompatActivity() {
                     startActivity(intent)
                     finish()
                 } else {                    // 로그인 실패
-                    Toast.makeText(this, "로그인 실패", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "                   로그인 실패\n아이디와 비밀번호를 확인해주세요.", Toast.LENGTH_SHORT).show()
                 }
 
             }

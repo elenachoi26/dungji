@@ -38,6 +38,12 @@ class QuestionActivity : AppCompatActivity() {
     private fun initLayout() {
         auth = Firebase.auth
         database = Firebase.database.reference
+
+        // 뒤로가기 이미지
+        binding.back.setOnClickListener {
+            finish()
+        }
+
     }
 
     private fun initData() {
@@ -59,14 +65,15 @@ class QuestionActivity : AppCompatActivity() {
     // 닉네임 가져오기
     private fun getNickname() {
         database.child("user").child(auth.currentUser?.uid!!)
-                .addValueEventListener(object: ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        val user = snapshot.getValue(User::class.java)
-                        nickname = user?.nickname!!
-                    }
-                    override fun onCancelled(error: DatabaseError) {
-                    }
-                })
+            .addValueEventListener(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    val user = snapshot.getValue(User::class.java)
+                    nickname = user?.nickname!!
+                }
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
+
     }
 
     private fun initRecyclerView() {

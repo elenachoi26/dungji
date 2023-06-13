@@ -140,6 +140,8 @@ class ProfileFragment :Fragment() {
                 user?.delete()
                     ?.addOnCompleteListener { deleteTask ->
                         if (deleteTask.isSuccessful) {
+                            FirebaseDatabase.getInstance().getReference("timetable").child(user.uid).setValue(null)
+
                             FirebaseDatabase.getInstance().getReference("user").child(user.uid).setValue(null)
                             Toast.makeText(requireContext(), "그동안 둥지를 이용해주셔서 감사합니다.", Toast.LENGTH_SHORT).show()
                             goToLoginScreen()

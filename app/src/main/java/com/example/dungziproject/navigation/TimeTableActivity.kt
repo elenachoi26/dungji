@@ -1,5 +1,6 @@
 package com.example.dungziproject.navigation
 
+import android.annotation.SuppressLint
 import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
@@ -82,6 +83,11 @@ class TimeTableActivity : AppCompatActivity() {
         drawTimeTable() // GridLayout에 시간표 그리기
         addSpinner()    // 다른사람 시간표보는 spinner 초기화
 
+        // 뒤로가기 이미지
+        binding.back.setOnClickListener {
+            finish()
+        }
+
         // 스케줄 추가 버튼
         binding.add.setOnClickListener {
             showAddTime()
@@ -103,6 +109,8 @@ class TimeTableActivity : AppCompatActivity() {
                     intent.putExtra("id", hashMap.get(nick))
                     intent.putExtra("nickname", nick)
                     startActivity(intent)
+                    overridePendingTransition(0, 0)
+
                     finish()
                 }
                 spinnerKey = 1
@@ -176,54 +184,60 @@ class TimeTableActivity : AppCompatActivity() {
 
     // 시간표 추가 다이얼로그
     private fun showAddTime() {
-        val builder = AlertDialog.Builder(this)
-        val inflater = layoutInflater
-        val dialogLayout = inflater.inflate(R.layout.add_time, null)
+        val dialogView = layoutInflater.inflate(R.layout.add_time, null)
+        val alertDialog = AlertDialog.Builder(this).create()
+        alertDialog.setView(dialogView)
 
-        with(builder) {
-            setTitle("스케줄 추가")
-            setPositiveButton("추가"){dialog, which->
-                val title = dialogLayout.findViewById<EditText>(R.id.title).text.toString()
-                val week = dialogLayout.findViewById<Spinner>(R.id.weekSpinner).selectedItem.toString()
-                val startTime = dialogLayout.findViewById<Spinner>(R.id.startTimeSpinner).selectedItem.toString().substring(0,2)
-                val endTime = dialogLayout.findViewById<Spinner>(R.id.endTimeSpinner).selectedItem.toString().substring(0,2)
-                val timeTableId = weekToEnglish(week) + startTime + endTime
+        val add = dialogView.findViewById<TextView>(R.id.add)
+        val cancel = dialogView.findViewById<TextView>(R.id.cancel)
 
-                var isWrong = false // 시간표가 중복되었는지 변수
-                val span = endTime.toInt() - startTime.toInt()
-                for(i:Int in 0 until span){ // 시간표 중복 검사
-                    if(schedule[startTime.toInt()-9+i][weekToNumber(week)-1] == 1)
-                        isWrong = true
-                }
+        add.setOnClickListener {
+            val title = dialogView.findViewById<EditText>(R.id.title).text.toString()
+            val week = dialogView.findViewById<Spinner>(R.id.weekSpinner).selectedItem.toString()
+            val startTime = dialogView.findViewById<Spinner>(R.id.startTimeSpinner).selectedItem.toString().substring(0,2)
+            val endTime = dialogView.findViewById<Spinner>(R.id.endTimeSpinner).selectedItem.toString().substring(0,2)
+            val timeTableId = weekToEnglish(week) + startTime + endTime
 
-
-                if(span <= 0){  // 시간을 거꾸로 설정했을때
-                    Toast.makeText(this@TimeTableActivity, "시간을 잘못 설정했습니다.", Toast.LENGTH_SHORT).show()
-                }
-                else if(isWrong) {  // 시간표가 중복되었을때
-                    Toast.makeText(this@TimeTableActivity, "해당 시간에 스케줄이 겹칩니다.", Toast.LENGTH_SHORT).show()
-
-                }else{  // 시간표 추가
-                    database.child("timetable").child(auth.currentUser?.uid!!).child(timeTableId)
-                        .setValue(TimeTable(timeTableId, title, week, startTime, endTime))
-                    drawTimeTable()
-                    Toast.makeText(this@TimeTableActivity, "스케줄이 추가되었습니다.", Toast.LENGTH_SHORT).show()
-                }
+            var isWrong = false // 시간표가 중복되었는지 변수
+            val span = endTime.toInt() - startTime.toInt()
+            for(i:Int in 0 until span){ // 시간표 중복 검사
+                if(schedule[startTime.toInt()-9+i][weekToNumber(week)-1] == 1)
+                    isWrong = true
             }
-            setNegativeButton("취소"){dialog,which->
-                dialog.cancel()
+
+
+            if(span <= 0){  // 시간을 거꾸로 설정했을때
+                Toast.makeText(this@TimeTableActivity, "시간을 잘못 설정했습니다.", Toast.LENGTH_SHORT).show()
             }
-            setView(dialogLayout)
-            show()
+            else if(isWrong) {  // 시간표가 중복되었을때
+                Toast.makeText(this@TimeTableActivity, "해당 시간에 스케줄이 겹칩니다.", Toast.LENGTH_SHORT).show()
+
+            }else{  // 시간표 추가
+                database.child("timetable").child(auth.currentUser?.uid!!).child(timeTableId)
+                    .setValue(TimeTable(timeTableId, title, week, startTime, endTime))
+                Toast.makeText(this@TimeTableActivity, "스케줄이 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                alertDialog.cancel()
+            }
         }
+
+        cancel.setOnClickListener {
+            alertDialog.cancel()
+        }
+
+        alertDialog.show()
+        alertDialog.window?.setBackgroundDrawableResource(R.drawable.round_rec)
+
     }
 
     // 스케줄 삭제
     private fun showSubTime() {
-        val builder = AlertDialog.Builder(this)
-        val inflater = layoutInflater
-        val dialogLayout = inflater.inflate(R.layout.sub_time, null)
-        val subSpinner = dialogLayout.findViewById<Spinner>(R.id.subSpinner)
+        val dialogView = layoutInflater.inflate(R.layout.sub_time, null)
+        val alertDialog = AlertDialog.Builder(this).create()
+        alertDialog.setView(dialogView)
+
+        val sub = dialogView.findViewById<TextView>(R.id.sub)
+        val cancel = dialogView.findViewById<TextView>(R.id.cancel)
+        val subSpinner = dialogView.findViewById<Spinner>(R.id.subSpinner)
         val adapter = ArrayAdapter<String>(
             this,
             android.R.layout.simple_spinner_dropdown_item,
@@ -242,29 +256,29 @@ class TimeTableActivity : AppCompatActivity() {
             }.addOnFailureListener {
             }
 
-        // 삭제할 스케줄 다이얼로그
-        with(builder) {
-            setTitle("삭제할 스케줄")
-            // 삭제 선택시
-            setPositiveButton("삭제"){dialog, which->
-                if(subSpinner.selectedItem.toString() != ""){
-                    val position = subSpinner.selectedItemPosition
-                    database.child("timetable").child(auth.currentUser?.uid!!).child(timeId[position]).removeValue()
+        sub.setOnClickListener {
+            if(subSpinner.selectedItem.toString() != ""){
+                val position = subSpinner.selectedItemPosition
+                database.child("timetable").child(auth.currentUser?.uid!!).child(timeId[position]).removeValue()
 
-                    // 삭제시 GridLayout에 반영이 안되어 Activity 자기 자신으로 이동
-                    val intent = Intent(this@TimeTableActivity, TimeTableActivity::class.java)
-                    intent.putExtra("id", auth.currentUser?.uid!!)
-                    startActivity(intent)
-                    finish()
-                }
+                // 삭제시 GridLayout에 반영이 안되어 Activity 자기 자신으로 이동
+                val intent = Intent(this@TimeTableActivity, TimeTableActivity::class.java)
+                intent.putExtra("id", auth.currentUser?.uid!!)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                startActivity(intent)
+                Toast.makeText(this@TimeTableActivity, "스케줄이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                overridePendingTransition(0, 0)
+                alertDialog.cancel()
+                finish()
             }
-            // 취소 선택시
-            setNegativeButton("취소"){dialog,which->
-                dialog.cancel()
-            }
-            setView(dialogLayout)
-            show()
         }
+
+        cancel.setOnClickListener {
+            alertDialog.cancel()
+        }
+
+        alertDialog.show()
+        alertDialog.window?.setBackgroundDrawableResource(R.drawable.round_rec)
     }
 
     // TextView 설정하고 GridLayout에 추가
@@ -287,32 +301,43 @@ class TimeTableActivity : AppCompatActivity() {
 
         // 추가한 스케줄 TextView 클릭리스너
         textView.setOnClickListener{
-            val builder = AlertDialog.Builder(this)
+            val dialogView = layoutInflater.inflate(R.layout.schedule_info, null)
+            val alertDialog = AlertDialog.Builder(this).create()
+            alertDialog.setView(dialogView)
 
-            with(builder) {
-                setTitle("스케줄 정보")
-                setMessage("\n" +
-                        title + "\n" +
-                        week + " " + startTime + ":00~" + endTime + ":00\n")
-                if(id == auth.currentUser?.uid) {   // 자기 자신의 스케줄만 삭제 가능
-                    // 삭제 선택시
-                    setPositiveButton("삭제") { dialog, which ->
-                        database.child("timetable").child(auth.currentUser?.uid!!).child(textViewId)
-                            .removeValue()
+            val scheduleTitle = dialogView.findViewById<TextView>(R.id.title)
+            val scheduleTime = dialogView.findViewById<TextView>(R.id.time)
+            val sub = dialogView.findViewById<TextView>(R.id.sub)
+            val cancel = dialogView.findViewById<TextView>(R.id.cancel)
 
-                        // 삭제시 GridLayout에 반영이 안되어 Activity 자기 자신으로 이동
-                        val intent = Intent(this@TimeTableActivity, TimeTableActivity::class.java)
-                        intent.putExtra("id", auth.currentUser?.uid!!)
-                        startActivity(intent)
-                        finish()
-                    }
-                }
-                // 취소 선택시
-                setNegativeButton("취소"){dialog,which->
-                    dialog.cancel()
-                }
-                show()
+            scheduleTitle.text = title
+            scheduleTime.text = week + "요일 " + startTime + ":00~" + endTime + ":00"
+
+            if(id == auth.currentUser?.uid)
+                sub.visibility = View.VISIBLE
+            else
+                sub.visibility = View.GONE
+
+            sub.setOnClickListener {
+                database.child("timetable").child(auth.currentUser?.uid!!).child(textViewId)
+                    .removeValue()
+                val intent = Intent(this@TimeTableActivity, TimeTableActivity::class.java)
+                intent.putExtra("id", auth.currentUser?.uid!!)
+                intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION)
+                startActivity(intent)
+                Toast.makeText(this@TimeTableActivity, "스케줄이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                overridePendingTransition(0, 0)
+                alertDialog.cancel()
+                finish()
             }
+
+            cancel.setOnClickListener {
+                alertDialog.cancel()
+            }
+
+            alertDialog.show()
+            alertDialog.window?.setBackgroundDrawableResource(R.drawable.round_rec)
+
         }
         gridLayout.addView(textView, layoutParams)
 
@@ -365,11 +390,5 @@ class TimeTableActivity : AppCompatActivity() {
             "일" -> 7
             else -> 0
         }
-    }
-
-    // 엑티비티 변환시 에니메이션 제거
-    override fun onPause() {
-        super.onPause()
-        overridePendingTransition(0, 0)
     }
 }

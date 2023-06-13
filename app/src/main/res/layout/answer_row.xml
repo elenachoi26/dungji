@@ -3,32 +3,35 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="20dp"
     android:orientation="horizontal"
-    android:padding="10dp">
+    android:paddingBottom="10dp">
 
     <TextView
         android:id="@+id/nickname"
-        android:layout_width="wrap_content"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
-        android:layout_marginRight="10dp"
         android:text="닉네임"
-        android:textSize="18sp" />
+        android:textColor="@color/orange"
+        android:textSize="15sp" />
 
     <TextView
         android:id="@+id/answer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="5dp"
+        android:layout_marginLeft="10dp"
         android:layout_weight="1"
         android:gravity="center_vertical"
         android:text="답변"
-        android:textSize="18sp" />
+        android:textSize="15sp" />
 
     <ImageView
         android:id="@+id/remove"
-        android:layout_width="18dp"
-        android:layout_height="18dp"
-        android:paddingRight="5dp"
+        android:layout_width="10dp"
+        android:layout_height="15dp"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         app:srcCompat="@drawable/ximage" />
 
 </LinearLayout>

@@ -9,19 +9,29 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dungziproject.Answer
 import com.example.dungziproject.CommercialActivity
+import com.example.dungziproject.HomeAnswerAdapter
 import com.example.dungziproject.databinding.FragmentHomeBinding
 import com.example.dungziproject.databinding.HomeEmotionItemBinding
 import com.example.dungziproject.navigation.model.ItemDialogInterface
+import com.example.dungziproject.navigation.model.Question
 import com.example.dungziproject.navigation.model.User
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.*
+import com.google.firebase.database.ktx.database
+import com.google.firebase.ktx.Firebase
 
 class HomeFragment : Fragment(), ItemDialogInterface, MemoDialog.MemoDialogListener {
     var binding: FragmentHomeBinding? = null
     private lateinit var auth: FirebaseAuth
     private lateinit var userRef: DatabaseReference
     var currentUid :String? = null
+    private lateinit var database: DatabaseReference
+    var ans:ArrayList<Answer> = ArrayList()
+    var questionCount = 0
+    lateinit var adapter: HomeAnswerAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -42,6 +52,13 @@ class HomeFragment : Fragment(), ItemDialogInterface, MemoDialog.MemoDialogListe
             val intent = Intent(context, CommercialActivity::class.java)
             startActivity(intent)
         }
+
+        //지역축제
+        binding!!.imageView2.setOnClickListener{
+            val intent = Intent(context, CommercialActivity::class.java)
+            startActivity(intent)
+        }
+
         return binding!!.root
     }
 
@@ -162,6 +179,46 @@ class HomeFragment : Fragment(), ItemDialogInterface, MemoDialog.MemoDialogListe
                 .addOnSuccessListener {
                     // 이모티콘 업데이트 성공 시 수행할 작업 추가
                     binding?.emotionRecyclerView?.adapter?.notifyDataSetChanged()
+                }
+                .addOnFailureListener {
+                    // 이모티콘 업데이트 실패 시 수행할 작업 추가
+                }
+        }
+    }
+
+    // DB에서 질문, 답변 가져오고 가장 최신꺼 화면에 출력
+    private fun initData() {
+        database.child("question")
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for (postSnapshot in snapshot.children) {
+                        val q = postSnapshot.getValue(Question::class.java)
+                        if(q?.questionId!!.toInt() < 10)
+                            binding!!.number.text = "0" + q?.questionId!!
+                        else
+                            binding!!.number.text = q?.questionId!!
+                        binding!!.question.text = q?.question!!
+
+                        questionCount++
+                    }
+                    adapter.notifyDataSetChanged()
+
+                    // 해당 질문의 답변들 가져오기
+                    database.child("answer").child(questionCount.toString())
+                        .addValueEventListener(object : ValueEventListener {
+                            override fun onDataChange(snapshot: DataSnapshot) {
+                                ans.clear()
+                                for (postSnapshot in snapshot.children) {
+                                    var a = postSnapshot.getValue(Answer::class.java)
+                                    ans.add(Answer(a?.nickname!!, a?.answer!!, a?.userId!!, a?.questionId!!, a?.answerId!!))
+                                }
+                                adapter.notifyDataSetChanged()
+                            }
+
+                            override fun onCancelled(error: DatabaseError) {
+                            }
+                        })
+
                 }
                 .addOnFailureListener {
                     // 이모티콘 업데이트 실패 시 수행할 작업 추가

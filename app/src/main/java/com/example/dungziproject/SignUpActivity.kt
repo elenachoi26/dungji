@@ -16,14 +16,17 @@ import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ktx.database
 import com.google.firebase.ktx.Firebase
 
+
 @Suppress("DEPRECATION")
 class SignUpActivity : AppCompatActivity() , ItemDialogInterface {
     lateinit var binding: ActivitySignupBinding
     private lateinit var auth: FirebaseAuth
     private lateinit var database: DatabaseReference
-    private var setImage:String? = "grandmother"
+    private var setImage:String? = ""
     private var feeling = ""
     private var memo = ""
+    private var dupNick:ArrayList<String> = ArrayList()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -60,8 +63,39 @@ class SignUpActivity : AppCompatActivity() , ItemDialogInterface {
 
             var image = setImage!!
 
-            signUp(email, password, name, birth, nickname, image)
+            if (email == ""){
+                Toast.makeText(this, "이메일을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            } else if (!(email.contains('@') && email.contains('.'))) {
+                Toast.makeText(this, "이메일 형식이 맞지 않습니다.", Toast.LENGTH_SHORT).show()
+            } else if (password == "") {
+                Toast.makeText(this, "비밀번호를 입력해주세요.", Toast.LENGTH_SHORT).show()
+            } else if (password.length < 6) {
+                Toast.makeText(this, "비밀번호는 6자 이상입니다..", Toast.LENGTH_SHORT).show()
+            } else if (name == "") {
+                Toast.makeText(this, "이름을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            } else if (nickname == "") {
+                Toast.makeText(this, "닉네임을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            } else if(dupNick.contains(binding.nicknameEdit.text.toString())) {
+                Toast.makeText(this, "이미 사용중인 닉네임입니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                signUp(email, password, name, birth, nickname, image)
+            }
         }
+    }
+
+    // 닉네임 받아오기
+    private fun getNickname() {
+        database.child("user")
+            .addValueEventListener(object: ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    for(postSnapshat in snapshot.children){
+                        val user = postSnapshat.getValue(User::class.java)
+                        dupNick.add(user?.nickname!!)
+                    }
+                }
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
     }
 
     // 회원가입 기능
@@ -74,7 +108,7 @@ class SignUpActivity : AppCompatActivity() , ItemDialogInterface {
                     addUserToDatabase(auth.currentUser?.uid!!, email, name, birth, nickname, image, feeling, memo)
                     finish()
                 } else {                    // 회원가입 실패
-                    Toast.makeText(this, "회원가입 실패", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this, "이미 존재하는 이메일입니다.", Toast.LENGTH_SHORT).show()
                 }
 
             }

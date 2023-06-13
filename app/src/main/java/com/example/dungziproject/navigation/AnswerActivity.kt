@@ -40,6 +40,11 @@ class AnswerActivity : AppCompatActivity() {
         question = intent.getStringExtra("question")!!
         nickname = intent.getStringExtra("nickname")!!
 
+        // 뒤로가기 이미지
+        binding.back.setOnClickListener {
+            finish()
+        }
+
         binding.question.text = question
 
         // 답변 추가
@@ -60,20 +65,21 @@ class AnswerActivity : AppCompatActivity() {
     }
 
     private fun initData() {
-            database.child("answer").child(questionId)
-                .addValueEventListener(object : ValueEventListener {
-                    override fun onDataChange(snapshot: DataSnapshot) {
-                        ans.clear()
-                        for (postSnapshot in snapshot.children) {
-                            var a = postSnapshot.getValue(Answer::class.java)
-                            ans.add(Answer(a?.nickname!!, a?.answer!!, a?.userId!!, a?.questionId!!, a?.answerId!!))
-                        }
-                        adapter.notifyDataSetChanged()
+        database.child("answer").child(questionId)
+            .addValueEventListener(object : ValueEventListener {
+                override fun onDataChange(snapshot: DataSnapshot) {
+                    ans.clear()
+                    for (postSnapshot in snapshot.children) {
+                        var a = postSnapshot.getValue(Answer::class.java)
+                        ans.add(Answer(a?.nickname!!, a?.answer!!, a?.userId!!, a?.questionId!!, a?.answerId!!))
                     }
+                    adapter.notifyDataSetChanged()
+                }
 
-                    override fun onCancelled(error: DatabaseError) {
-                    }
-                })
+                override fun onCancelled(error: DatabaseError) {
+                }
+            })
+
     }
 
     private fun initRecyclerView() {

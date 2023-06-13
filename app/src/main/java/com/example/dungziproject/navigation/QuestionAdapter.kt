@@ -15,11 +15,15 @@ class QuestionAdapter(var items:ArrayList<Question>):RecyclerView.Adapter<Questi
 
     inner class ViewHolder(val binding:QuestionRowBinding): RecyclerView.ViewHolder(binding.root){
         init{
-                binding.question.setOnClickListener{
-                    itemClickListener?.OnItemClick((items[adapterPosition]), adapterPosition)
-                }
+            binding.number.setOnClickListener {
+                itemClickListener?.OnItemClick((items[adapterPosition]), adapterPosition)
+            }
+            binding.question.setOnClickListener{
+                itemClickListener?.OnItemClick((items[adapterPosition]), adapterPosition)
             }
         }
+    }
+
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = QuestionRowBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -32,9 +36,10 @@ class QuestionAdapter(var items:ArrayList<Question>):RecyclerView.Adapter<Questi
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         if(items[position].questionId.toInt() < 10)
-            holder.binding.number.text = "#0" + items[position].questionId
+            holder.binding.number.text = "0" + items[position].questionId
         else
-            holder.binding.number.text = "#" + items[position].questionId
+            holder.binding.number.text = items[position].questionId
+
         holder.binding.question.text = items[position].question
     }
 }

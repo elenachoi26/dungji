@@ -2,25 +2,31 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginBottom="40dp"
     android:orientation="horizontal">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="#"
+        android:textColor="@color/orange"
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/number"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="10dp"
-        android:padding="5dp"
-        android:text="#01"
+        android:layout_height="wrap_content"
+        android:text="01"
         android:textColor="#FED066"
-        android:textSize="18sp" />
+        android:textSize="22sp" />
 
     <TextView
         android:id="@+id/question"
         android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="10dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
         android:layout_weight="1"
-        android:padding="5dp"
-        android:text="우리 가족과 함께 떠나고 싶은 여행지는?"
+        android:paddingBottom="4dp"
+        android:text="가족과 함께 시간여행을 떠날 수 있다면 언제로 떠나고 싶나요?"
         android:textSize="18sp" />
 </LinearLayout>

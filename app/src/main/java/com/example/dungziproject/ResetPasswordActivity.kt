@@ -23,15 +23,21 @@ class ResetPasswordActivity : AppCompatActivity() {
         binding.sendEmailBtn.setOnClickListener {
             val emailAddress = binding.editText.text.toString()
 
-            Firebase.auth.sendPasswordResetEmail(emailAddress)
-                .addOnCompleteListener { task ->
-                    if (task.isSuccessful) {    // 이메일 보내기 성공
-                        Toast.makeText(this, "이메일을 보냈습니다.", Toast.LENGTH_SHORT).show()
-                        finish()
-                    }else{                      // 이메일 보내기 실패
-                        Toast.makeText(this, "이메일을 다시 입력해주세요.", Toast.LENGTH_SHORT).show()
+            if(emailAddress.isEmpty()){
+                Toast.makeText(this, "이메일을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }else if(!emailAddress.contains('@') || !emailAddress.contains('.')) {
+                Toast.makeText(this, "이메일을 형식이 맞지 않습니다.", Toast.LENGTH_SHORT).show()
+            }else {
+                Firebase.auth.sendPasswordResetEmail(emailAddress)
+                    .addOnCompleteListener { task ->
+                        if (task.isSuccessful) {    // 이메일 보내기 성공
+                            Toast.makeText(this, "이메일을 보냈습니다.", Toast.LENGTH_SHORT).show()
+                            finish()
+                        } else {                      // 이메일 보내기 실패
+                            Toast.makeText(this, "가입되지 않은 이메일 입니다.", Toast.LENGTH_SHORT).show()
+                        }
                     }
-                }
+            }
         }
     }
 }

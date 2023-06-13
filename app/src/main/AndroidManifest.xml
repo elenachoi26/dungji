@@ -27,10 +27,13 @@
             android:exported="false" />
 
         <activity
-            android:name=".ResetPasswordActivity"
+            android:name=".navigation.QuestionActivity"
             android:exported="false" />
         <activity
             android:name=".EditActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ResetPasswordActivity"
             android:exported="false" />
         <activity
             android:name=".CalendarActivity2"
@@ -48,6 +51,16 @@
             android:name=".CalendarInsert"
             android:exported="false" />
         <activity
+            android:name=".CommercialActivity"
+            android:exported="false" />
+        <activity
+            android:name=".CalendarChange"
+            android:exported="false" />
+        <activity
+            android:name=".CalendarInsert"
+            android:exported="false" />
+        <activity
+
             android:name=".CommercialActivity"
             android:exported="false" />
         <activity

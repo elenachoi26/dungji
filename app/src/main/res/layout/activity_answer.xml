@@ -4,52 +4,77 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gray"
     android:orientation="vertical"
     tools:context=".AnswerActivity">
+
+    <ImageView
+        android:id="@+id/back"
+        android:layout_width="25dp"
+        android:layout_height="25dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="15dp"
+        app:srcCompat="@drawable/ic_back" />
 
     <TextView
         android:id="@+id/question"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/bottom_line_style"
+        android:layout_marginLeft="15dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="15dp"
+        android:layout_marginBottom="15dp"
+        android:background="@drawable/round_rec"
+        android:elevation="5dp"
         android:gravity="center"
-        android:paddingTop="10dp"
-        android:paddingBottom="10dp"
+        android:padding="10dp"
         android:text="TextView"
-        android:textSize="25sp"
-        android:textStyle="bold" />
+        android:textSize="20sp" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/RecyclerView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_margin="15dp"
+        android:layout_marginLeft="15dp"
+        android:layout_marginRight="15dp"
         android:layout_weight="1"
-        android:paddingLeft="10dp"
-        android:paddingTop="10dp"
-        android:paddingRight="10dp">
+        android:background="@drawable/round_rec"
+        android:elevation="5dp"
+        android:padding="20dp"
+        android:scrollbarFadeDuration="1"
+        android:scrollbars="vertical">
 
     </androidx.recyclerview.widget.RecyclerView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/round_rec"
+        android:elevation="5dp"
         android:orientation="horizontal">
 
         <EditText
             android:id="@+id/answerText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:ems="10"
-            android:hint="답변쓰기"
-            android:inputType="textPersonName"
-            tools:ignore="TouchTargetSizeCheck" />
+            android:background="@null"
+            android:paddingLeft="20dp"
+            tools:ignore="TouchTargetSizeCheck,SpeakableTextPresentCheck" />
 
-        <Button
+        <ImageView
             android:id="@+id/answerBtn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="답변" />
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_gravity="center"
+            android:layout_margin="5dp"
+            android:src="@drawable/ic_send" />
+
     </LinearLayout>
 
 </LinearLayout>
