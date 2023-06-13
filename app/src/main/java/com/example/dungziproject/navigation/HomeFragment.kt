@@ -32,7 +32,6 @@ class HomeFragment : Fragment(), ItemDialogInterface, MemoDialog.MemoDialogListe
     var questionCount = 0
     lateinit var adapter: HomeAnswerAdapter
 
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -42,14 +41,18 @@ class HomeFragment : Fragment(), ItemDialogInterface, MemoDialog.MemoDialogListe
         userRef = FirebaseDatabase.getInstance().getReference("user")
         binding = FragmentHomeBinding.inflate(inflater, container, false)
         currentUid = FirebaseAuth.getInstance().currentUser?.uid
+        database = Firebase.database.reference
+
+        initData()
+        initRecyclerView()
 
         //감정 recyclerview
         binding!!.emotionRecyclerView.adapter = EmotionRecyclerViewAdapter() // 변경: 어댑터 설정
         binding!!.emotionRecyclerView.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
 
-        //지역축제
-        binding!!.imageView2.setOnClickListener{
-            val intent = Intent(context, CommercialActivity::class.java)
+        // 가족백과
+        binding!!.linearlayout.setOnClickListener{
+            val intent = Intent(context, QuestionActivity::class.java)
             startActivity(intent)
         }
 
@@ -58,7 +61,6 @@ class HomeFragment : Fragment(), ItemDialogInterface, MemoDialog.MemoDialogListe
             val intent = Intent(context, CommercialActivity::class.java)
             startActivity(intent)
         }
-
         return binding!!.root
     }
 
@@ -218,12 +220,23 @@ class HomeFragment : Fragment(), ItemDialogInterface, MemoDialog.MemoDialogListe
                             override fun onCancelled(error: DatabaseError) {
                             }
                         })
+                }
 
+                override fun onCancelled(error: DatabaseError) {
                 }
-                .addOnFailureListener {
-                    // 이모티콘 업데이트 실패 시 수행할 작업 추가
-                }
+            })
+    }
+
+    private fun initRecyclerView() {
+        binding!!.RecyclerView.layoutManager =
+            LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        adapter= HomeAnswerAdapter(ans)
+        adapter.itemClickListener = object : HomeAnswerAdapter.OnItemClickListener {
+            override fun OnItemClick(data: Answer, position: Int) {
+                val intent = Intent(context, QuestionActivity::class.java)
+                startActivity(intent)
+            }
         }
+        binding!!.RecyclerView.adapter = adapter
     }
 }
-
