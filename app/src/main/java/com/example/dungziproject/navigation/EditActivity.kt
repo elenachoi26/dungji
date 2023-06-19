@@ -1,33 +1,28 @@
 package com.example.dungziproject
 
-import android.app.Activity
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.SyncStateContract.Helpers.update
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContentProviderCompat.requireContext
-import com.example.dungziproject.databinding.ActivityCalendar1Binding
 import com.example.dungziproject.databinding.ActivityEditBinding
 import com.example.dungziproject.databinding.DialogReloginBinding
-import com.example.dungziproject.navigation.ProfileFragment
 import com.example.dungziproject.navigation.model.ItemDialogInterface
 import com.example.dungziproject.navigation.model.User
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
-import com.google.firebase.auth.UserProfileChangeRequest
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import org.checkerframework.checker.units.qual.s
+import java.time.LocalDate
 
 @Suppress("DEPRECATION")
 class EditActivity : AppCompatActivity(), ItemDialogInterface {
@@ -88,12 +83,58 @@ class EditActivity : AppCompatActivity(), ItemDialogInterface {
                     val updateUser = User(currentUserId, email, name, birth, nickname, image, previousFeeling!!, previousMemo!!)
 
                     reAuthentication(updateUser)
+
                 }.addOnFailureListener { exception ->
                     // 사용자 정보 가져오기 실패
                     Toast.makeText(this, "Failed to get user information: ${exception.message}", Toast.LENGTH_SHORT).show()
                 }
             }
         }
+
+    }
+
+    private fun reCalendar(name: String, birth: String) {
+        //캘린더의 원래 생일 삭제 및 업데이트된 생일 추가
+        // Firebase 데이터베이스 업데이트
+        val firestore = FirebaseFirestore.getInstance()
+        val uid = FirebaseAuth.getInstance().currentUser?.uid
+        val updatebirthmonth = birth.substring(4,6).toInt()
+        val updatebirthday = birth.substring(6,8).toInt()
+        val currentUser = FirebaseAuth.getInstance().currentUser
+        val usersRef = FirebaseDatabase.getInstance().getReference("user")
+        var currentUserId = auth.currentUser?.uid
+        if (currentUserId != null) {
+            usersRef.child(currentUserId).get().addOnSuccessListener { dataSnapshot ->
+                val currentname = dataSnapshot.child("name").getValue(String::class.java)
+                val query = firestore?.collection("calendars")
+                    ?.whereEqualTo("event", "${currentname}님의 생일")
+                    ?.whereEqualTo("start_time", "00:00")
+                    ?.whereEqualTo("end_time", "23:59")
+                    ?.whereEqualTo("place", "모두들 축하해주세요!")
+
+                query?.get()
+                    ?.addOnSuccessListener { querySnapshot ->
+                        for (documentSnapshot in querySnapshot.documents) {
+                            val documentId = documentSnapshot.id
+                            firestore?.collection("calendars")?.document(documentId)
+                                ?.update("month", updatebirthmonth)
+                            firestore?.collection("calendars")?.document(documentId)
+                                ?.update("day", updatebirthday)
+                            firestore?.collection("calendars")?.document(documentId)
+                                ?.update("event","${name}님의 생일")
+                        }
+
+                    }
+                    ?.addOnFailureListener { exception ->
+                        // 삭제 작업 실패 시 에러 처리
+                    }
+            }.addOnFailureListener { exception ->
+                // 사용자 정보 가져오기 실패
+                Toast.makeText(this, "Failed to get user information: ${exception.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+
 
     }
 
@@ -117,6 +158,7 @@ class EditActivity : AppCompatActivity(), ItemDialogInterface {
                 currentUser!!.reauthenticate(credentials)
                     .addOnCompleteListener { reauthTask ->
                         if (reauthTask.isSuccessful) {
+                            reCalendar(updatingUser.name,updatingUser.birth)
                             updateInfo(updatingUser)
                         } else {
                             Toast.makeText(this, "Reauthentication failed.", Toast.LENGTH_SHORT).show()

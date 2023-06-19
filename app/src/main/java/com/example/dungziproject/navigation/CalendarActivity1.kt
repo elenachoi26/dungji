@@ -6,8 +6,10 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,6 +32,11 @@ class CalendarActivity1 : AppCompatActivity() {
     var firestore : FirebaseFirestore?=null
     var uid :String? = null
 
+    override fun onBackPressed() {
+        // 원하는 동작을 여기에 코딩
+        val intent = Intent(this, CalendarMainActivity::class.java)
+        startActivity(intent)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCalendar1Binding.inflate(layoutInflater)
@@ -133,6 +140,7 @@ class CalendarActivity1 : AppCompatActivity() {
                 intent.putExtra("year", year)
                 intent.putExtra("month", month+1)
                 intent.putExtra("day", dayOfMonth)
+                intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                 startActivity(intent)
             }
         }
@@ -150,7 +158,6 @@ class CalendarActivity1 : AppCompatActivity() {
 
         inner class ViewHolder(val binding: CalendarEvents2Binding) : RecyclerView.ViewHolder(binding.root){ //viewholder 설정
             init { //초기설정
-                Log.d("짜증나", "짜증나")
                 firestore?.collection("calendars")
                     ?.orderBy("start_time",Query.Direction.ASCENDING)
                     ?.addSnapshotListener { querySnapshot, firebaseFireStroreException ->
@@ -171,6 +178,7 @@ class CalendarActivity1 : AppCompatActivity() {
                         //변경버튼 누르면 액티비티 전환, 단 현재 정보를 넘겨야함
                         val selectedItem = data[position]
                         val intent = Intent(itemView.context, CalendarChange::class.java)
+                        intent.flags = Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TASK
                         intent.putExtra("year", selectedItem.year)
                         intent.putExtra("month", selectedItem.month)
                         intent.putExtra("day", selectedItem.day)
@@ -215,6 +223,16 @@ class CalendarActivity1 : AppCompatActivity() {
             holder.binding.endTime.text = data.end_time
             holder.binding.event.text = data.event
             holder.binding.place.text = data.place
+
+            val context = binding.root.context
+            if(data.event!!.contains("생일")){
+                holder.binding.textView2.setTextColor(ContextCompat.getColor(context, R.color.pink))
+                holder.binding.imageButton.visibility = View.GONE
+                //notifyItemChanged(position)
+            }else{
+                holder.binding.textView2.setTextColor(ContextCompat.getColor(context, R.color.yellow))
+                holder.binding.imageButton.visibility = View.VISIBLE
+            }
             //notifyItemChanged(position)
         }
         // ViewHolder 포지션을 받아 그 위치의 데이터를 삭제하고 notifyItemRemoved로 어댑터에 갱신명령을 전달

@@ -2,13 +2,16 @@ package com.example.dungziproject
 
 import android.annotation.SuppressLint
 import android.content.Intent
+import android.icu.lang.UCharacter.GraphemeClusterBreak.L
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.dungziproject.R.color.pink
 import com.example.dungziproject.databinding.ActivityCalendarMainBinding
 import com.example.dungziproject.databinding.CalendarEventsBinding
 import com.google.firebase.auth.FirebaseAuth
@@ -21,7 +24,11 @@ class CalendarMainActivity : AppCompatActivity() {
     var firestore : FirebaseFirestore?=null
     var uid :String? = null
 
-
+    override fun onBackPressed() {
+        val intent = Intent(this, MainActivity::class.java)
+        intent.putExtra("fragmentId",R.id.action_calendar)
+        startActivity(intent)
+    }
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -30,6 +37,7 @@ class CalendarMainActivity : AppCompatActivity() {
         firestore = FirebaseFirestore.getInstance()
         uid = FirebaseAuth.getInstance().currentUser?.uid
         data.add(eventData(1, "a", "b", 2, "c", "d", 3))
+
         binding.imageView.setOnClickListener {
 
             val intent = Intent(this, MainActivity::class.java)
@@ -51,8 +59,9 @@ class CalendarMainActivity : AppCompatActivity() {
                 ?.orderBy("start_time",Query.Direction.ASCENDING)
                 ?.addSnapshotListener { querySnapshot, firebaseFireStroreException ->
                     data.clear()
-                    Log.d("DFdfdf", "DFDF")
+                    //Log.d("DFdfdf", "DFDF")
                     for(snapshot in querySnapshot!!.documents){
+                        Log.d("month",snapshot.toString())
                         val item = snapshot.toObject(eventData::class.java)
 
                         if( (year == item!!.year) && ((month+1) == item.month) && (dayOfMonth == item.day)){
@@ -86,12 +95,11 @@ class CalendarMainActivity : AppCompatActivity() {
 
         inner class ViewHolder(val binding: CalendarEventsBinding) : RecyclerView.ViewHolder(binding.root){ //viewholder 설정
             init { //초기설정
-//                Log.d("짜증나", "짜증나")
+
                 firestore?.collection("calendars")
                     ?.orderBy("start_time",Query.Direction.ASCENDING)
                     ?.addSnapshotListener { querySnapshot, firebaseFireStroreException ->
                         data.clear()
-                        Log.d("DFdfdf", "DFDF")
                         for(snapshot in querySnapshot!!.documents){
                             val item = snapshot.toObject(eventData::class.java)
 
@@ -105,12 +113,10 @@ class CalendarMainActivity : AppCompatActivity() {
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
             var view = CalendarEventsBinding.inflate(LayoutInflater.from(parent.context), parent,false)
-//            Log.d("짜증나", "짜증나")
             firestore?.collection("calendars")
                 ?.orderBy("start_time",Query.Direction.ASCENDING)
                 ?.addSnapshotListener { querySnapshot, firebaseFireStroreException ->
                     data.clear()
-                    Log.d("DFdfdf", "DFDF")
                     for(snapshot in querySnapshot!!.documents){
                         val item = snapshot.toObject(eventData::class.java)
 
@@ -128,13 +134,20 @@ class CalendarMainActivity : AppCompatActivity() {
             return data.size
         }
 
+
+        @SuppressLint("ResourceAsColor")
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//            Log.d("dfdfdf","nowat")
             val data = data[position]
             holder.binding.startTime.text = data.start_time
             holder.binding.endTime.text = data.end_time
             holder.binding.event.text = data.event
             holder.binding.place.text = data.place
+            val context = binding.root.context
+            if(data.event!!.contains("생일")){
+                holder.binding.textView2.setTextColor(ContextCompat.getColor(context, R.color.pink))
+            }else{
+                holder.binding.textView2.setTextColor(ContextCompat.getColor(context, R.color.yellow))
+            }
             //notifyItemChanged(position)
         }
 

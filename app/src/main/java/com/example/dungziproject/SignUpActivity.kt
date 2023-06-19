@@ -17,7 +17,11 @@ import com.google.firebase.database.DatabaseError
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.ValueEventListener
 import com.google.firebase.database.ktx.database
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
+import java.time.LocalDate
+import java.util.*
+import kotlin.collections.ArrayList
 
 
 @Suppress("DEPRECATION")
@@ -109,12 +113,45 @@ class SignUpActivity : AppCompatActivity() , ItemDialogInterface {
                 if (task.isSuccessful) {    // 회원가입 성공
                     Toast.makeText(this, "회원가입 완료. 로그인 해주세요!", Toast.LENGTH_SHORT).show()
                     addUserToDatabase(auth.currentUser?.uid!!, email, name, birth, nickname, image, feeling, memo)
+                    addBirthToCalendar(name,birth)
                     finish()
                 } else {                    // 회원가입 실패
                     Toast.makeText(this, "이미 존재하는 이메일입니다.", Toast.LENGTH_SHORT).show()
                 }
 
             }
+
+
+    }
+
+    fun addBirthToCalendar(name: String,birth: String){
+        // Firebase 데이터베이스 추가
+        // 문서 추가
+        val db = FirebaseFirestore.getInstance()
+        val collectionRef = db.collection("calendars")
+        val birthmonth = birth.substring(4,6).toInt()
+        val birthday = birth.substring(6,8).toInt()
+
+        for( i in -1..1) {
+            val data = hashMapOf(
+                "year" to LocalDate.now().year+i,
+                "month" to birthmonth,
+                "day" to birthday,
+                "start_time" to "00:00",
+                "end_time" to "23:59",
+                "event" to "${name}님의 생일",
+                "place" to "모두들 축하해주세요!"
+                // 필요한 만큼 필드와 값 추가
+            )
+            collectionRef.add(data)
+                .addOnSuccessListener { documentReference ->
+                    // 추가 성공
+                    val documentId = documentReference.id
+                }
+                .addOnFailureListener { e ->
+                    // 추가 실패
+                }
+        }
     }
 
     // DB user 테이블에 회원가입 정보 저장

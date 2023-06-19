@@ -43,7 +43,7 @@
         android:paddingTop="4dp"
         android:text="|"
         android:textAlignment="center"
-        android:textColor="@color/yellow"
+        android:textColor="@color/black"
         android:textSize="34sp" />
 
     <LinearLayout
