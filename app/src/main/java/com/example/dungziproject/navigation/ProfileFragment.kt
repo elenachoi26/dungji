@@ -23,6 +23,7 @@ import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -125,6 +126,7 @@ class ProfileFragment :Fragment() {
                             Toast.makeText(requireContext(), "Reauthentication failed.", Toast.LENGTH_SHORT).show()
                         }
                     }
+
             }
             .setNegativeButton("Cancel", null)
             .create()
@@ -141,8 +143,37 @@ class ProfileFragment :Fragment() {
                     ?.addOnCompleteListener { deleteTask ->
                         if (deleteTask.isSuccessful) {
                             FirebaseDatabase.getInstance().getReference("timetable").child(user.uid).setValue(null)
-
                             FirebaseDatabase.getInstance().getReference("user").child(user.uid).setValue(null)
+
+                            val firestore = FirebaseFirestore.getInstance()
+                            val usersRef = FirebaseDatabase.getInstance().getReference("user")
+                            var currentUserId = auth.currentUser?.uid
+                            if (currentUserId != null) {
+                                usersRef.child(currentUserId).get().addOnSuccessListener { dataSnapshot ->
+                                    val currentname =
+                                        dataSnapshot.child("name").getValue(String::class.java)
+                                    val query = firestore?.collection("calendars")
+                                        ?.whereEqualTo("event", "${currentname}님의 생일")
+                                        ?.whereEqualTo("start_time", "00:00")
+                                        ?.whereEqualTo("end_time", "23:59")
+                                        ?.whereEqualTo("place", "모두들 축하해주세요!")
+
+                                    query?.get()
+                                        ?.addOnSuccessListener { querySnapshot ->
+                                            for (documentSnapshot in querySnapshot.documents) {
+                                                val documentId = documentSnapshot.id
+                                                firestore?.collection("calendars")
+                                                    ?.document(documentId)?.delete()
+                                            }
+                                        }
+                                        ?.addOnFailureListener { exception ->
+                                            // 삭제 작업 실패 시 에러 처리
+                                        }
+                                }.addOnFailureListener { exception ->
+                                    // 사용자 정보 가져오기 실패
+                                }
+                            }
+
                             Toast.makeText(requireContext(), "그동안 둥지를 이용해주셔서 감사합니다.", Toast.LENGTH_SHORT).show()
                             goToLoginScreen()
                         } else {

@@ -17,6 +17,11 @@ class CalendarChange : AppCompatActivity() {
     lateinit var binding: ActivityCalendarChangeBinding
     var firestore : FirebaseFirestore?=null
     var uid :String? = null
+    override fun onBackPressed() {
+        // 원하는 동작을 여기에 코딩
+        val intent = Intent(this, CalendarActivity1::class.java)
+        startActivity(intent)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCalendarChangeBinding.inflate(layoutInflater)

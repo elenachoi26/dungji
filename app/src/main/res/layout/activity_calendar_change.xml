@@ -4,25 +4,31 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:background="@color/orange"
+    android:backgroundTint="@color/orange"
+    android:orientation="vertical"
+    android:textAlignment="center">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="30dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="30dp"
         android:orientation="vertical">
 
         <TextView
             android:id="@+id/textView16"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="40dp"
             android:layout_marginTop="40dp"
+            android:layout_marginRight="40dp"
             android:background="@drawable/receive_background"
-            android:elevation="15dp"
+            android:elevation="3dp"
             android:padding="10dp"
             android:text="이벤트 수정"
             android:textAlignment="center"
-            android:textColor="@color/black"
+            android:textColor="@color/gray4"
             android:textSize="24sp"
             app:layout_constraintStart_toStartOf="@+id/eventName"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,16 +37,17 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="30dp"
-            android:background="@color/gray"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView10"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
-                android:background="@color/yellow"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/round_rec"
                 android:backgroundTint="@color/yellow"
                 android:elegantTextHeight="false"
+                android:gravity="center|center_vertical"
                 android:padding="5dp"
                 android:text="이름"
                 android:textColor="@color/black"
@@ -50,8 +57,11 @@
                 android:id="@+id/eventName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginRight="30dp"
                 android:layout_weight="1"
+                android:background="@drawable/round_rec"
                 android:inputType="textPersonName"
+                android:paddingLeft="15dp"
                 android:text="Name"
                 app:layout_constraintBottom_toTopOf="@+id/spinnerDateYear"
                 app:layout_constraintStart_toEndOf="@+id/textView10"
@@ -62,16 +72,17 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="30dp"
-            android:background="@color/gray"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView11"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
-                android:background="@color/yellow"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/round_rec"
                 android:backgroundTint="@color/yellow"
                 android:elegantTextHeight="false"
+                android:gravity="center"
                 android:padding="5dp"
                 android:text="날짜"
                 android:textColor="@color/black"
@@ -82,6 +93,7 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1.25"
+                android:background="@drawable/round_rec"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <Spinner
@@ -89,13 +101,16 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/round_rec"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <Spinner
                 android:id="@+id/spinnerDateDay"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginRight="30dp"
                 android:layout_weight="1"
+                android:background="@drawable/round_rec"
                 tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
 
@@ -103,16 +118,17 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="30dp"
-            android:background="@color/gray"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView12"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
-                android:background="@color/yellow"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/round_rec"
                 android:backgroundTint="@color/yellow"
                 android:elegantTextHeight="false"
+                android:gravity="center"
                 android:padding="5dp"
                 android:text="시작 시간"
                 android:textColor="@color/black"
@@ -123,13 +139,16 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
+                android:background="@drawable/round_rec"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <Spinner
                 android:id="@+id/spinnerStartTimeMinute"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
+                android:layout_marginRight="30dp"
                 android:layout_weight="1"
+                android:background="@drawable/round_rec"
                 tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
 
@@ -137,16 +156,17 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="30dp"
-            android:background="@color/gray"
             android:orientation="horizontal">
 
             <TextView
                 android:id="@+id/textView13"
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
-                android:background="@color/yellow"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/round_rec"
                 android:backgroundTint="@color/yellow"
                 android:elegantTextHeight="false"
+                android:gravity="center"
                 android:padding="5dp"
                 android:text="종료 시간"
                 android:textColor="@color/black"
@@ -158,6 +178,7 @@
                 android:layout_height="match_parent"
 
                 android:layout_weight="1"
+                android:background="@drawable/round_rec"
                 tools:ignore="SpeakableTextPresentCheck" />
 
             <Spinner
@@ -165,7 +186,9 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
 
+                android:layout_marginRight="30dp"
                 android:layout_weight="1"
+                android:background="@drawable/round_rec"
                 tools:ignore="SpeakableTextPresentCheck" />
         </LinearLayout>
 
@@ -173,7 +196,6 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="30dp"
-            android:background="@color/gray"
             android:orientation="horizontal">
 
             <TextView
@@ -181,9 +203,11 @@
                 android:layout_width="85dp"
                 android:layout_height="match_parent"
 
-                android:background="@color/yellow"
+                android:layout_marginLeft="30dp"
+                android:background="@drawable/round_rec"
                 android:backgroundTint="@color/yellow"
                 android:elegantTextHeight="false"
+                android:gravity="center"
                 android:padding="5dp"
                 android:text="장소"
                 android:textColor="@color/black"
@@ -193,21 +217,31 @@
                 android:id="@+id/placeName"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/round_rec"
+                android:paddingLeft="15dp"
                 android:text="Place"
                 tools:ignore="SpeakableTextPresentCheck,TouchTargetSizeCheck" />
         </LinearLayout>
 
         <Button
             android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            style="@style/customButtonFontStyle"
+            android:layout_width="65dp"
+            android:layout_height="65dp"
             android:layout_gravity="center"
             android:layout_marginTop="30dp"
+            android:elevation="5dp"
             android:fontFamily="@font/apple_sdgothic_neo_b"
-            android:text="저장"
-            android:textAlignment="center"
-            android:textColor="@color/white"
-            android:textSize="20sp" />
+            android:foreground="@drawable/ic_edit_orange"
+            android:foregroundGravity="center|fill"
+            android:foregroundTint="@color/white"
+            android:padding="10dp"
+            android:textColor="@color/black"
+            android:textSize="20sp"
+            app:iconTint="@color/white"
+            app:rippleColor="@color/yellow"
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 

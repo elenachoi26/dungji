@@ -53,16 +53,7 @@
         <activity
             android:name=".CommercialActivity"
             android:exported="false" />
-        <activity
-            android:name=".CalendarChange"
-            android:exported="false" />
-        <activity
-            android:name=".CalendarInsert"
-            android:exported="false" />
-        <activity
 
-            android:name=".CommercialActivity"
-            android:exported="false" />
         <activity
             android:name=".navigation.PostingActivity"
             android:exported="false" />

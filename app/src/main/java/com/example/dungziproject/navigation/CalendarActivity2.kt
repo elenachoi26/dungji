@@ -52,7 +52,11 @@ class CalendarActivity2 : AppCompatActivity() {
     private val weeklist :ArrayList<String> = arrayListOf("mon","tue","wed","thu","fri","sat","sun")
     private var userlist:ArrayList<String> = arrayListOf("")
 
-
+    override fun onBackPressed() {
+        // 원하는 동작을 여기에 코딩
+        val intent = Intent(this, CalendarMainActivity::class.java)
+        startActivity(intent)
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityCalendar2Binding.inflate(layoutInflater)
