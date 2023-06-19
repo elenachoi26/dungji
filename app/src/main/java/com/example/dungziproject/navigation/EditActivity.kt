@@ -56,7 +56,7 @@ class EditActivity : AppCompatActivity(), ItemDialogInterface {
         // 이미지 선택 선택시
         binding.editProfileImg.setOnClickListener{
 
-            val dialog = ProfileImageDialog(this, false)
+            val dialog = ProfileImageDialog(this, true)
 
             dialog.isCancelable = false
             dialog.show(supportFragmentManager, "EmoticonDialog")
