@@ -46,6 +46,7 @@ class ProfileImageDialog (
                 roleList = resources.getStringArray(R.array.role_arrays).toList()
             else
                 roleList = resources.getStringArray(R.array.chat_emojis).toList()
+                binding!!.dialogText.text = "전송할 이모티콘 선택"
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
