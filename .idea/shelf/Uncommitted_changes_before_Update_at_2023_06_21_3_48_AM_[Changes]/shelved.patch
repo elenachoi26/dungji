@@ -1,0 +1,44 @@
+Index: app/src/main/java/com/example/dungziproject/LoginActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.dungziproject\n\nimport android.content.Intent\nimport androidx.appcompat.app.AppCompatActivity\nimport android.os.Bundle\nimport android.widget.Toast\nimport com.example.dungziproject.databinding.ActivityLoginBinding\nimport com.google.firebase.auth.FirebaseAuth\nimport com.google.firebase.auth.FirebaseUser\nimport com.google.firebase.auth.ktx.auth\nimport com.google.firebase.ktx.Firebase\n\nclass LoginActivity : AppCompatActivity() {\n    lateinit var binding:ActivityLoginBinding\n    private lateinit var auth: FirebaseAuth\n\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        binding = ActivityLoginBinding.inflate(layoutInflater)\n        setContentView(binding.root)\n        initLayout()\n    }\n\n    private fun initLayout() {\n        auth = Firebase.auth\n\n        if(auth.currentUser?.uid != null){\n            val intent = Intent(this, MainActivity::class.java)\n            startActivity(intent)\n            finish()\n        }\n\n        // 로그인 버튼 클릭시\n        binding.loginBtn.setOnClickListener {\n            val email = binding.emailEdit.text.toString()\n            val password = binding.passwordEdit.text.toString()\n\n\n            if(email.isEmpty()) {\n                Toast.makeText(this, \"이메일을 입력해주세요.\", Toast.LENGTH_SHORT).show()\n            }else if(!email.contains('@') || !email.contains('.')) {\n                Toast.makeText(this, \"이메일 형식이 맞지 않습니다.\", Toast.LENGTH_SHORT).show()\n            }else if(password.isEmpty()) {\n                Toast.makeText(this, \"비밀번호를 입력해주세요.\", Toast.LENGTH_SHORT).show()\n            }else if(password.length < 6){\n                Toast.makeText(this, \"비밀번호는 6자 이상입니다.\", Toast.LENGTH_SHORT).show()\n            }else {\n                login(email, password)\n            }\n        }\n\n        // 비밀번호 재설정 선택시\n        binding.resetPassword.setOnClickListener{\n            val intent = Intent(this, ResetPasswordActivity::class.java)\n            startActivity(intent)\n            clearInput()\n        }\n\n        // 회원가입 선택시\n        binding.signup.setOnClickListener{\n            val intent = Intent(this, SignUpActivity::class.java)\n\n            startActivity(intent)\n            clearInput()\n        }\n    }\n\n\n    // 로그인 기능\n    private fun login(email: String, password: String) {\n        auth.signInWithEmailAndPassword(email, password)\n            .addOnCompleteListener(this) { task ->\n\n                if (task.isSuccessful) {    // 로그인 성공\n                    val intent = Intent(this, MainActivity::class.java)\n                    startActivity(intent)\n                    finish()\n                } else {                    // 로그인 실패\n                    Toast.makeText(this, \"                   로그인 실패\\n아이디와 비밀번호를 확인해주세요.\", Toast.LENGTH_SHORT).show()\n                }\n\n            }\n    }\n\n\n    // 로그인 editText 비우기\n    fun clearInput(){\n        binding.apply{\n            emailEdit.text.clear()\n            passwordEdit.text.clear()\n        }\n    }\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/dungziproject/LoginActivity.kt b/app/src/main/java/com/example/dungziproject/LoginActivity.kt
+--- a/app/src/main/java/com/example/dungziproject/LoginActivity.kt	(revision 27c33e0c49933cef8b6823b05a6f3e72433efb58)
++++ b/app/src/main/java/com/example/dungziproject/LoginActivity.kt	(date 1687285897698)
+@@ -3,6 +3,7 @@
+ import android.content.Intent
+ import androidx.appcompat.app.AppCompatActivity
+ import android.os.Bundle
++import android.util.Log
+ import android.widget.Toast
+ import com.example.dungziproject.databinding.ActivityLoginBinding
+ import com.google.firebase.auth.FirebaseAuth
+@@ -23,7 +24,6 @@
+ 
+     private fun initLayout() {
+         auth = Firebase.auth
+-
+         if(auth.currentUser?.uid != null){
+             val intent = Intent(this, MainActivity::class.java)
+             startActivity(intent)
+Index: app/src/main/java/com/example/dungziproject/navigation/TutorialActivity.kt
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.BaseRevisionTextPatchEP
+<+>package com.example.dungziproject.navigation\n\nimport android.content.Context\nimport android.content.Intent\nimport androidx.appcompat.app.AppCompatActivity\nimport android.os.Bundle\nimport androidx.recyclerview.widget.ItemTouchHelper\nimport androidx.recyclerview.widget.LinearLayoutManager\nimport androidx.recyclerview.widget.RecyclerView\nimport com.example.dungziproject.LoginActivity\nimport com.example.dungziproject.databinding.ActivityTutorialBinding\n\nclass TutorialActivity : AppCompatActivity() {\n\n    lateinit var binding: ActivityTutorialBinding\n    lateinit var adapter: TutorialAdapter\n    override fun onCreate(savedInstanceState: Bundle?) {\n        super.onCreate(savedInstanceState)\n        binding = ActivityTutorialBinding.inflate(layoutInflater)\n        init()\n        setContentView(binding.root)\n    }\n\n    private fun init() {\n        if(hasSeenTutorial()){\n            //intent to main activity\n            val intent = Intent(this, LoginActivity::class.java)\n            startActivity(intent)\n            finish()\n        }else {\n            initLayout()\n            binding.tutorialCompleteBtn.setOnClickListener {\n                setTutorialSeen()\n                val intent = Intent(this, LoginActivity::class.java)\n                startActivity(intent)\n                finish()\n            }\n        }\n    }\n\n    private fun initLayout() {\n        binding.recyclerView.layoutManager = LinearLayoutManager(this,\n            LinearLayoutManager.HORIZONTAL, false)\n        adapter = TutorialAdapter()\n        binding.recyclerView.adapter = adapter\n\n        val simpleCallback = object: ItemTouchHelper.SimpleCallback(\n            ItemTouchHelper.UP or ItemTouchHelper.DOWN, ItemTouchHelper.RIGHT){\n            override fun onMove(\n                recyclerView: RecyclerView,\n                viewHolder: RecyclerView.ViewHolder,\n                target: RecyclerView.ViewHolder\n            ): Boolean {\n                return true\n            }\n\n            override fun onSwiped(viewHolder: RecyclerView.ViewHolder, direction: Int) {\n                val myViewHolder = viewHolder as TutorialAdapter.ViewHolder\n                adapter.switchImg(myViewHolder)\n            }\n        }\n        val itemTouchHelper = ItemTouchHelper(simpleCallback)\n        itemTouchHelper.attachToRecyclerView(binding.recyclerView)\n    }\n\n    // 튜토리얼을 본 사용자인지 확인하는 함수\n    private fun hasSeenTutorial(): Boolean {\n        val sharedPreferences = getSharedPreferences(\"MyApp\", Context.MODE_PRIVATE)\n        return sharedPreferences.getBoolean(\"hasSeenTutorial\", false)\n    }\n\n    // 튜토리얼을 본 사용자로 플래그 설정\n    private fun setTutorialSeen() {\n        val sharedPreferences = getSharedPreferences(\"MyApp\", Context.MODE_PRIVATE)\n        val editor = sharedPreferences.edit()\n        editor.putBoolean(\"hasSeenTutorial\", true)\n        editor.apply()\n    }\n\n}
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+diff --git a/app/src/main/java/com/example/dungziproject/navigation/TutorialActivity.kt b/app/src/main/java/com/example/dungziproject/navigation/TutorialActivity.kt
+--- a/app/src/main/java/com/example/dungziproject/navigation/TutorialActivity.kt	(revision 27c33e0c49933cef8b6823b05a6f3e72433efb58)
++++ b/app/src/main/java/com/example/dungziproject/navigation/TutorialActivity.kt	(date 1687284398078)
+@@ -23,7 +23,6 @@
+ 
+     private fun init() {
+         if(hasSeenTutorial()){
+-            //intent to main activity
+             val intent = Intent(this, LoginActivity::class.java)
+             startActivity(intent)
+             finish()

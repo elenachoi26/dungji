@@ -23,7 +23,6 @@ class TutorialActivity : AppCompatActivity() {
 
     private fun init() {
         if(hasSeenTutorial()){
-            //intent to main activity
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
             finish()
