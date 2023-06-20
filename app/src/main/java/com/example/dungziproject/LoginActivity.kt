@@ -3,7 +3,9 @@ package com.example.dungziproject
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import com.example.dungziproject.databinding.ActivityLoginBinding
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
@@ -24,7 +26,7 @@ class LoginActivity : AppCompatActivity() {
     private fun initLayout() {
         auth = Firebase.auth
 
-        if(auth.currentUser?.uid != null){
+        if(auth.currentUser?.uid != null && auth.currentUser?.uid != "Pa6tQ8eYcIWkWVuuEEBACxxgPxn2"){
             val intent = Intent(this, MainActivity::class.java)
             startActivity(intent)
             finish()
