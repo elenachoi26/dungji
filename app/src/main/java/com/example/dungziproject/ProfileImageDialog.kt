@@ -3,6 +3,7 @@ package com.example.dungziproject
 import android.graphics.Color
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -32,6 +33,15 @@ class ProfileImageDialog (
         binding?.profileImageRecyclerView?.layoutManager = GridLayoutManager(requireContext(), 3, LinearLayoutManager.HORIZONTAL, false)
         binding?.profileImageRecyclerView?.adapter = ProfileImgAdapter()
 
+
+        dialog?.setOnKeyListener { dialog, keyCode, event ->
+            if (keyCode == KeyEvent.KEYCODE_BACK && event.action == KeyEvent.ACTION_UP) {
+                dialog.dismiss()
+                return@setOnKeyListener true
+            }
+            false
+        }
+
         return binding?.root
     }
 
@@ -42,11 +52,13 @@ class ProfileImageDialog (
 
     inner class ProfileImgAdapter: RecyclerView.Adapter<RecyclerView.ViewHolder>() {
         init {
-            if(type)
+            if(type){
                 roleList = resources.getStringArray(R.array.role_arrays).toList()
-            else
+            }
+            else{
                 roleList = resources.getStringArray(R.array.chat_emojis).toList()
                 binding!!.dialogText.text = "전송할 이모티콘 선택"
+            }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
@@ -64,6 +76,8 @@ class ProfileImageDialog (
         override fun getItemCount(): Int {
             return roleList.size
         }
+
+
 
         override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
             val role = roleList[position]

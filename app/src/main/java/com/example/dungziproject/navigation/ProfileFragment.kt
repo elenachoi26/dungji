@@ -1,24 +1,18 @@
 package com.example.dungziproject.navigation
 
-import android.content.Context
-import android.content.DialogInterface
+
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
-import androidx.core.content.ContentProviderCompat.requireContext
 import com.example.dungziproject.EditActivity
 import com.example.dungziproject.LoginActivity
-import com.example.dungziproject.R
 import com.example.dungziproject.databinding.DialogReloginBinding
 import com.example.dungziproject.databinding.FragmentProfileBinding
-import com.google.android.material.button.MaterialButton
 import com.google.firebase.auth.EmailAuthProvider
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
@@ -29,7 +23,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.tasks.await
-import org.checkerframework.checker.units.qual.A
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -55,6 +48,7 @@ class ProfileFragment :Fragment() {
             activity?.let{
                 val intent = Intent(context, LoginActivity::class.java)
                 startActivity(intent)
+                requireActivity().finish()
             }
         }
 
@@ -86,11 +80,12 @@ class ProfileFragment :Fragment() {
         }
     }
 
+
     private fun goToLoginScreen() {
         val intent = Intent(requireContext(), LoginActivity::class.java)
         startActivity(intent)
-
-        requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+//        requireActivity().supportFragmentManager.beginTransaction().remove(this).commit()
+        requireActivity().finish()
     }
 
     private fun formatBirthdate(birthdate: String): String {

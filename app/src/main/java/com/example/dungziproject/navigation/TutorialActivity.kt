@@ -26,12 +26,14 @@ class TutorialActivity : AppCompatActivity() {
             //intent to main activity
             val intent = Intent(this, LoginActivity::class.java)
             startActivity(intent)
+            finish()
         }else {
             initLayout()
             binding.tutorialCompleteBtn.setOnClickListener {
                 setTutorialSeen()
                 val intent = Intent(this, LoginActivity::class.java)
                 startActivity(intent)
+                finish()
             }
         }
     }

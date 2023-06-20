@@ -9,9 +9,9 @@
         android:id="@+id/emailEditText"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="16dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="4dp"
         android:hint="user email"
         android:inputType="textEmailAddress" />
@@ -20,9 +20,9 @@
         android:id="@+id/passwordEditText"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_marginLeft="10dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="4dp"
-        android:layout_marginRight="10dp"
+        android:layout_marginRight="20dp"
         android:layout_marginBottom="16dp"
         android:hint="password"
         android:inputType="textPassword" />

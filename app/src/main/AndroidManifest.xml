@@ -25,6 +25,9 @@
         <activity
             android:name=".navigation.TimeTableActivity"
             android:exported="false" />
+        <activity
+            android:name=".AnswerActivity"
+            android:exported="false" />
 
         <activity
             android:name=".navigation.QuestionActivity"
